@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="mocha.css" />
+  <style>
+    #mocha .test.pass.fast .duration {
+      background: #81b56a;
+      display: inline;
+    }
+  </style>
+</head>
+<body>
+  <div id="mocha"></div>
+
+  <script type="text/javascript" src="mocha.js"></script>
+  <script type="text/javascript" src="chai.js"></script>
+  <script type="text/javascript" src="sinon.js"></script>
+  
+  <script type="text/javascript" src="../src/b3.js"></script>
+
+  <script type="text/javascript" src="../src/core/Blackboard.js"></script>
+  <script type="text/javascript" src="../src/core/BehaviorTree.js"></script>
+  <script type="text/javascript" src="../src/core/BaseNode.js"></script>
+  <script type="text/javascript" src="../src/core/Tick.js"></script>
+  <script type="text/javascript" src="../src/core/Composite.js"></script>
+  <script type="text/javascript" src="../src/core/Decorator.js"></script>
+  <script type="text/javascript" src="../src/core/Action.js"></script>
+  <script type="text/javascript" src="../src/core/Condition.js"></script>
+
+  <script type="text/javascript" src="../src/composites/Sequence.js"></script>
+  <script type="text/javascript" src="../src/composites/Priority.js"></script>
+  <script type="text/javascript" src="../src/composites/MemSequence.js"></script>
+  <script type="text/javascript" src="../src/composites/MemPriority.js"></script>
+
+  <script type="text/javascript" src="../src/decorators/Repeater.js"></script>
+  <script type="text/javascript" src="../src/decorators/RepeatUntilFailure.js"></script>
+  <script type="text/javascript" src="../src/decorators/RepeatUntilSuccess.js"></script>
+  <script type="text/javascript" src="../src/decorators/MaxTime.js"></script>
+  <script type="text/javascript" src="../src/decorators/Inverter.js"></script>
+  <script type="text/javascript" src="../src/decorators/Limiter.js"></script>
+
+  <script type="text/javascript" src="../src/actions/Failer.js"></script>
+  <script type="text/javascript" src="../src/actions/Succeeder.js"></script>
+  <script type="text/javascript" src="../src/actions/Runner.js"></script>
+  <script type="text/javascript" src="../src/actions/Error.js"></script>
+  <script type="text/javascript" src="../src/actions/Wait.js"></script>
+
+  <script type="text/javascript">
+    mocha.setup('tdd');
+
+    if (typeof require != "undefined") {
+      var chai = require('chai');
+      var sinon = require('sinon');
+    }
+    var assert = chai.assert;
+
+    assert.isNotUndefined = function(value) {
+      assert.notEqual(typeof value, 'undefined');
+    }
+
+    assert.isNotNullOrUndefined = function(value) {
+      assert.notEqual(typeof value, 'undefined');
+      assert.isNotNull(value, null);
+    }
+
+    var TickStub = function() {
+        return {
+            'tree'      : {'id': 'tree1'},
+            'blackboard': {
+                'set': sinon.spy(),
+                'get': sinon.stub()
+            },
+            'openNodes' : [],
+            'nodeCount' : 0,
+            
+            '_enterNode' : sinon.spy(),
+            '_openNode'  : sinon.spy(),
+            '_tickNode'  : sinon.spy(),
+            '_closeNode' : sinon.spy(),
+            '_exitNode'  : sinon.spy(),
+        }
+    }
+
+  var sleep = function(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
+  </script>
+
+  <script type="text/javascript" src="tests/core/Blackboard.js"></script>
+  <script type="text/javascript" src="tests/core/BehaviorTree.js"></script>
+  <script type="text/javascript" src="tests/core/BehaviorTree-Serialization.js"></script>
+  <script type="text/javascript" src="tests/core/BaseNode.js"></script>
+  <script type="text/javascript" src="tests/core/Tick.js"></script>
+  <script type="text/javascript" src="tests/core/Composite.js"></script>
+  <script type="text/javascript" src="tests/core/Decorator.js"></script>
+  <script type="text/javascript" src="tests/core/Action.js"></script>
+  <script type="text/javascript" src="tests/core/Condition.js"></script>
+  
+  <script type="text/javascript" src="tests/composites/Sequence.js"></script>
+  <script type="text/javascript" src="tests/composites/Priority.js"></script>
+  <script type="text/javascript" src="tests/composites/MemSequence.js"></script>
+  <script type="text/javascript" src="tests/composites/MemPriority.js"></script>
+
+  <script type="text/javascript" src="tests/decorators/Repeater.js"></script>
+  <script type="text/javascript" src="tests/decorators/RepeatUntilSuccess.js"></script>
+  <script type="text/javascript" src="tests/decorators/RepeatUntilFailure.js"></script>
+  <script type="text/javascript" src="tests/decorators/Inverter.js"></script>
+  <script type="text/javascript" src="tests/decorators/MaxTime.js"></script>
+  <script type="text/javascript" src="tests/decorators/Limiter.js"></script>
+
+  <script type="text/javascript" src="tests/actions/Failer.js"></script>
+  <script type="text/javascript" src="tests/actions/Succeeder.js"></script>
+  <script type="text/javascript" src="tests/actions/Runner.js"></script>
+  <script type="text/javascript" src="tests/actions/Error.js"></script>
+  <script type="text/javascript" src="tests/actions/Wait.js"></script>
+
+  <script>
+    mocha.setup({globals: ['hasCert'], ignoreLeaks: true});
+    mocha.run();
+  </script>
+</body>
+</html>

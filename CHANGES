@@ -1,0 +1,17 @@
+Version [NEXT]
+==============
+
+[core]
+- add: BehaviorTree now dump with custom_node property (see #9).
+- fix: tests working again.
+- mod: parameters are readonly now, so properties are used as initialization
+       argument instead (see #10).
+
+[editor]
+- mod: editor has its own repository now (see https://github.com/renatopp/behavior3editor).
+
+
+Version 0.1.0 [Out 27, 2014]
+============================
+
+- initial release.
