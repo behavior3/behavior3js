@@ -31,7 +31,5 @@ node_modules
 .idea
 
 # --------------
-docs/behavior3js
-libs/b3editor*
-libs/b3view*
+docs/behavior3*
 todo

@@ -25,7 +25,7 @@
 
 # Usage
 
-Download the file `behavior3-VERSION.min.js` and include it into your HTML::
+Download the file `behavior3-VERSION.min.js` and include it into your HTML:
 
     <script type="text/javascript" src="behavior3-VERSION.min.js"></script>
 
@@ -85,3 +85,22 @@ This library include the following core structures...
 - Error;
 - Runner;
 - Wait.
+
+
+## Building
+
+In order to build the library or generate the documentation you must have **NodeJS** and **gulp**, and install the proper dependencies:
+
+    npm install
+
+By using
+
+    gulp build
+
+you get the concatenated and minified version of the library as well the documentation folder and compacted version.
+
+Through the development, you can use
+
+    gulp dev
+
+in order to watch the source files and run jshint automatically.
