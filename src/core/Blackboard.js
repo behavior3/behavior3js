@@ -61,7 +61,7 @@ this.b3 = this.b3 || {};
    *
    * @method _getTreeMemory
    * @param {string} treeScope The id of the tree in scope.
-   * @returns {Object} The tree memory.
+   * @return {Object} The tree memory.
    * @protected
   **/
   p._getTreeMemory = function(treeScope) {
@@ -83,7 +83,7 @@ this.b3 = this.b3 || {};
    * @method _getNodeMemory
    * @param {String} treeMemory the tree memory.
    * @param {String} nodeScope The id of the node in scope.
-   * @returns {Object} The node memory.
+   * @return {Object} The node memory.
    * @protected
   **/
   p._getNodeMemory = function(treeMemory, nodeScope) {
@@ -106,7 +106,7 @@ this.b3 = this.b3 || {};
    * @method _getMemory
    * @param {String} treeScope The id of the tree scope.
    * @param {String} nodeScope The id of the node scope.
-   * @returns {Object} A memory object.
+   * @return {Object} A memory object.
    * @protected
   **/
   p._getMemory = function(treeScope, nodeScope) {
@@ -158,7 +158,7 @@ this.b3 = this.b3 || {};
    * @param {String} treeScope The tree id if accessing the tree or node 
    *                           memory.
    * @param {String} nodeScope The node id if accessing the node memory.
-   * @returns {Object} The value stored or undefined.
+   * @return {Object} The value stored or undefined.
   **/
   p.get = function(key, treeScope, nodeScope) {
     var memory = this._getMemory(treeScope, nodeScope);

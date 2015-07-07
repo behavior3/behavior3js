@@ -1,5 +1,3 @@
-this.b3 = this.b3 || {};
-
 (function() {
   "use strict";
 
@@ -18,6 +16,7 @@ this.b3 = this.b3 || {};
    *             return b3.RUNNING;
    *         }
    *
+   * @module b3
    * @class Action
    * @extends BaseNode
   **/

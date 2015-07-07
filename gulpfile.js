@@ -4,6 +4,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var yuidoc = require('gulp-yuidoc');
+// var jsdoc  = require('gulp-jsdoc');
 var zip    = require('gulp-zip');
 var info   = require('./package.json');
 
@@ -13,7 +14,7 @@ var NAME = 'behavior3-'+info.version;
  * Apply jshint to the source and print results on terminal.
  */
 gulp.task('_jshint', function() {
-  return gulp.src('src/**/*.js')
+  return gulp.src(['src/b3.js', 'src/**/*.js'])
              .pipe(jshint())
              .pipe(jshint.reporter('jshint-stylish'));
 });
@@ -34,8 +35,12 @@ gulp.task('_minify', function() {
  * Generate YUIDOCS
  */
 gulp.task('_docs', function() {
-  return gulp.src(['src/**/*.js'])
-             .pipe(yuidoc())
+  var OPTS = {
+    'themedir': 'docs/theme',
+    'helpers': ['docs/theme/helpers.js'],
+  }
+  return gulp.src(['src/b3.js', 'src/**/*.js'])
+             .pipe(yuidoc(OPTS, OPTS))
              .pipe(gulp.dest('./docs/'+NAME))
              .pipe(zip(NAME+'.docs.zip'))
              .pipe(gulp.dest('./docs/'))

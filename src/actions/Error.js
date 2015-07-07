@@ -6,6 +6,7 @@ this.b3 = this.b3 || {};
   /**
    * This action node returns `ERROR` always.
    *
+   * @module b3
    * @class Error
    * @extends Action
   **/
@@ -27,10 +28,10 @@ this.b3 = this.b3 || {};
    *
    * @method tick
    * @param {b3.Tick} tick A tick instance.
-   * @returns {Constant} Always return `b3.ERROR`.
+   * @return {Constant} Always return `b3.ERROR`.
   **/
   p.tick = function(tick) {
-      return b3.ERROR;
+    return b3.ERROR;
   };
 
   b3.Error = Error;

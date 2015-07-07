@@ -84,7 +84,7 @@ this.b3 = this.b3 || {};
    *
    * @method tick
    * @param {Tick} tick A tick instance.
-   * @returns {Constant} A state constant.
+   * @return {Constant} A state constant.
   **/
   p.tick = function(tick) {
     if (!this.child) {

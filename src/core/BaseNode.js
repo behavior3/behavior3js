@@ -119,7 +119,7 @@ this.b3 = this.b3 || {};
    *
    * @method _execute
    * @param {Tick} tick A tick instance.
-   * @returns {Constant} The tick state.
+   * @return {Constant} The tick state.
    * @protected
   **/
   p._execute = function(tick) {
@@ -175,7 +175,7 @@ this.b3 = this.b3 || {};
    *
    * @method _tick
    * @param {Tick} tick A tick instance.
-   * @returns {Constant} A state constant.
+   * @return {Constant} A state constant.
    * @protected
   **/
   p._tick  = function(tick) {

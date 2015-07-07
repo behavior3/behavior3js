@@ -27,10 +27,10 @@ this.b3 = this.b3 || {};
    *
    * @method tick
    * @param {b3.Tick} tick A tick instance.
-   * @returns {Constant} Always return `b3.RUNNING`.
+   * @return {Constant} Always return `b3.RUNNING`.
   **/
   p.tick = function(tick) {
-      return b3.RUNNING;
+    return b3.RUNNING;
   };
 
   b3.Runner = Runner;

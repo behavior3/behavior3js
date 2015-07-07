@@ -29,7 +29,7 @@ this.b3 = this.b3 || {};
    *
    * @method tick
    * @param {b3.Tick} tick A tick instance.
-   * @returns {Constant} A state constant.
+   * @return {Constant} A state constant.
   **/
   p.tick = function(tick) {
     for (var i=0; i<this.children.length; i++) {

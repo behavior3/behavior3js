@@ -214,7 +214,7 @@ this.b3 = this.b3 || {};
    * it may not be compatible with load for now.
    * 
    * @method dump
-   * @returns {Object} A data object representing this tree.
+   * @return {Object} A data object representing this tree.
   **/
   p.dump = function() {
     var data = {};
@@ -293,7 +293,7 @@ this.b3 = this.b3 || {};
    * @method tick
    * @param {Object} target A target object.
    * @param {Blackboard} blackboard An instance of blackboard object.
-   * @returns {Constant} The tick signal state.
+   * @return {Constant} The tick signal state.
   **/
   p.tick = function(target, blackboard) {
     if (!blackboard) {
