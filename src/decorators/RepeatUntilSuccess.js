@@ -1,5 +1,3 @@
-this.b3 = this.b3 || {};
-
 (function() {
   "use strict";
 
@@ -11,98 +9,85 @@ this.b3 = this.b3 || {};
    * @class RepeatUntilSuccess
    * @extends Decorator
   **/
-  var RepeatUntilSuccess = b3.Class(b3.Decorator);
+  b3.RepeatUntilSuccess = b3.Class(b3.Decorator, {
 
-  var p = RepeatUntilSuccess.prototype;
+    /**
+     * Node name. Default to `RepeatUntilSuccess`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'RepeatUntilSuccess',
 
-  /**
-   * Node name. Default to `RepeatUntilSuccess`.
-   *
-   * @property name
-   * @type {String}
-   * @readonly
-  **/
-  p.name = 'RepeatUntilSuccess';
+    /**
+     * Node title. Default to `Repeat Until Success`.
+     * @property {String} title
+     * @readonly
+    **/
+    title: 'Repeat Until Success',
+    
+    /**
+     * Node parameters.
+     * @property {String} parameters
+     * @readonly
+    **/
+    parameters: {'maxLoop': -1},
+    
+    /**
+     * Initialization method.
+     *
+     * Settings parameters:
+     *
+     * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 
+     *                           (infinite).
+     * - **child** (*BaseNode*) The child node.
+     *
+     * @method initialize
+     * @param {Object} settings Object with parameters.
+     * @constructor
+    **/
+    initialize: function(settings) {
+      settings = settings || {};
 
-  /**
-   * Node title. Default to `Repeat Until Success`.
-   *
-   * @property title
-   * @type {String}
-   * @readonly
-  **/
-  p.title = 'Repeat Until Success';
-  
-  /**
-   * Node parameters.
-   *
-   * @property parameters
-   * @type {String}
-   * @readonly
-  **/
-  p.parameters = {'maxLoop': -1};
-  
-  p.__Decorator_initialize = p.initialize;
-  /**
-   * Initialization method.
-   *
-   * Settings parameters:
-   *
-   * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 
-   *                           (infinite).
-   * - **child** (*BaseNode*) The child node.
-   *
-   * @method initialize
-   * @param {Object} settings Object with parameters.
-   * @constructor
-  **/
-  p.initialize = function(settings) {
-    settings = settings || {};
+      b3.Decorator.prototype.initialize.call(this, settings);
+      this.maxLoop = settings.maxLoop || -1;
+    },
 
-    this.__Decorator_initialize(settings);
+    /**
+     * Open method.
+     * @method open
+     * @param {Tick} tick A tick instance.
+    **/
+    open: function(tick) {
+      tick.blackboard.set('i', 0, tick.tree.id, this.id);
+    },
 
-    this.maxLoop = settings.maxLoop || -1;
-  };
-
-  /**
-   * Open method.
-   *
-   * @method open
-   * @param {Tick} tick A tick instance.
-  **/
-  p.open = function(tick) {
-    tick.blackboard.set('i', 0, tick.tree.id, this.id);
-  };
-
-  /**
-   * Tick method.
-   *
-   * @method tick
-   * @param {Tick} tick A tick instance.
-   * @return {Constant} A state constant.
-  **/
-  p.tick = function(tick) {
-    if (!this.child) {
-      return b3.ERROR;
-    }
-
-    var i = tick.blackboard.get('i', tick.tree.id, this.id);
-    var status = b3.ERROR;
-
-    while (this.maxLoop < 0 || i < this.maxLoop) {
-      status = this.child._execute(tick);
-
-      if (status == b3.FAILURE) {
-        i++;
-      } else {
-        break;
+    /**
+     * Tick method.
+     * @method tick
+     * @param {Tick} tick A tick instance.
+     * @return {Constant} A state constant.
+    **/
+    tick: function(tick) {
+      if (!this.child) {
+        return b3.ERROR;
       }
+
+      var i = tick.blackboard.get('i', tick.tree.id, this.id);
+      var status = b3.ERROR;
+
+      while (this.maxLoop < 0 || i < this.maxLoop) {
+        status = this.child._execute(tick);
+
+        if (status == b3.FAILURE) {
+          i++;
+        } else {
+          break;
+        }
+      }
+
+      i = tick.blackboard.set('i', i, tick.tree.id, this.id);
+      return status;
     }
-
-    i = tick.blackboard.set('i', i, tick.tree.id, this.id);
-    return status;
-  };
-
-  b3.RepeatUntilSuccess = RepeatUntilSuccess;
+  });
 
 })();

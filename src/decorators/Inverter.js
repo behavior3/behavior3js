@@ -1,5 +1,3 @@
-this.b3 = this.b3 || {};
-
 (function() {
   "use strict";
 
@@ -10,42 +8,36 @@ this.b3 = this.b3 || {};
    * @class Inverter
    * @extends Decorator
   **/
-  var Inverter = b3.Class(b3.Decorator);
+  b3.Inverter = b3.Class(b3.Decorator, {
 
-  var p = Inverter.prototype;
+    /**
+     * Node name. Default to `Inverter`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'Inverter',
 
-  /**
-   * Node name. Default to `Inverter`.
-   *
-   * @property name
-   * @type {String}
-   * @readonly
-  **/
-  p.name = 'Inverter';
+    /**
+     * Tick method.
+     * @method tick
+     * @param {Tick} tick A tick instance.
+     * @return {Constant} A state constant.
+    **/
+    tick: function(tick) {
+      if (!this.child) {
+        return b3.ERROR;
+      }
 
-  /**
-   * Tick method.
-   *
-   * @method tick
-   * @param {Tick} tick A tick instance.
-   * @return {Constant} A state constant.
-  **/
-  p.tick = function(tick) {
-    if (!this.child) {
-      return b3.ERROR;
+      var status = this.child._execute(tick);
+
+      if (status == b3.SUCCESS) {
+        status = b3.FAILURE;
+      } else if (status == b3.FAILURE) {
+        status = b3.SUCCESS;
+      }
+
+      return status;
     }
-
-    var status = this.child._execute(tick);
-
-    if (status == b3.SUCCESS) {
-      status = b3.FAILURE;
-    } else if (status == b3.FAILURE) {
-      status = b3.SUCCESS;
-    }
-
-    return status;
-  };
-
-  b3.Inverter = Inverter;
+  });
 
 })();

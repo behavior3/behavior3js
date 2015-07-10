@@ -37,12 +37,15 @@
   /**
    * Class is a meta-factory function to create classes in JavaScript. It is a
    * shortcut for the CreateJS syntax style. By default, the class created by 
-   * this function have an initialize function (the constructor). Optionally, you
-   * can specify the inheritance by passing another class as parameter.
+   * this function have an initialize function (the constructor). Optionally, 
+   * you can specify the inheritance by passing another class as parameter.
+   * 
+   * By default, all classes created using this function, may receive only a
+   * settings parameter as argument. This pattern is commonly used by jQuery 
+   * and its plugins.
    *
-   * By default, all classes created using this function, may receives only a
-   * settings parameter as argument. This pattern is commonly used by jQuery and 
-   * its plugins.
+   * Since 0.2.0, Class also receives a `properties` parameter, a dictionary
+   * which will be used to fill the new class prototype.
    *
    * Usage
    * -----
@@ -50,18 +53,23 @@
    *     // Creating a simple class
    *     var BaseClass = b3.Class();
    *
-   *     // Using inheritance
-   *     var ChildClass = b3.Class(BaseClass);
-   *
-   *     // Defining the constructor
-   *     ChildClass.prototype.initialize = function(settings) { ... }
+   *     var ChildClass = b3.Class(BaseClass, {
+   *       // constructor
+   *       initialize: function(settings) {
+   *       
+   *         // call super initialize
+   *         BaseClass.initialize.call(this, settings);
+   *         ...
+   *       }
+   *     });
    *
    * @class Class
    * @constructor
-   * @param {Object} [baseClass] The super class.
+   * @param {Object} baseClass The super class.
+   * @param {Object} properties A dictionary with attributes and methods.
    * @return {Object} A new class.
   **/
-  b3.Class = function(baseClass) {
+  b3.Class = function(baseClass, properties) {
     // create a new class
     var cls = function(params) {
       this.initialize(params);
@@ -74,8 +82,15 @@
     }
     
     // create initialize if does not exist on baseClass
-    if(!cls.prototype.initialize) {
+    if (!cls.prototype.initialize) {
       cls.prototype.initialize = function() {};
+    }
+
+    // copy properties
+    if (properties) {
+      for (var key in properties) {
+        cls.prototype[key] = properties[key];
+      }
     }
 
     return cls;

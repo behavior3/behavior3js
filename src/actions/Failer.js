@@ -1,5 +1,3 @@
-this.b3 = this.b3 || {};
-
 (function() {
   "use strict";
 
@@ -9,30 +7,24 @@ this.b3 = this.b3 || {};
    * @class Failer
    * @extends Action
   **/
-  var Failer = b3.Class(b3.Action);
+  b3.Failer = b3.Class(b3.Action, {
+    
+    /**
+     * Node name. Default to `Failer`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'Failer',
 
-  var p = Failer.prototype;
-
-  /**
-   * Node name. Default to `Failer`.
-   *
-   * @property name
-   * @type {String}
-   * @readonly
-  **/
-  p.name = 'Failer';
-
-  /**
-   * Tick method.
-   *
-   * @method tick
-   * @param {b3.Tick} tick A tick instance.
-   * @return {Constant} Always return `b3.FAILURE`.
-  **/
-  p.tick = function(tick) {
-    return b3.FAILURE;
-  };
-
-  b3.Failer = Failer;
-
+    /**
+     * Tick method.
+     * @method tick
+     * @param {b3.Tick} tick A tick instance.
+     * @return {Constant} Always return `b3.FAILURE`.
+    **/
+    tick: function(tick) {
+      return b3.FAILURE;
+    },
+  });
+  
 })();

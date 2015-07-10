@@ -1,5 +1,6 @@
 /**
- * # Behavior3JS
+ * Behavior3JS
+ * ===========
  *
  * * * *
  * 
@@ -18,9 +19,9 @@
  * - Several **composite, decorator and action nodes** available within the 
  *   library. You still can define your own nodes, including composites and 
  *   decorators;
- * - **Completely free**, the core module and the visual editor are all published
- *   under the MIT License, which means that you can use them for your open source
- *   and commercial projects;
+ * - **Completely free**, the core module and the visual editor are all 
+ *   published under the MIT License, which means that you can use them for 
+ *   your open source and commercial projects;
  * - **Lightweight**!
  * 
  * Visit http://behavior3.com to know more!
