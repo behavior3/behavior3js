@@ -6,6 +6,7 @@
    * returns `FAILURE`, `RUNNING` or `ERROR`. If all children return the 
    * success state, the sequence also returns `SUCCESS`.
    *
+   * @module b3
    * @class Sequence
    * @extends Composite
   **/

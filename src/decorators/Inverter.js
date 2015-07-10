@@ -5,6 +5,7 @@
    * The Inverter decorator inverts the result of the child, returning `SUCCESS`
    * for `FAILURE` and `FAILURE` for `SUCCESS`.
    *
+   * @module b3
    * @class Inverter
    * @extends Decorator
   **/

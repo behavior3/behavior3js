@@ -22,7 +22,7 @@
      * @method initialize
      * @constructor
     **/
-    initialize: function() {
+    initialize: function(params) {
       b3.BaseNode.prototype.initialize.call(this);
     }
 

@@ -6,6 +6,7 @@
    * `SUCCESS`, `RUNNING` or `ERROR`. If all children return the failure state,
    * the priority also returns `FAILURE`.
    *
+   * @module b3
    * @class Priority
    * @extends Composite
   **/

@@ -40,6 +40,7 @@
    * @class Blackboard
   **/
   b3.Blackboard = b3.Class(null, {
+    
     /**
      * Initialization method.
      * @method initialize

@@ -96,7 +96,7 @@
      * @method initialize
      * @constructor
     **/
-    initialize: function() {
+    initialize: function(params) {
       this.id          = b3.createUUID();
       this.title       = this.title || this.name;
       this.description = '';

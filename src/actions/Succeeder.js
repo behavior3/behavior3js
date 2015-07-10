@@ -4,6 +4,7 @@
   /**
    * This action node returns `SUCCESS` always.
    *
+   * @module b3
    * @class Succeeder
    * @extends Action
   **/

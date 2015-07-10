@@ -41,7 +41,7 @@
    * you can specify the inheritance by passing another class as parameter.
    * 
    * By default, all classes created using this function, may receive only a
-   * settings parameter as argument. This pattern is commonly used by jQuery 
+   * dictionary parameter as argument. This pattern is commonly used by jQuery 
    * and its plugins.
    *
    * Since 0.2.0, Class also receives a `properties` parameter, a dictionary
@@ -55,10 +55,10 @@
    *
    *     var ChildClass = b3.Class(BaseClass, {
    *       // constructor
-   *       initialize: function(settings) {
+   *       initialize: function(params) {
    *       
    *         // call super initialize
-   *         BaseClass.initialize.call(this, settings);
+   *         BaseClass.initialize.call(this, params);
    *         ...
    *       }
    *     });
@@ -72,7 +72,7 @@
   b3.Class = function(baseClass, properties) {
     // create a new class
     var cls = function(params) {
-      this.initialize(params);
+      this.initialize(params || {});
     };
     
     // if base class is provided, inherit

@@ -6,6 +6,7 @@
    * certain number of times, the Limiter decorator returns `FAILURE` without 
    * executing the child.
    *
+   * @module b3
    * @class Limiter
    * @extends Decorator
   **/
@@ -41,20 +42,18 @@
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
 
-      b3.Decorator.prototype.initialize.call(this, settings);
-
-      if (!settings.maxLoop) {
+      if (!params.maxLoop) {
         throw "maxLoop parameter in Limiter decorator is an obligatory " +
               "parameter";
       }
 
-      this.maxLoop = settings.maxLoop;
+      this.maxLoop = params.maxLoop;
     },
 
     /**

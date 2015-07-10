@@ -55,11 +55,9 @@
      * @method initialize
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
-
+    initialize: function(params) {
       b3.BaseNode.prototype.initialize.call(this);
-      this.children = (settings.children || []).slice(0);
+      this.children = (params.children || []).slice(0);
     }
   });
   

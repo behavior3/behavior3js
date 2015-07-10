@@ -6,6 +6,7 @@
    * node child returns `SUCCESS`, `RUNNING` or `ERROR`. Optionally, a maximum 
    * number of repetitions can be defined.
    *
+   * @module b3
    * @class RepeatUntilSuccess
    * @extends Decorator
   **/
@@ -42,14 +43,12 @@
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
-
-      b3.Decorator.prototype.initialize.call(this, settings);
-      this.maxLoop = settings.maxLoop || -1;
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
+      this.maxLoop = params.maxLoop || -1;
     },
 
     /**

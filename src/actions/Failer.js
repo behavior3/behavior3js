@@ -4,6 +4,7 @@
   /**
    * This action node returns `FAILURE` always.
    *
+   * @module b3
    * @class Failer
    * @extends Action
   **/

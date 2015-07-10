@@ -4,6 +4,7 @@
   /**
    * Wait a few seconds.
    *
+   * @module b3
    * @class Wait
    * @extends Action
   **/

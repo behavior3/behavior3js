@@ -7,6 +7,7 @@
    * MemPriority calls the child recorded directly, without calling previous 
    * children again.
    *
+   * @module b3
    * @class MemPriority
    * @extends Composite
   **/

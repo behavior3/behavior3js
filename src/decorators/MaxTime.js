@@ -7,6 +7,7 @@
    * must be non-preemptive), it only interrupts the node after a `RUNNING` 
    * status.
    *
+   * @module b3
    * @class MaxTime
    * @extends Decorator
   **/
@@ -42,20 +43,18 @@
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
 
-      b3.Decorator.prototype.initialize.call(this, settings);
-
-      if (!settings.maxTime) {
+      if (!params.maxTime) {
         throw "maxTime parameter in MaxTime decorator is an obligatory " +
               "parameter";
       }
 
-      this.maxTime = settings.maxTime;
+      this.maxTime = params.maxTime;
     },
 
     /**

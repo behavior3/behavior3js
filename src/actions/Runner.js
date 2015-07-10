@@ -4,6 +4,7 @@
   /**
    * This action node returns RUNNING always.
    *
+   * @module b3
    * @class Runner
    * @extends Action
   **/
