@@ -39,8 +39,8 @@ suite('Decorator: MaxTime', function() {
 
         var child = {'_execute': sinon.stub()};
         child._execute.returns(b3.RUNNING);
-        
-        var node = new b3.MaxTime({maxTime:15, child:child});
+
+        var node = new b3.MaxTime({maxTime: 15, child:child});
 
         var status = node._execute(tick);
         assert.equal(status, b3.RUNNING);

@@ -6,6 +6,10 @@ var rename = require('gulp-rename');
 var yuidoc = require('gulp-yuidoc');
 // var jsdoc  = require('gulp-jsdoc');
 var zip    = require('gulp-zip');
+var babelify = require('babelify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 var info   = require('./package.json');
 
 var NAME = 'behavior3-'+info.version;
@@ -45,6 +49,18 @@ gulp.task('_minify', function() {
   .pipe(rename(NAME+'.min.js'))
   .pipe(gulp.dest('./libs'))
   
+});
+
+gulp.task('_build', function() {
+  browserify('./src/index.js', {standalone: 'b3'})
+          .transform(babelify, {
+            presets: ['es2015']
+          })
+          .bundle()
+          .pipe(source('bundled-app.js'))
+          .pipe(buffer())
+          .pipe(rename(NAME+'.min.js'))
+          .pipe(gulp.dest('./libs'))
 });
 
 /**

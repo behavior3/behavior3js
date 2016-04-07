@@ -14,41 +14,12 @@
 <body>
   <div id="mocha"></div>
 
-  <script src="mocha.js"></script>
-  <script src="chai.js"></script>
-  <script src="sinon.js"></script>
-  
-  <script src="../src/b3.js"></script>
-  <script src="../src/b3.functions.js"></script>
+  <script type="text/javascript" src="mocha.js"></script>
+  <script type="text/javascript" src="chai.js"></script>
+  <script type="text/javascript" src="sinon.js"></script>
 
-  <script src="../src/core/Blackboard.js"></script>
-  <script src="../src/core/BehaviorTree.js"></script>
-  <script src="../src/core/BaseNode.js"></script>
-  <script src="../src/core/Tick.js"></script>
-  <script src="../src/core/Composite.js"></script>
-  <script src="../src/core/Decorator.js"></script>
-  <script src="../src/core/Action.js"></script>
-  <script src="../src/core/Condition.js"></script>
-
-  <script src="../src/composites/Sequence.js"></script>
-  <script src="../src/composites/Priority.js"></script>
-  <script src="../src/composites/MemSequence.js"></script>
-  <script src="../src/composites/MemPriority.js"></script>
-
-  <script src="../src/decorators/Repeater.js"></script>
-  <script src="../src/decorators/RepeatUntilFailure.js"></script>
-  <script src="../src/decorators/RepeatUntilSuccess.js"></script>
-  <script src="../src/decorators/MaxTime.js"></script>
-  <script src="../src/decorators/Inverter.js"></script>
-  <script src="../src/decorators/Limiter.js"></script>
-
-  <script src="../src/actions/Failer.js"></script>
-  <script src="../src/actions/Succeeder.js"></script>
-  <script src="../src/actions/Runner.js"></script>
-  <script src="../src/actions/Error.js"></script>
-  <script src="../src/actions/Wait.js"></script>
-
-  <script>
+  <script src="../libs/behavior3-0.2.0.min.js"></script>
+  <script type="text/javascript">
     mocha.setup('tdd');
 
     if (typeof require != "undefined") {
@@ -75,7 +46,7 @@
             },
             'openNodes' : [],
             'nodeCount' : 0,
-            
+
             '_enterNode' : sinon.spy(),
             '_openNode'  : sinon.spy(),
             '_tickNode'  : sinon.spy(),
@@ -103,7 +74,7 @@
   <script src="tests/core/Decorator.js"></script>
   <script src="tests/core/Action.js"></script>
   <script src="tests/core/Condition.js"></script>
-  
+
   <script src="tests/composites/Sequence.js"></script>
   <script src="tests/composites/Priority.js"></script>
   <script src="tests/composites/MemSequence.js"></script>

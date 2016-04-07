@@ -21,7 +21,7 @@ suite('Decorator: Limiter', function() {
     test('Test Maximum Repetition', function() {
         var child = {'_execute': sinon.stub()};
         var tick = TickStub();
-        var node = new b3.Limiter({maxLoop:10,child: child});
+        var node = new b3.Limiter({maxLoop: 10, child: child});
 
         child._execute.returns(b3.SUCCESS);
         node.id = 'node1';
