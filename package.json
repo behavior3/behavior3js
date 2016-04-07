@@ -28,6 +28,9 @@
     "url": "https://github.com/behavior3/behavior3js/issues"
   },
   "homepage": "https://behavior3.com",
+  "scripts": {
+    "prepublish": "gulp build"
+  },
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",

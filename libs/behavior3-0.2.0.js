@@ -60,7 +60,7 @@ this.b3 = this.b3 || {};
    * you can specify the inheritance by passing another class as parameter.
    * 
    * By default, all classes created using this function, may receive only a
-   * settings parameter as argument. This pattern is commonly used by jQuery 
+   * dictionary parameter as argument. This pattern is commonly used by jQuery 
    * and its plugins.
    *
    * Since 0.2.0, Class also receives a `properties` parameter, a dictionary
@@ -74,10 +74,10 @@ this.b3 = this.b3 || {};
    *
    *     var ChildClass = b3.Class(BaseClass, {
    *       // constructor
-   *       initialize: function(settings) {
+   *       initialize: function(params) {
    *       
    *         // call super initialize
-   *         BaseClass.initialize.call(this, settings);
+   *         BaseClass.initialize.call(this, params);
    *         ...
    *       }
    *     });
@@ -91,7 +91,7 @@ this.b3 = this.b3 || {};
   b3.Class = function(baseClass, properties) {
     // create a new class
     var cls = function(params) {
-      this.initialize(params);
+      this.initialize(params || {});
     };
     
     // if base class is provided, inherit
@@ -243,6 +243,7 @@ this.b3 = this.b3 || {};
   /**
    * This action node returns `FAILURE` always.
    *
+   * @module b3
    * @class Failer
    * @extends Action
   **/
@@ -273,6 +274,7 @@ this.b3 = this.b3 || {};
   /**
    * This action node returns RUNNING always.
    *
+   * @module b3
    * @class Runner
    * @extends Action
   **/
@@ -303,6 +305,7 @@ this.b3 = this.b3 || {};
   /**
    * This action node returns `SUCCESS` always.
    *
+   * @module b3
    * @class Succeeder
    * @extends Action
   **/
@@ -333,6 +336,7 @@ this.b3 = this.b3 || {};
   /**
    * Wait a few seconds.
    *
+   * @module b3
    * @class Wait
    * @extends Action
   **/
@@ -416,6 +420,7 @@ this.b3 = this.b3 || {};
    * MemPriority calls the child recorded directly, without calling previous 
    * children again.
    *
+   * @module b3
    * @class MemPriority
    * @extends Composite
   **/
@@ -471,6 +476,7 @@ this.b3 = this.b3 || {};
    * MemPriority call the child recorded directly, without calling previous 
    * children again.
    *
+   * @module b3
    * @class MemPriority
    * @extends Composite
   **/
@@ -524,6 +530,7 @@ this.b3 = this.b3 || {};
    * `SUCCESS`, `RUNNING` or `ERROR`. If all children return the failure state,
    * the priority also returns `FAILURE`.
    *
+   * @module b3
    * @class Priority
    * @extends Composite
   **/
@@ -564,6 +571,7 @@ this.b3 = this.b3 || {};
    * returns `FAILURE`, `RUNNING` or `ERROR`. If all children return the 
    * success state, the sequence also returns `SUCCESS`.
    *
+   * @module b3
    * @class Sequence
    * @extends Composite
   **/
@@ -630,7 +638,7 @@ this.b3 = this.b3 || {};
      * @method initialize
      * @constructor
     **/
-    initialize: function() {
+    initialize: function(params) {
       b3.BaseNode.prototype.initialize.call(this);
     }
   });
@@ -734,7 +742,7 @@ this.b3 = this.b3 || {};
      * @method initialize
      * @constructor
     **/
-    initialize: function() {
+    initialize: function(params) {
       this.id          = b3.createUUID();
       this.title       = this.title || this.name;
       this.description = '';
@@ -1263,6 +1271,7 @@ this.b3 = this.b3 || {};
    * @class Blackboard
   **/
   b3.Blackboard = b3.Class(null, {
+    
     /**
      * Initialization method.
      * @method initialize
@@ -1442,11 +1451,9 @@ this.b3 = this.b3 || {};
      * @method initialize
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
-
+    initialize: function(params) {
       b3.BaseNode.prototype.initialize.call(this);
-      this.children = (settings.children || []).slice(0);
+      this.children = (params.children || []).slice(0);
     }
   });
   
@@ -1475,7 +1482,7 @@ this.b3 = this.b3 || {};
      * @method initialize
      * @constructor
     **/
-    initialize: function() {
+    initialize: function(params) {
       b3.BaseNode.prototype.initialize.call(this);
     }
 
@@ -1535,11 +1542,9 @@ this.b3 = this.b3 || {};
      * @method initialize
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
-
+    initialize: function(params) {
       b3.BaseNode.prototype.initialize.call(this);
-      this.child = settings.child || null;
+      this.child = params.child || null;
     }
   });
 
@@ -1691,6 +1696,7 @@ this.b3 = this.b3 || {};
    * The Inverter decorator inverts the result of the child, returning `SUCCESS`
    * for `FAILURE` and `FAILURE` for `SUCCESS`.
    *
+   * @module b3
    * @class Inverter
    * @extends Decorator
   **/
@@ -1735,6 +1741,7 @@ this.b3 = this.b3 || {};
    * certain number of times, the Limiter decorator returns `FAILURE` without 
    * executing the child.
    *
+   * @module b3
    * @class Limiter
    * @extends Decorator
   **/
@@ -1770,20 +1777,18 @@ this.b3 = this.b3 || {};
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
 
-      b3.Decorator.prototype.initialize.call(this, settings);
-
-      if (!settings.maxLoop) {
+      if (!params.maxLoop) {
         throw "maxLoop parameter in Limiter decorator is an obligatory " +
               "parameter";
       }
 
-      this.maxLoop = settings.maxLoop;
+      this.maxLoop = params.maxLoop;
     },
 
     /**
@@ -1831,6 +1836,7 @@ this.b3 = this.b3 || {};
    * must be non-preemptive), it only interrupts the node after a `RUNNING` 
    * status.
    *
+   * @module b3
    * @class MaxTime
    * @extends Decorator
   **/
@@ -1866,20 +1872,18 @@ this.b3 = this.b3 || {};
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
 
-      b3.Decorator.prototype.initialize.call(this, settings);
-
-      if (!settings.maxTime) {
+      if (!params.maxTime) {
         throw "maxTime parameter in MaxTime decorator is an obligatory " +
               "parameter";
       }
 
-      this.maxTime = settings.maxTime;
+      this.maxTime = params.maxTime;
     },
 
     /**
@@ -1924,6 +1928,7 @@ this.b3 = this.b3 || {};
    * node child returns `FAILURE`, `RUNNING` or `ERROR`. Optionally, a maximum 
    * number of repetitions can be defined.
    *
+   * @module b3
    * @class RepeatUntilFailure
    * @extends Decorator
   **/
@@ -1960,14 +1965,12 @@ this.b3 = this.b3 || {};
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
-
-      b3.Decorator.prototype.initialize.call(this, settings);
-      this.maxLoop = settings.maxLoop || -1;
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
+      this.maxLoop = params.maxLoop || -1;
     },
 
     /**
@@ -2017,6 +2020,7 @@ this.b3 = this.b3 || {};
    * node child returns `SUCCESS`, `RUNNING` or `ERROR`. Optionally, a maximum 
    * number of repetitions can be defined.
    *
+   * @module b3
    * @class RepeatUntilSuccess
    * @extends Decorator
   **/
@@ -2053,14 +2057,12 @@ this.b3 = this.b3 || {};
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
-
-      b3.Decorator.prototype.initialize.call(this, settings);
-      this.maxLoop = settings.maxLoop || -1;
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
+      this.maxLoop = params.maxLoop || -1;
     },
 
     /**
@@ -2110,6 +2112,7 @@ this.b3 = this.b3 || {};
    * return `RUNNING` or `ERROR`. Optionally, a maximum number of repetitions 
    * can be defined.
    *
+   * @module b3
    * @class Repeater
    * @extends Decorator
   **/
@@ -2146,14 +2149,12 @@ this.b3 = this.b3 || {};
      * - **child** (*BaseNode*) The child node.
      * 
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
-
-      b3.Decorator.prototype.initialize.call(this, settings);
-      this.maxLoop = settings.maxLoop || -1;
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
+      this.maxLoop = params.maxLoop || -1;
     },
 
     /**
