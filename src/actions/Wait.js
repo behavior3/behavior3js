@@ -50,7 +50,7 @@ export default Class(Action, {
   initialize: function(settings) {
     settings = settings || {};
 
-    b3.Action.prototype.initialize.call(this);
+    Action.prototype.initialize.call(this);
     this.endTime = settings.milliseconds || 0;
   },
 

@@ -60,7 +60,7 @@ export default Class(BaseNode, {
    * @constructor
    **/
   initialize: function(params) {
-    b3.BaseNode.prototype.initialize.call(this);
+    BaseNode.prototype.initialize.call(this);
     this.children = (params.children || []).slice(0);
   }
 });

@@ -1,5 +1,8 @@
 import {Class, createUUID} from '../b3.functions';
 import {COMPOSITE, DECORATOR} from '../constants';
+import * as Decorators from '../decorators';
+import * as Composites from '../composites';
+import * as Actions from '../actions';
 import Tick from './tick';
 
 "use strict";
@@ -169,9 +172,13 @@ export default Class(null, {
       if (spec.name in names) {
         // Look for the name in custom nodes
         Cls = names[spec.name];
-      } else if (spec.name in b3) {
+      } else if (spec.name in Decorators) {
         // Look for the name in default nodes
-        Cls = b3[spec.name];
+        Cls = Decorators[spec.name];
+      } else if (spec.name in Composites) {
+        Cls = Composites[spec.name];
+      } else if (spec.name in Actions) {
+        Cls = Actions[spec.name];
       } else {
         // Invalid node name
         throw new EvalError('BehaviorTree.load: Invalid node name + "'+
@@ -242,7 +249,7 @@ export default Class(null, {
       // verify custom node
       var proto = (node.constructor && node.constructor.prototype);
       var nodeName = (proto && proto.name) || node.name;
-      if (!b3[nodeName] && customNames.indexOf(nodeName) < 0) {
+      if (!Decorators[nodeName] && !Composites[nodeName] && !Actions[nodeName] && customNames.indexOf(nodeName) < 0) {
         var subdata = {};
         subdata.name = nodeName;
         subdata.title = (proto && proto.title) || node.title;
