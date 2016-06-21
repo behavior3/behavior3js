@@ -23,12 +23,28 @@ gulp.task('_jshint', function() {
  * Concatenate and uglify source.
  */
 gulp.task('_minify', function() {
-  return gulp.src(['src/b3.js', 'src/**/*.js'])
-             .pipe(concat(NAME+'.js'))
-             .pipe(gulp.dest('./libs'))
-             .pipe(uglify())
-             .pipe(rename(NAME+'.min.js'))
-             .pipe(gulp.dest('./libs'))
+  return gulp.src([
+    'src/b3.js', 
+    'src/b3.functions.js', 
+    'src/core/BehaviorTree.js',
+    'src/core/Tick.js',
+    'src/core/Blackboard.js',
+    'src/core/BaseNode.js',
+    'src/core/Action.js',
+    'src/core/Composite.js',
+    'src/core/Condition.js',
+    'src/core/Decorator.js',
+
+    'src/composites/*.js',
+    'src/decorators/*.js',
+    'src/actions/*.js'
+  ])
+  .pipe(concat(NAME+'.js'))
+  .pipe(gulp.dest('./libs'))
+  .pipe(uglify())
+  .pipe(rename(NAME+'.min.js'))
+  .pipe(gulp.dest('./libs'))
+  
 });
 
 /**
