@@ -60,7 +60,7 @@ this.b3 = this.b3 || {};
    * you can specify the inheritance by passing another class as parameter.
    * 
    * By default, all classes created using this function, may receive only a
-   * settings parameter as argument. This pattern is commonly used by jQuery 
+   * dictionary parameter as argument. This pattern is commonly used by jQuery 
    * and its plugins.
    *
    * Since 0.2.0, Class also receives a `properties` parameter, a dictionary
@@ -74,10 +74,10 @@ this.b3 = this.b3 || {};
    *
    *     var ChildClass = b3.Class(BaseClass, {
    *       // constructor
-   *       initialize: function(settings) {
+   *       initialize: function(params) {
    *       
    *         // call super initialize
-   *         BaseClass.initialize.call(this, settings);
+   *         BaseClass.initialize.call(this, params);
    *         ...
    *       }
    *     });
@@ -91,7 +91,7 @@ this.b3 = this.b3 || {};
   b3.Class = function(baseClass, properties) {
     // create a new class
     var cls = function(params) {
-      this.initialize(params);
+      this.initialize(params || {});
     };
     
     // if base class is provided, inherit
@@ -116,776 +116,6 @@ this.b3 = this.b3 || {};
   };
 })();
 
-/**
- * Behavior3JS
- * ===========
- *
- * * * *
- * 
- * **Behavior3JS** is a Behavior Tree library written in JavaScript. It 
- * provides structures and algorithms that assist you in the task of creating 
- * intelligent agents for your game or application. Check it out some features 
- * of Behavior3JS:
- * 
- * - Based on the work of (Marzinotto et al., 2014), in which they propose a 
- *   **formal**, **consistent** and **general** definition of Behavior Trees;
- * - **Optimized to control multiple agents**: you can use a single behavior 
- *   tree instance to handle hundreds of agents;
- * - It was **designed to load and save trees in a JSON format**, in order to 
- *   use, edit and test it in multiple environments, tools and languages;
- * - A **cool visual editor** which you can access online;
- * - Several **composite, decorator and action nodes** available within the 
- *   library. You still can define your own nodes, including composites and 
- *   decorators;
- * - **Completely free**, the core module and the visual editor are all 
- *   published under the MIT License, which means that you can use them for 
- *   your open source and commercial projects;
- * - **Lightweight**!
- * 
- * Visit http://behavior3.com to know more!
- *
- * 
- * ## Core Classes and Functions
- * 
- * This library include the following core structures...
- *
- * 
- * **Public:**
- * 
- * - **BehaviorTree**: the structure that represents a Behavior Tree;
- * - **Blackboard**: represents a "memory" in an agent and is required to to 
- *   run a `BehaviorTree`;
- * - **Composite**: base class for all composite nodes;
- * - **Decorator**: base class for all decorator nodes;
- * - **Action**: base class for all action nodes;
- * - **Condition**: base class for all condition nodes;
- *
- * 
- * **Internal:**
- * 
- * - **Tick**: used as container and tracking object through the tree during 
- *   the tick signal;
- * - **BaseNode**: the base class that provide all common node features;
- * 
- * *Some classes are used internally on Behavior3JS, but you may need to access
- * its functionalities eventually, specially the `Tick` object.*
- *
- * 
- * **Nodes:**
- *
- * - **Composite Nodes**: Sequence, Priority, MemSequence, MemPriority.
- * - **Decorators**: Inverter, Limiter, MaxTime, Repeater, 
- *   RepeaterUntilFailure, RepeaterUntilSuccess.
- * - **Actions**: Succeeder, Failer, Error, Runner, Wait.
- * 
- * @module b3
- * @main b3
-**/
-/**
- * The list of all constants in B3.
- *
- * ## Core
- * 
- * NAME                | VALUE      
- * ------------------- | ----------------------
- * VERSION             | depends on the version
- *                     |
- * **Node State**      |
- * SUCCESS             | 1          
- * FAILURE             | 2          
- * RUNNING             | 3          
- * ERROR               | 4          
- *                     |
- * **Node categories** |
- * COMPOSITE           | 'composite'
- * DECORATOR           | 'decorator'
- * ACTION              | 'action'   
- * CONDITION           | 'condition'
- * 
- *
- * @module constants
- * @class constants
-**/
-(function() {
-  "use strict";
-
-  /**
-   * This action node returns `ERROR` always.
-   *
-   * @module b3
-   * @class Error
-   * @extends Action
-  **/
-  b3.Error = b3.Class(b3.Action, {
-
-    /**
-     * Node name. Default to `Error`.
-     * @property {String} name
-     * @readonly
-    **/
-    name: 'Error',
-
-    /**
-     * Tick method.
-     * @method tick
-     * @param {b3.Tick} tick A tick instance.
-     * @return {Constant} Always return `b3.ERROR`.
-    **/
-    tick: function(tick) {
-      return b3.ERROR;
-    }
-  });
-  
-})();
-(function() {
-  "use strict";
-
-  /**
-   * This action node returns `FAILURE` always.
-   *
-   * @class Failer
-   * @extends Action
-  **/
-  b3.Failer = b3.Class(b3.Action, {
-    
-    /**
-     * Node name. Default to `Failer`.
-     * @property {String} name
-     * @readonly
-    **/
-    name: 'Failer',
-
-    /**
-     * Tick method.
-     * @method tick
-     * @param {b3.Tick} tick A tick instance.
-     * @return {Constant} Always return `b3.FAILURE`.
-    **/
-    tick: function(tick) {
-      return b3.FAILURE;
-    },
-  });
-  
-})();
-(function() {
-  "use strict";
-
-  /**
-   * This action node returns RUNNING always.
-   *
-   * @class Runner
-   * @extends Action
-  **/
-  b3.Runner = b3.Class(b3.Action, {
-
-    /**
-     * Node name. Default to `Runner`.
-     * @property {String} name
-     * @readonly
-    **/
-    name: 'Runner',
-
-    /**
-     * Tick method.
-     * @method tick
-     * @param {b3.Tick} tick A tick instance.
-     * @return {Constant} Always return `b3.RUNNING`.
-    **/
-    tick: function(tick) {
-      return b3.RUNNING;
-    }
-  });
-  
-})();
-(function() {
-  "use strict";
-
-  /**
-   * This action node returns `SUCCESS` always.
-   *
-   * @class Succeeder
-   * @extends Action
-  **/
-  b3.Succeeder = b3.Class(b3.Action, {
-
-    /**
-     * Node name. Default to `Succeeder`.
-     * @property {String} name
-     * @readonly
-    **/
-    name: 'Succeeder',
-
-    /**
-     * Tick method.
-     * @method tick
-     * @param {b3.Tick} tick A tick instance.
-     * @return {Constant} Always return `b3.SUCCESS`.
-    **/
-    tick: function(tick) {
-      return b3.SUCCESS;
-    }
-  });
-
-})();
-(function() {
-  "use strict";
-
-  /**
-   * Wait a few seconds.
-   *
-   * @class Wait
-   * @extends Action
-  **/
-  b3.Wait = b3.Class(b3.Action, {
-
-    /**
-     * Node name. Default to `Wait`.
-     * @property {String} name
-     * @readonly
-    **/
-    name: 'Wait',
-
-    /**
-     * Node title. Default to `Wait XXms`. Used in Editor.
-     * @property {String} title
-     * @readonly
-    **/
-    title: 'Wait <milliseconds>ms',
-
-    /**
-     * Node parameters.
-     * @property {String} parameters
-     * @readonly
-    **/
-    parameters: {'milliseconds': 0},
-
-    /**
-     * Initialization method.
-     *
-     * Settings parameters:
-     *
-     * - **milliseconds** (*Integer*) Maximum time, in milliseconds, a child
-     *                                can execute.
-     *
-     * @method initialize
-     * @param {Object} settings Object with parameters.
-     * @constructor
-    **/
-    initialize: function(settings) {
-      settings = settings || {};
-
-      b3.Action.prototype.initialize.call(this);
-      this.endTime = settings.milliseconds || 0;
-    },
-
-    /**
-     * Open method.
-     * @method open
-     * @param {Tick} tick A tick instance.
-    **/
-    open: function(tick) {
-      var startTime = (new Date()).getTime();
-      tick.blackboard.set('startTime', startTime, tick.tree.id, this.id);
-    },
-
-    /**
-     * Tick method.
-     * @method tick
-     * @param {Tick} tick A tick instance.
-     * @return {Constant} A state constant.
-    **/
-    tick: function(tick) {
-      var currTime = (new Date()).getTime();
-      var startTime = tick.blackboard.get('startTime', tick.tree.id, this.id);
-      
-      if (currTime - startTime > this.endTime) {
-        return b3.SUCCESS;
-      }
-      
-      return b3.RUNNING;
-    }
-  });
-
-})();
-(function() {
-  "use strict";
-
-  /**
-   * MemPriority is similar to Priority node, but when a child returns a 
-   * `RUNNING` state, its index is recorded and in the next tick the, 
-   * MemPriority calls the child recorded directly, without calling previous 
-   * children again.
-   *
-   * @class MemPriority
-   * @extends Composite
-  **/
-  b3.MemPriority = b3.Class(b3.Composite, {
-
-    /**
-     * Node name. Default to `MemPriority`.
-     * @property {String} name
-     * @readonly
-    **/
-    name: 'MemPriority',
-
-    /**
-     * Open method.
-     * @method open
-     * @param {b3.Tick} tick A tick instance.
-    **/
-    open: function(tick) {
-      tick.blackboard.set('runningChild', 0, tick.tree.id, this.id);
-    },
-
-    /**
-     * Tick method.
-     * @method tick
-     * @param {b3.Tick} tick A tick instance.
-     * @return {Constant} A state constant.
-    **/
-    tick: function(tick) {
-      var child = tick.blackboard.get('runningChild', tick.tree.id, this.id);
-      for (var i=child; i<this.children.length; i++) {
-        var status = this.children[i]._execute(tick);
-
-        if (status !== b3.FAILURE) {
-          if (status === b3.RUNNING) {
-            tick.blackboard.set('runningChild', i, tick.tree.id, this.id);
-          }
-          
-          return status;
-        }
-      }
-
-      return b3.FAILURE;
-    }
-  });
-
-})();
-(function() {
-  "use strict";
-
-  /**
-   * MemSequence is similar to Sequence node, but when a child returns a 
-   * `RUNNING` state, its index is recorded and in the next tick the 
-   * MemPriority call the child recorded directly, without calling previous 
-   * children again.
-   *
-   * @class MemPriority
-   * @extends Composite
-  **/
-  b3.MemSequence = b3.Class(b3.Composite, {
-
-    /**
-     * Node name. Default to `MemSequence`.
-     * @property {String} name
-     * @readonly
-    **/
-    name: 'MemSequence',
-
-    /**
-     * Open method.
-     * @method open
-     * @param {b3.Tick} tick A tick instance.
-    **/
-    open: function(tick) {
-      tick.blackboard.set('runningChild', 0, tick.tree.id, this.id);
-    },
-
-    /**
-     * Tick method.
-     * @method tick
-     * @param {b3.Tick} tick A tick instance.
-     * @return {Constant} A state constant.
-    **/
-    tick: function(tick) {
-      var child = tick.blackboard.get('runningChild', tick.tree.id, this.id);
-      for (var i=child; i<this.children.length; i++) {
-        var status = this.children[i]._execute(tick);
-
-        if (status !== b3.SUCCESS) {
-          if (status === b3.RUNNING) {
-            tick.blackboard.set('runningChild', i, tick.tree.id, this.id);
-          }
-          return status;
-        }
-      }
-
-      return b3.SUCCESS;
-    }
-  });
-
-})();
-(function() {
-  "use strict";
-
-  /**
-   * Priority ticks its children sequentially until one of them returns 
-   * `SUCCESS`, `RUNNING` or `ERROR`. If all children return the failure state,
-   * the priority also returns `FAILURE`.
-   *
-   * @class Priority
-   * @extends Composite
-  **/
-  b3.Priority = b3.Class(b3.Composite, {
-
-    /**
-     * Node name. Default to `Priority`.
-     * @property {String} name
-     * @readonly
-    **/
-    name: 'Priority',
-
-    /**
-     * Tick method.
-     * @method tick
-     * @param {Tick} tick A tick instance.
-     * @return {Constant} A state constant.
-    **/
-    tick: function(tick) {
-      for (var i=0; i<this.children.length; i++) {
-        var status = this.children[i]._execute(tick);
-
-        if (status !== b3.FAILURE) {
-          return status;
-        }
-      }
-
-      return b3.FAILURE;
-    }
-  });
-
-})();
-(function() {
-  "use strict";
-
-  /**
-   * The Sequence node ticks its children sequentially until one of them 
-   * returns `FAILURE`, `RUNNING` or `ERROR`. If all children return the 
-   * success state, the sequence also returns `SUCCESS`.
-   *
-   * @class Sequence
-   * @extends Composite
-  **/
-  b3.Sequence = b3.Class(b3.Composite, {
-
-    /**
-     * Node name. Default to `Sequence`.
-     * @property {String} name
-     * @readonly
-    **/
-    name: 'Sequence',
-
-    /**
-     * Tick method.
-     * @method tick
-     * @param {b3.Tick} tick A tick instance.
-     * @return {Constant} A state constant.
-    **/
-    tick: function(tick) {
-      for (var i=0; i<this.children.length; i++) {
-        var status = this.children[i]._execute(tick);
-
-        if (status !== b3.SUCCESS) {
-          return status;
-        }
-      }
-
-      return b3.SUCCESS;
-    }
-  });
-  
-})();
-(function() {
-  "use strict";
-
-  /**
-   * Action is the base class for all action nodes. Thus, if you want to create
-   * new custom action nodes, you need to inherit from this class. For example,
-   * take a look at the Runner action:
-   * 
-   *     var Runner = b3.Class(b3.Action, {
-   *       name: 'Runner',
-   *
-   *       tick: function(tick) {
-   *         return b3.RUNNING;
-   *       }
-   *     });
-   *
-   * @module b3
-   * @class Action
-   * @extends BaseNode
-  **/
-  b3.Action = b3.Class(b3.BaseNode, {
-    
-    /**
-     * Node category. Default to `b3.ACTION`.
-     * @property {String} category
-     * @readonly
-    **/
-    category: b3.ACTION,
-
-    /**
-     * Initialization method.
-     * @method initialize
-     * @constructor
-    **/
-    initialize: function() {
-      b3.BaseNode.prototype.initialize.call(this);
-    }
-  });
-
-})();
-(function() {
-  "use strict";
-
-  /**
-   * The BaseNode class is used as super class to all nodes in BehaviorJS. It 
-   * comprises all common variables and methods that a node must have to 
-   * execute.
-   *
-   * **IMPORTANT:** Do not inherit from this class, use `b3.Composite`, 
-   * `b3.Decorator`, `b3.Action` or `b3.Condition`, instead.
-   *
-   * The attributes are specially designed to serialization of the node in a 
-   * JSON format. In special, the `parameters` attribute can be set into the 
-   * visual editor (thus, in the JSON file), and it will be used as parameter 
-   * on the node initialization at `BehaviorTree.load`.
-   * 
-   * BaseNode also provide 5 callback methods, which the node implementations 
-   * can override. They are `enter`, `open`, `tick`, `close` and `exit`. See 
-   * their documentation to know more. These callbacks are called inside the 
-   * `_execute` method, which is called in the tree traversal.
-   * 
-   * @module b3
-   * @class BaseNode
-  **/
-  b3.BaseNode = b3.Class(null, {
-
-    /**
-     * Node ID.
-     * @property {string} id
-     * @readonly
-    **/
-    id: null,
-
-    /**
-     * Node name. Must be a unique identifier, preferable the same name of the 
-     * class. You have to set the node name in the prototype.
-     *
-     * @property {String} name
-     * @readonly
-    **/
-    name: null,
-
-    /**
-     * Node category. Must be `b3.COMPOSITE`, `b3.DECORATOR`, `b3.ACTION` or 
-     * `b3.CONDITION`. This is defined automatically be inheriting the 
-     * correspondent class.
-     *
-     * @property {CONSTANT} category
-     * @readonly
-    **/
-    category: null,
-
-    /**
-     * Node title.
-     * @property {String} title
-     * @optional
-     * @readonly
-    **/
-    title: null,
-
-    /**
-     * Node description.
-     * @property {String} description
-     * @optional
-     * @readonly
-    **/
-    description: null,
-
-    /**
-     * A dictionary (key, value) describing the node parameters. Useful for 
-     * defining parameter values in the visual editor. Note: this is only 
-     * useful for nodes when loading trees from JSON files.
-     *
-     * **Deprecated since 0.2.0. This is too similar to the properties 
-     * attribute, thus, this attribute is deprecated in favor to 
-     * `properties`.**
-     *
-     * @property {Object} parameters
-     * @deprecated since 0.2.0.
-     * @readonly
-    **/
-    parameters: null,
-
-    /**
-     * A dictionary (key, value) describing the node properties. Useful for 
-     * defining custom variables inside the visual editor.
-     *
-     * @property properties
-     * @type {Object}
-     * @readonly
-    **/
-    properties: null,
-
-    /**
-     * Initialization method.
-     * @method initialize
-     * @constructor
-    **/
-    initialize: function() {
-      this.id          = b3.createUUID();
-      this.title       = this.title || this.name;
-      this.description = '';
-      this.parameters  = {};
-      this.properties  = {};
-    },
-
-    /**
-     * This is the main method to propagate the tick signal to this node. This 
-     * method calls all callbacks: `enter`, `open`, `tick`, `close`, and 
-     * `exit`. It only opens a node if it is not already open. In the same 
-     * way, this method only close a node if the node  returned a status 
-     * different of `b3.RUNNING`.
-     *
-     * @method _execute
-     * @param {Tick} tick A tick instance.
-     * @return {Constant} The tick state.
-     * @protected
-    **/
-    _execute: function(tick) {
-      // ENTER 
-      this._enter(tick);
-
-      // OPEN 
-      if (!tick.blackboard.get('isOpen', tick.tree.id, this.id)) {
-          this._open(tick);
-      }
-
-      // TICK 
-      var status = this._tick(tick);
-
-      // CLOSE 
-      if (status !== b3.RUNNING) {
-          this._close(tick);
-      }
-
-      // EXIT 
-      this._exit(tick);
-
-      return status;
-    },
-
-    /**
-     * Wrapper for enter method.
-     * @method _enter
-     * @param {Tick} tick A tick instance.
-     * @protected
-    **/
-    _enter: function(tick) {
-      tick._enterNode(this);
-      this.enter(tick);
-    },
-
-    /**
-     * Wrapper for open method.
-     * @method _open
-     * @param {Tick} tick A tick instance.
-     * @protected
-    **/
-    _open: function(tick) {
-      tick._openNode(this);
-      tick.blackboard.set('isOpen', true, tick.tree.id, this.id);
-      this.open(tick);
-    },
-
-    /**
-     * Wrapper for tick method.
-     * @method _tick
-     * @param {Tick} tick A tick instance.
-     * @return {Constant} A state constant.
-     * @protected
-    **/
-    _tick: function(tick) {
-      tick._tickNode(this);
-      return this.tick(tick);
-    },
-
-    /**
-     * Wrapper for close method.
-     * @method _close
-     * @param {Tick} tick A tick instance.
-     * @protected
-    **/
-    _close: function(tick) {
-      tick._closeNode(this);
-      tick.blackboard.set('isOpen', false, tick.tree.id, this.id);
-      this.close(tick);
-    },
-
-    /**
-     * Wrapper for exit method.
-     * @method _exit
-     * @param {Tick} tick A tick instance.
-     * @protected
-    **/
-    _exit: function(tick) {
-      tick._exitNode(this);
-      this.exit(tick);
-    },
-
-    /**
-     * Enter method, override this to use. It is called every time a node is 
-     * asked to execute, before the tick itself.
-     *
-     * @method enter
-     * @param {Tick} tick A tick instance.
-    **/
-    enter: function(tick) {},
-
-    /**
-     * Open method, override this to use. It is called only before the tick 
-     * callback and only if the not isn't closed.
-     *
-     * Note: a node will be closed if it returned `b3.RUNNING` in the tick.
-     *
-     * @method open
-     * @param {Tick} tick A tick instance.
-    **/
-    open: function(tick) {},
-
-    /**
-     * Tick method, override this to use. This method must contain the real 
-     * execution of node (perform a task, call children, etc.). It is called
-     * every time a node is asked to execute.
-     *
-     * @method tick
-     * @param {Tick} tick A tick instance.
-    **/
-    tick: function(tick) {},
-
-    /**
-     * Close method, override this to use. This method is called after the tick
-     * callback, and only if the tick return a state different from 
-     * `b3.RUNNING`.
-     *
-     * @method close
-     * @param {Tick} tick A tick instance.
-    **/
-    close: function(tick) {},
-
-    /**
-     * Exit method, override this to use. Called every time in the end of the 
-     * execution.
-     *
-     * @method exit
-     * @param {Tick} tick A tick instance.
-    **/
-    exit: function(tick) {},
-  });
-
-})();
 (function() {
   "use strict";
 
@@ -1225,329 +455,6 @@ this.b3 = this.b3 || {};
   "use strict";
 
   /**
-   * The Blackboard is the memory structure required by `BehaviorTree` and its 
-   * nodes. It only have 2 public methods: `set` and `get`. These methods works
-   * in 3 different contexts: global, per tree, and per node per tree.
-   * 
-   * Suppose you have two different trees controlling a single object with a 
-   * single blackboard, then:
-   *
-   * - In the global context, all nodes will access the stored information. 
-   * - In per tree context, only nodes sharing the same tree share the stored 
-   *   information.
-   * - In per node per tree context, the information stored in the blackboard 
-   *   can only be accessed by the same node that wrote the data.
-   *   
-   * The context is selected indirectly by the parameters provided to these 
-   * methods, for example:
-   * 
-   *     // getting/setting variable in global context
-   *     blackboard.set('testKey', 'value');
-   *     var value = blackboard.get('testKey');
-   *     
-   *     // getting/setting variable in per tree context
-   *     blackboard.set('testKey', 'value', tree.id);
-   *     var value = blackboard.get('testKey', tree.id);
-   *     
-   *     // getting/setting variable in per node per tree context
-   *     blackboard.set('testKey', 'value', tree.id, node.id);
-   *     var value = blackboard.get('testKey', tree.id, node.id);
-   * 
-   * Note: Internally, the blackboard store these memories in different 
-   * objects, being the global on `_baseMemory`, the per tree on `_treeMemory` 
-   * and the per node per tree dynamically create inside the per tree memory 
-   * (it is accessed via `_treeMemory[id].nodeMemory`). Avoid to use these 
-   * variables manually, use `get` and `set` instead.
-   *  
-   * @module b3
-   * @class Blackboard
-  **/
-  b3.Blackboard = b3.Class(null, {
-    /**
-     * Initialization method.
-     * @method initialize
-     * @constructor
-    **/
-    initialize: function() {
-      this._baseMemory = {};
-      this._treeMemory = {};
-    },
-
-    /**
-     * Internal method to retrieve the tree context memory. If the memory does
-     * not exist, this method creates it.
-     *
-     * @method _getTreeMemory
-     * @param {string} treeScope The id of the tree in scope.
-     * @return {Object} The tree memory.
-     * @protected
-    **/
-    _getTreeMemory: function(treeScope) {
-      if (!this._treeMemory[treeScope]) {
-        this._treeMemory[treeScope] = {
-          'nodeMemory'     : {},
-          'openNodes'      : [],
-          'traversalDepth' : 0,
-          'traversalCycle' : 0,
-        };
-      }
-      return this._treeMemory[treeScope];
-    },
-
-    /**
-     * Internal method to retrieve the node context memory, given the tree 
-     * memory. If the memory does not exist, this method creates is.
-     *
-     * @method _getNodeMemory
-     * @param {String} treeMemory the tree memory.
-     * @param {String} nodeScope The id of the node in scope.
-     * @return {Object} The node memory.
-     * @protected
-    **/
-    _getNodeMemory: function(treeMemory, nodeScope) {
-      var memory = treeMemory.nodeMemory;
-      if (!memory[nodeScope]) {
-        memory[nodeScope] = {};
-      }
-
-      return memory[nodeScope];
-    },
-
-    /**
-     * Internal method to retrieve the context memory. If treeScope and 
-     * nodeScope are provided, this method returns the per node per tree 
-     * memory. If only the treeScope is provided, it returns the per tree 
-     * memory. If no parameter is provided, it returns the global memory. 
-     * Notice that, if only nodeScope is provided, this method will still 
-     * return the global memory.
-     *
-     * @method _getMemory
-     * @param {String} treeScope The id of the tree scope.
-     * @param {String} nodeScope The id of the node scope.
-     * @return {Object} A memory object.
-     * @protected
-    **/
-    _getMemory: function(treeScope, nodeScope) {
-      var memory = this._baseMemory;
-
-      if (treeScope) {
-        memory = this._getTreeMemory(treeScope);
-
-        if (nodeScope) {
-          memory = this._getNodeMemory(memory, nodeScope);
-        }
-      }
-
-      return memory;
-    },
-
-    /**
-     * Stores a value in the blackboard. If treeScope and nodeScope are 
-     * provided, this method will save the value into the per node per tree 
-     * memory. If only the treeScope is provided, it will save the value into 
-     * the per tree memory. If no parameter is provided, this method will save 
-     * the value into the global memory. Notice that, if only nodeScope is 
-     * provided (but treeScope not), this method will still save the value into
-     * the global memory.
-     *
-     * @method set
-     * @param {String} key The key to be stored.
-     * @param {String} value The value to be stored.
-     * @param {String} treeScope The tree id if accessing the tree or node 
-     *                           memory.
-     * @param {String} nodeScope The node id if accessing the node memory.
-    **/
-    set: function(key, value, treeScope, nodeScope) {
-      var memory = this._getMemory(treeScope, nodeScope);
-      memory[key] = value;
-    },
-
-    /**
-     * Retrieves a value in the blackboard. If treeScope and nodeScope are
-     * provided, this method will retrieve the value from the per node per tree
-     * memory. If only the treeScope is provided, it will retrieve the value
-     * from the per tree memory. If no parameter is provided, this method will
-     * retrieve from the global memory. If only nodeScope is provided (but
-     * treeScope not), this method will still try to retrieve from the global
-     * memory.
-     *
-     * @method get
-     * @param {String} key The key to be retrieved.
-     * @param {String} treeScope The tree id if accessing the tree or node 
-     *                           memory.
-     * @param {String} nodeScope The node id if accessing the node memory.
-     * @return {Object} The value stored or undefined.
-    **/
-    get: function(key, treeScope, nodeScope) {
-      var memory = this._getMemory(treeScope, nodeScope);
-      return memory[key];
-    }
-  });
-
-})();
-(function() {
-  "use strict";
-
-  /**
-   * Composite is the base class for all composite nodes. Thus, if you want to 
-   * create new custom composite nodes, you need to inherit from this class. 
-   * 
-   * When creating composite nodes, you will need to propagate the tick signal 
-   * to the children nodes manually. To do that, override the `tick` method and
-   * call the `_execute` method on all nodes. For instance, take a look at how 
-   * the Sequence node inherit this class and how it call its children:
-   *
-   *     // Inherit from Composite, using the util function Class.
-   *     var Sequence = b3.Class(b3.Composite, {
-   *     
-   *       // Remember to set the name of the node. 
-   *       name: 'Sequence',
-   *
-   *       // Override the tick function
-   *       tick: function(tick) {
-   *       
-   *         // Iterates over the children
-   *         for (var i=0; i<this.children.length; i++) {
-   *
-   *           // Propagate the tick
-   *           var status = this.children[i]._execute(tick);
-   * 
-   *           if (status !== b3.SUCCESS) {
-   *               return status;
-   *           }
-   *         }
-   *
-   *         return b3.SUCCESS;
-   *       }
-   *     });
-   * 
-   * @module b3
-   * @class Composite
-   * @extends BaseNode
-  **/
-  b3.Composite = b3.Class(b3.BaseNode, {
-    
-    /**
-     * Node category. Default to `b3.COMPOSITE`.
-     *
-     * @property category
-     * @type {String}
-     * @readonly
-    **/
-    category: b3.COMPOSITE,
-
-    /**
-     * Initialization method.
-     *
-     * @method initialize
-     * @constructor
-    **/
-    initialize: function(settings) {
-      settings = settings || {};
-
-      b3.BaseNode.prototype.initialize.call(this);
-      this.children = (settings.children || []).slice(0);
-    }
-  });
-  
-})();
-(function() {
-  "use strict";
-
-  /**
-   * Condition is the base class for all condition nodes. Thus, if you want to 
-   * create new custom condition nodes, you need to inherit from this class. 
-   *
-   * @class Condition
-   * @extends BaseNode
-  **/
-  b3.Condition = b3.Class(b3.BaseNode, {
-    
-    /**
-     * Node category. Default to `b3.CONDITION`.
-     * @property {String} category
-     * @readonly
-    **/
-    category: b3.CONDITION,
-
-    /**
-     * Initialization method.
-     * @method initialize
-     * @constructor
-    **/
-    initialize: function() {
-      b3.BaseNode.prototype.initialize.call(this);
-    }
-
-  });
-
-})();
-(function() {
-  "use strict";
-
-  /**
-   * Decorator is the base class for all decorator nodes. Thus, if you want to 
-   * create new custom decorator nodes, you need to inherit from this class. 
-   * 
-   * When creating decorator nodes, you will need to propagate the tick signal
-   * to the child node manually, just like the composite nodes. To do that, 
-   * override the `tick` method and call the `_execute` method on the child 
-   * node. For instance, take a look at how the Inverter node inherit this 
-   * class and how it call its children:
-   * 
-   *     // Inherit from Decorator, using the util function Class.
-   *     var Inverter = b3.Class(b3.Decorator, {
-   *       name: 'Inverter',
-   *
-   *       tick: function(tick) {
-   *         if (!this.child) {
-   *           return b3.ERROR;
-   *         }
-   *     
-   *         // Propagate the tick
-   *         var status = this.child._execute(tick);
-   *     
-   *         if (status == b3.SUCCESS) {
-   *           status = b3.FAILURE;
-   *         } else if (status == b3.FAILURE) {
-   *           status = b3.SUCCESS;
-   *         }
-   *     
-   *         return status;
-   *       }
-   *     });
-   *
-   * @module b3
-   * @class Decorator
-   * @extends BaseNode
-  **/
-  b3.Decorator = b3.Class(b3.BaseNode, {
-
-    /**
-     * Node category. Default to b3.DECORATOR.
-     * @property {String} category
-     * @readonly
-    **/
-    category: b3.DECORATOR,
-
-    /**
-     * Initialization method.
-     * @method initialize
-     * @constructor
-    **/
-    initialize: function(settings) {
-      settings = settings || {};
-
-      b3.BaseNode.prototype.initialize.call(this);
-      this.child = settings.child || null;
-    }
-  });
-
-})();
-(function() {
-  "use strict";
-
-  /**
    * A new Tick object is instantiated every tick by BehaviorTree. It is passed
    * as parameter to the nodes through the tree during the traversal.
    * 
@@ -1688,9 +595,813 @@ this.b3 = this.b3 || {};
   "use strict";
 
   /**
+   * The Blackboard is the memory structure required by `BehaviorTree` and its 
+   * nodes. It only have 2 public methods: `set` and `get`. These methods works
+   * in 3 different contexts: global, per tree, and per node per tree.
+   * 
+   * Suppose you have two different trees controlling a single object with a 
+   * single blackboard, then:
+   *
+   * - In the global context, all nodes will access the stored information. 
+   * - In per tree context, only nodes sharing the same tree share the stored 
+   *   information.
+   * - In per node per tree context, the information stored in the blackboard 
+   *   can only be accessed by the same node that wrote the data.
+   *   
+   * The context is selected indirectly by the parameters provided to these 
+   * methods, for example:
+   * 
+   *     // getting/setting variable in global context
+   *     blackboard.set('testKey', 'value');
+   *     var value = blackboard.get('testKey');
+   *     
+   *     // getting/setting variable in per tree context
+   *     blackboard.set('testKey', 'value', tree.id);
+   *     var value = blackboard.get('testKey', tree.id);
+   *     
+   *     // getting/setting variable in per node per tree context
+   *     blackboard.set('testKey', 'value', tree.id, node.id);
+   *     var value = blackboard.get('testKey', tree.id, node.id);
+   * 
+   * Note: Internally, the blackboard store these memories in different 
+   * objects, being the global on `_baseMemory`, the per tree on `_treeMemory` 
+   * and the per node per tree dynamically create inside the per tree memory 
+   * (it is accessed via `_treeMemory[id].nodeMemory`). Avoid to use these 
+   * variables manually, use `get` and `set` instead.
+   *  
+   * @module b3
+   * @class Blackboard
+  **/
+  b3.Blackboard = b3.Class(null, {
+    
+    /**
+     * Initialization method.
+     * @method initialize
+     * @constructor
+    **/
+    initialize: function() {
+      this._baseMemory = {};
+      this._treeMemory = {};
+    },
+
+    /**
+     * Internal method to retrieve the tree context memory. If the memory does
+     * not exist, this method creates it.
+     *
+     * @method _getTreeMemory
+     * @param {string} treeScope The id of the tree in scope.
+     * @return {Object} The tree memory.
+     * @protected
+    **/
+    _getTreeMemory: function(treeScope) {
+      if (!this._treeMemory[treeScope]) {
+        this._treeMemory[treeScope] = {
+          'nodeMemory'     : {},
+          'openNodes'      : [],
+          'traversalDepth' : 0,
+          'traversalCycle' : 0,
+        };
+      }
+      return this._treeMemory[treeScope];
+    },
+
+    /**
+     * Internal method to retrieve the node context memory, given the tree 
+     * memory. If the memory does not exist, this method creates is.
+     *
+     * @method _getNodeMemory
+     * @param {String} treeMemory the tree memory.
+     * @param {String} nodeScope The id of the node in scope.
+     * @return {Object} The node memory.
+     * @protected
+    **/
+    _getNodeMemory: function(treeMemory, nodeScope) {
+      var memory = treeMemory.nodeMemory;
+      if (!memory[nodeScope]) {
+        memory[nodeScope] = {};
+      }
+
+      return memory[nodeScope];
+    },
+
+    /**
+     * Internal method to retrieve the context memory. If treeScope and 
+     * nodeScope are provided, this method returns the per node per tree 
+     * memory. If only the treeScope is provided, it returns the per tree 
+     * memory. If no parameter is provided, it returns the global memory. 
+     * Notice that, if only nodeScope is provided, this method will still 
+     * return the global memory.
+     *
+     * @method _getMemory
+     * @param {String} treeScope The id of the tree scope.
+     * @param {String} nodeScope The id of the node scope.
+     * @return {Object} A memory object.
+     * @protected
+    **/
+    _getMemory: function(treeScope, nodeScope) {
+      var memory = this._baseMemory;
+
+      if (treeScope) {
+        memory = this._getTreeMemory(treeScope);
+
+        if (nodeScope) {
+          memory = this._getNodeMemory(memory, nodeScope);
+        }
+      }
+
+      return memory;
+    },
+
+    /**
+     * Stores a value in the blackboard. If treeScope and nodeScope are 
+     * provided, this method will save the value into the per node per tree 
+     * memory. If only the treeScope is provided, it will save the value into 
+     * the per tree memory. If no parameter is provided, this method will save 
+     * the value into the global memory. Notice that, if only nodeScope is 
+     * provided (but treeScope not), this method will still save the value into
+     * the global memory.
+     *
+     * @method set
+     * @param {String} key The key to be stored.
+     * @param {String} value The value to be stored.
+     * @param {String} treeScope The tree id if accessing the tree or node 
+     *                           memory.
+     * @param {String} nodeScope The node id if accessing the node memory.
+    **/
+    set: function(key, value, treeScope, nodeScope) {
+      var memory = this._getMemory(treeScope, nodeScope);
+      memory[key] = value;
+    },
+
+    /**
+     * Retrieves a value in the blackboard. If treeScope and nodeScope are
+     * provided, this method will retrieve the value from the per node per tree
+     * memory. If only the treeScope is provided, it will retrieve the value
+     * from the per tree memory. If no parameter is provided, this method will
+     * retrieve from the global memory. If only nodeScope is provided (but
+     * treeScope not), this method will still try to retrieve from the global
+     * memory.
+     *
+     * @method get
+     * @param {String} key The key to be retrieved.
+     * @param {String} treeScope The tree id if accessing the tree or node 
+     *                           memory.
+     * @param {String} nodeScope The node id if accessing the node memory.
+     * @return {Object} The value stored or undefined.
+    **/
+    get: function(key, treeScope, nodeScope) {
+      var memory = this._getMemory(treeScope, nodeScope);
+      return memory[key];
+    }
+  });
+
+})();
+(function() {
+  "use strict";
+
+  /**
+   * The BaseNode class is used as super class to all nodes in BehaviorJS. It 
+   * comprises all common variables and methods that a node must have to 
+   * execute.
+   *
+   * **IMPORTANT:** Do not inherit from this class, use `b3.Composite`, 
+   * `b3.Decorator`, `b3.Action` or `b3.Condition`, instead.
+   *
+   * The attributes are specially designed to serialization of the node in a 
+   * JSON format. In special, the `parameters` attribute can be set into the 
+   * visual editor (thus, in the JSON file), and it will be used as parameter 
+   * on the node initialization at `BehaviorTree.load`.
+   * 
+   * BaseNode also provide 5 callback methods, which the node implementations 
+   * can override. They are `enter`, `open`, `tick`, `close` and `exit`. See 
+   * their documentation to know more. These callbacks are called inside the 
+   * `_execute` method, which is called in the tree traversal.
+   * 
+   * @module b3
+   * @class BaseNode
+  **/
+  b3.BaseNode = b3.Class(null, {
+
+    /**
+     * Node ID.
+     * @property {string} id
+     * @readonly
+    **/
+    id: null,
+
+    /**
+     * Node name. Must be a unique identifier, preferable the same name of the 
+     * class. You have to set the node name in the prototype.
+     *
+     * @property {String} name
+     * @readonly
+    **/
+    name: null,
+
+    /**
+     * Node category. Must be `b3.COMPOSITE`, `b3.DECORATOR`, `b3.ACTION` or 
+     * `b3.CONDITION`. This is defined automatically be inheriting the 
+     * correspondent class.
+     *
+     * @property {CONSTANT} category
+     * @readonly
+    **/
+    category: null,
+
+    /**
+     * Node title.
+     * @property {String} title
+     * @optional
+     * @readonly
+    **/
+    title: null,
+
+    /**
+     * Node description.
+     * @property {String} description
+     * @optional
+     * @readonly
+    **/
+    description: null,
+
+    /**
+     * A dictionary (key, value) describing the node parameters. Useful for 
+     * defining parameter values in the visual editor. Note: this is only 
+     * useful for nodes when loading trees from JSON files.
+     *
+     * **Deprecated since 0.2.0. This is too similar to the properties 
+     * attribute, thus, this attribute is deprecated in favor to 
+     * `properties`.**
+     *
+     * @property {Object} parameters
+     * @deprecated since 0.2.0.
+     * @readonly
+    **/
+    parameters: null,
+
+    /**
+     * A dictionary (key, value) describing the node properties. Useful for 
+     * defining custom variables inside the visual editor.
+     *
+     * @property properties
+     * @type {Object}
+     * @readonly
+    **/
+    properties: null,
+
+    /**
+     * Initialization method.
+     * @method initialize
+     * @constructor
+    **/
+    initialize: function(params) {
+      this.id          = b3.createUUID();
+      this.title       = this.title || this.name;
+      this.description = '';
+      this.parameters  = {};
+      this.properties  = {};
+    },
+
+    /**
+     * This is the main method to propagate the tick signal to this node. This 
+     * method calls all callbacks: `enter`, `open`, `tick`, `close`, and 
+     * `exit`. It only opens a node if it is not already open. In the same 
+     * way, this method only close a node if the node  returned a status 
+     * different of `b3.RUNNING`.
+     *
+     * @method _execute
+     * @param {Tick} tick A tick instance.
+     * @return {Constant} The tick state.
+     * @protected
+    **/
+    _execute: function(tick) {
+      // ENTER 
+      this._enter(tick);
+
+      // OPEN 
+      if (!tick.blackboard.get('isOpen', tick.tree.id, this.id)) {
+          this._open(tick);
+      }
+
+      // TICK 
+      var status = this._tick(tick);
+
+      // CLOSE 
+      if (status !== b3.RUNNING) {
+          this._close(tick);
+      }
+
+      // EXIT 
+      this._exit(tick);
+
+      return status;
+    },
+
+    /**
+     * Wrapper for enter method.
+     * @method _enter
+     * @param {Tick} tick A tick instance.
+     * @protected
+    **/
+    _enter: function(tick) {
+      tick._enterNode(this);
+      this.enter(tick);
+    },
+
+    /**
+     * Wrapper for open method.
+     * @method _open
+     * @param {Tick} tick A tick instance.
+     * @protected
+    **/
+    _open: function(tick) {
+      tick._openNode(this);
+      tick.blackboard.set('isOpen', true, tick.tree.id, this.id);
+      this.open(tick);
+    },
+
+    /**
+     * Wrapper for tick method.
+     * @method _tick
+     * @param {Tick} tick A tick instance.
+     * @return {Constant} A state constant.
+     * @protected
+    **/
+    _tick: function(tick) {
+      tick._tickNode(this);
+      return this.tick(tick);
+    },
+
+    /**
+     * Wrapper for close method.
+     * @method _close
+     * @param {Tick} tick A tick instance.
+     * @protected
+    **/
+    _close: function(tick) {
+      tick._closeNode(this);
+      tick.blackboard.set('isOpen', false, tick.tree.id, this.id);
+      this.close(tick);
+    },
+
+    /**
+     * Wrapper for exit method.
+     * @method _exit
+     * @param {Tick} tick A tick instance.
+     * @protected
+    **/
+    _exit: function(tick) {
+      tick._exitNode(this);
+      this.exit(tick);
+    },
+
+    /**
+     * Enter method, override this to use. It is called every time a node is 
+     * asked to execute, before the tick itself.
+     *
+     * @method enter
+     * @param {Tick} tick A tick instance.
+    **/
+    enter: function(tick) {},
+
+    /**
+     * Open method, override this to use. It is called only before the tick 
+     * callback and only if the not isn't closed.
+     *
+     * Note: a node will be closed if it returned `b3.RUNNING` in the tick.
+     *
+     * @method open
+     * @param {Tick} tick A tick instance.
+    **/
+    open: function(tick) {},
+
+    /**
+     * Tick method, override this to use. This method must contain the real 
+     * execution of node (perform a task, call children, etc.). It is called
+     * every time a node is asked to execute.
+     *
+     * @method tick
+     * @param {Tick} tick A tick instance.
+    **/
+    tick: function(tick) {},
+
+    /**
+     * Close method, override this to use. This method is called after the tick
+     * callback, and only if the tick return a state different from 
+     * `b3.RUNNING`.
+     *
+     * @method close
+     * @param {Tick} tick A tick instance.
+    **/
+    close: function(tick) {},
+
+    /**
+     * Exit method, override this to use. Called every time in the end of the 
+     * execution.
+     *
+     * @method exit
+     * @param {Tick} tick A tick instance.
+    **/
+    exit: function(tick) {},
+  });
+
+})();
+(function() {
+  "use strict";
+
+  /**
+   * Action is the base class for all action nodes. Thus, if you want to create
+   * new custom action nodes, you need to inherit from this class. For example,
+   * take a look at the Runner action:
+   * 
+   *     var Runner = b3.Class(b3.Action, {
+   *       name: 'Runner',
+   *
+   *       tick: function(tick) {
+   *         return b3.RUNNING;
+   *       }
+   *     });
+   *
+   * @module b3
+   * @class Action
+   * @extends BaseNode
+  **/
+  b3.Action = b3.Class(b3.BaseNode, {
+    
+    /**
+     * Node category. Default to `b3.ACTION`.
+     * @property {String} category
+     * @readonly
+    **/
+    category: b3.ACTION,
+
+    /**
+     * Initialization method.
+     * @method initialize
+     * @constructor
+    **/
+    initialize: function(params) {
+      b3.BaseNode.prototype.initialize.call(this);
+    }
+  });
+
+})();
+(function() {
+  "use strict";
+
+  /**
+   * Composite is the base class for all composite nodes. Thus, if you want to 
+   * create new custom composite nodes, you need to inherit from this class. 
+   * 
+   * When creating composite nodes, you will need to propagate the tick signal 
+   * to the children nodes manually. To do that, override the `tick` method and
+   * call the `_execute` method on all nodes. For instance, take a look at how 
+   * the Sequence node inherit this class and how it call its children:
+   *
+   *     // Inherit from Composite, using the util function Class.
+   *     var Sequence = b3.Class(b3.Composite, {
+   *     
+   *       // Remember to set the name of the node. 
+   *       name: 'Sequence',
+   *
+   *       // Override the tick function
+   *       tick: function(tick) {
+   *       
+   *         // Iterates over the children
+   *         for (var i=0; i<this.children.length; i++) {
+   *
+   *           // Propagate the tick
+   *           var status = this.children[i]._execute(tick);
+   * 
+   *           if (status !== b3.SUCCESS) {
+   *               return status;
+   *           }
+   *         }
+   *
+   *         return b3.SUCCESS;
+   *       }
+   *     });
+   * 
+   * @module b3
+   * @class Composite
+   * @extends BaseNode
+  **/
+  b3.Composite = b3.Class(b3.BaseNode, {
+    
+    /**
+     * Node category. Default to `b3.COMPOSITE`.
+     *
+     * @property category
+     * @type {String}
+     * @readonly
+    **/
+    category: b3.COMPOSITE,
+
+    /**
+     * Initialization method.
+     *
+     * @method initialize
+     * @constructor
+    **/
+    initialize: function(params) {
+      b3.BaseNode.prototype.initialize.call(this);
+      this.children = (params.children || []).slice(0);
+    }
+  });
+  
+})();
+(function() {
+  "use strict";
+
+  /**
+   * Condition is the base class for all condition nodes. Thus, if you want to 
+   * create new custom condition nodes, you need to inherit from this class. 
+   *
+   * @class Condition
+   * @extends BaseNode
+  **/
+  b3.Condition = b3.Class(b3.BaseNode, {
+    
+    /**
+     * Node category. Default to `b3.CONDITION`.
+     * @property {String} category
+     * @readonly
+    **/
+    category: b3.CONDITION,
+
+    /**
+     * Initialization method.
+     * @method initialize
+     * @constructor
+    **/
+    initialize: function(params) {
+      b3.BaseNode.prototype.initialize.call(this);
+    }
+
+  });
+
+})();
+(function() {
+  "use strict";
+
+  /**
+   * Decorator is the base class for all decorator nodes. Thus, if you want to 
+   * create new custom decorator nodes, you need to inherit from this class. 
+   * 
+   * When creating decorator nodes, you will need to propagate the tick signal
+   * to the child node manually, just like the composite nodes. To do that, 
+   * override the `tick` method and call the `_execute` method on the child 
+   * node. For instance, take a look at how the Inverter node inherit this 
+   * class and how it call its children:
+   * 
+   *     // Inherit from Decorator, using the util function Class.
+   *     var Inverter = b3.Class(b3.Decorator, {
+   *       name: 'Inverter',
+   *
+   *       tick: function(tick) {
+   *         if (!this.child) {
+   *           return b3.ERROR;
+   *         }
+   *     
+   *         // Propagate the tick
+   *         var status = this.child._execute(tick);
+   *     
+   *         if (status == b3.SUCCESS) {
+   *           status = b3.FAILURE;
+   *         } else if (status == b3.FAILURE) {
+   *           status = b3.SUCCESS;
+   *         }
+   *     
+   *         return status;
+   *       }
+   *     });
+   *
+   * @module b3
+   * @class Decorator
+   * @extends BaseNode
+  **/
+  b3.Decorator = b3.Class(b3.BaseNode, {
+
+    /**
+     * Node category. Default to b3.DECORATOR.
+     * @property {String} category
+     * @readonly
+    **/
+    category: b3.DECORATOR,
+
+    /**
+     * Initialization method.
+     * @method initialize
+     * @constructor
+    **/
+    initialize: function(params) {
+      b3.BaseNode.prototype.initialize.call(this);
+      this.child = params.child || null;
+    }
+  });
+
+})();
+(function() {
+  "use strict";
+
+  /**
+   * MemPriority is similar to Priority node, but when a child returns a 
+   * `RUNNING` state, its index is recorded and in the next tick the, 
+   * MemPriority calls the child recorded directly, without calling previous 
+   * children again.
+   *
+   * @module b3
+   * @class MemPriority
+   * @extends Composite
+  **/
+  b3.MemPriority = b3.Class(b3.Composite, {
+
+    /**
+     * Node name. Default to `MemPriority`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'MemPriority',
+
+    /**
+     * Open method.
+     * @method open
+     * @param {b3.Tick} tick A tick instance.
+    **/
+    open: function(tick) {
+      tick.blackboard.set('runningChild', 0, tick.tree.id, this.id);
+    },
+
+    /**
+     * Tick method.
+     * @method tick
+     * @param {b3.Tick} tick A tick instance.
+     * @return {Constant} A state constant.
+    **/
+    tick: function(tick) {
+      var child = tick.blackboard.get('runningChild', tick.tree.id, this.id);
+      for (var i=child; i<this.children.length; i++) {
+        var status = this.children[i]._execute(tick);
+
+        if (status !== b3.FAILURE) {
+          if (status === b3.RUNNING) {
+            tick.blackboard.set('runningChild', i, tick.tree.id, this.id);
+          }
+          
+          return status;
+        }
+      }
+
+      return b3.FAILURE;
+    }
+  });
+
+})();
+(function() {
+  "use strict";
+
+  /**
+   * MemSequence is similar to Sequence node, but when a child returns a 
+   * `RUNNING` state, its index is recorded and in the next tick the 
+   * MemPriority call the child recorded directly, without calling previous 
+   * children again.
+   *
+   * @module b3
+   * @class MemPriority
+   * @extends Composite
+  **/
+  b3.MemSequence = b3.Class(b3.Composite, {
+
+    /**
+     * Node name. Default to `MemSequence`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'MemSequence',
+
+    /**
+     * Open method.
+     * @method open
+     * @param {b3.Tick} tick A tick instance.
+    **/
+    open: function(tick) {
+      tick.blackboard.set('runningChild', 0, tick.tree.id, this.id);
+    },
+
+    /**
+     * Tick method.
+     * @method tick
+     * @param {b3.Tick} tick A tick instance.
+     * @return {Constant} A state constant.
+    **/
+    tick: function(tick) {
+      var child = tick.blackboard.get('runningChild', tick.tree.id, this.id);
+      for (var i=child; i<this.children.length; i++) {
+        var status = this.children[i]._execute(tick);
+
+        if (status !== b3.SUCCESS) {
+          if (status === b3.RUNNING) {
+            tick.blackboard.set('runningChild', i, tick.tree.id, this.id);
+          }
+          return status;
+        }
+      }
+
+      return b3.SUCCESS;
+    }
+  });
+
+})();
+(function() {
+  "use strict";
+
+  /**
+   * Priority ticks its children sequentially until one of them returns 
+   * `SUCCESS`, `RUNNING` or `ERROR`. If all children return the failure state,
+   * the priority also returns `FAILURE`.
+   *
+   * @module b3
+   * @class Priority
+   * @extends Composite
+  **/
+  b3.Priority = b3.Class(b3.Composite, {
+
+    /**
+     * Node name. Default to `Priority`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'Priority',
+
+    /**
+     * Tick method.
+     * @method tick
+     * @param {Tick} tick A tick instance.
+     * @return {Constant} A state constant.
+    **/
+    tick: function(tick) {
+      for (var i=0; i<this.children.length; i++) {
+        var status = this.children[i]._execute(tick);
+
+        if (status !== b3.FAILURE) {
+          return status;
+        }
+      }
+
+      return b3.FAILURE;
+    }
+  });
+
+})();
+(function() {
+  "use strict";
+
+  /**
+   * The Sequence node ticks its children sequentially until one of them 
+   * returns `FAILURE`, `RUNNING` or `ERROR`. If all children return the 
+   * success state, the sequence also returns `SUCCESS`.
+   *
+   * @module b3
+   * @class Sequence
+   * @extends Composite
+  **/
+  b3.Sequence = b3.Class(b3.Composite, {
+
+    /**
+     * Node name. Default to `Sequence`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'Sequence',
+
+    /**
+     * Tick method.
+     * @method tick
+     * @param {b3.Tick} tick A tick instance.
+     * @return {Constant} A state constant.
+    **/
+    tick: function(tick) {
+      for (var i=0; i<this.children.length; i++) {
+        var status = this.children[i]._execute(tick);
+
+        if (status !== b3.SUCCESS) {
+          return status;
+        }
+      }
+
+      return b3.SUCCESS;
+    }
+  });
+  
+})();
+(function() {
+  "use strict";
+
+  /**
    * The Inverter decorator inverts the result of the child, returning `SUCCESS`
    * for `FAILURE` and `FAILURE` for `SUCCESS`.
    *
+   * @module b3
    * @class Inverter
    * @extends Decorator
   **/
@@ -1735,6 +1446,7 @@ this.b3 = this.b3 || {};
    * certain number of times, the Limiter decorator returns `FAILURE` without 
    * executing the child.
    *
+   * @module b3
    * @class Limiter
    * @extends Decorator
   **/
@@ -1770,20 +1482,18 @@ this.b3 = this.b3 || {};
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
 
-      b3.Decorator.prototype.initialize.call(this, settings);
-
-      if (!settings.maxLoop) {
+      if (!params.maxLoop) {
         throw "maxLoop parameter in Limiter decorator is an obligatory " +
               "parameter";
       }
 
-      this.maxLoop = settings.maxLoop;
+      this.maxLoop = params.maxLoop;
     },
 
     /**
@@ -1831,6 +1541,7 @@ this.b3 = this.b3 || {};
    * must be non-preemptive), it only interrupts the node after a `RUNNING` 
    * status.
    *
+   * @module b3
    * @class MaxTime
    * @extends Decorator
   **/
@@ -1866,20 +1577,18 @@ this.b3 = this.b3 || {};
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
 
-      b3.Decorator.prototype.initialize.call(this, settings);
-
-      if (!settings.maxTime) {
+      if (!params.maxTime) {
         throw "maxTime parameter in MaxTime decorator is an obligatory " +
               "parameter";
       }
 
-      this.maxTime = settings.maxTime;
+      this.maxTime = params.maxTime;
     },
 
     /**
@@ -1924,6 +1633,7 @@ this.b3 = this.b3 || {};
    * node child returns `FAILURE`, `RUNNING` or `ERROR`. Optionally, a maximum 
    * number of repetitions can be defined.
    *
+   * @module b3
    * @class RepeatUntilFailure
    * @extends Decorator
   **/
@@ -1960,14 +1670,12 @@ this.b3 = this.b3 || {};
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
-
-      b3.Decorator.prototype.initialize.call(this, settings);
-      this.maxLoop = settings.maxLoop || -1;
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
+      this.maxLoop = params.maxLoop || -1;
     },
 
     /**
@@ -2017,6 +1725,7 @@ this.b3 = this.b3 || {};
    * node child returns `SUCCESS`, `RUNNING` or `ERROR`. Optionally, a maximum 
    * number of repetitions can be defined.
    *
+   * @module b3
    * @class RepeatUntilSuccess
    * @extends Decorator
   **/
@@ -2053,14 +1762,12 @@ this.b3 = this.b3 || {};
      * - **child** (*BaseNode*) The child node.
      *
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
-
-      b3.Decorator.prototype.initialize.call(this, settings);
-      this.maxLoop = settings.maxLoop || -1;
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
+      this.maxLoop = params.maxLoop || -1;
     },
 
     /**
@@ -2110,6 +1817,7 @@ this.b3 = this.b3 || {};
    * return `RUNNING` or `ERROR`. Optionally, a maximum number of repetitions 
    * can be defined.
    *
+   * @module b3
    * @class Repeater
    * @extends Decorator
   **/
@@ -2146,14 +1854,12 @@ this.b3 = this.b3 || {};
      * - **child** (*BaseNode*) The child node.
      * 
      * @method initialize
-     * @param {Object} settings Object with parameters.
+     * @param {Object} params Object with parameters.
      * @constructor
     **/
-    initialize: function(settings) {
-      settings = settings || {};
-
-      b3.Decorator.prototype.initialize.call(this, settings);
-      this.maxLoop = settings.maxLoop || -1;
+    initialize: function(params) {
+      b3.Decorator.prototype.initialize.call(this, params);
+      this.maxLoop = params.maxLoop || -1;
     },
 
     /**
@@ -2190,6 +1896,211 @@ this.b3 = this.b3 || {};
 
       i = tick.blackboard.set('i', i, tick.tree.id, this.id);
       return status;
+    }
+  });
+
+})();
+(function() {
+  "use strict";
+
+  /**
+   * This action node returns `ERROR` always.
+   *
+   * @module b3
+   * @class Error
+   * @extends Action
+  **/
+  b3.Error = b3.Class(b3.Action, {
+
+    /**
+     * Node name. Default to `Error`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'Error',
+
+    /**
+     * Tick method.
+     * @method tick
+     * @param {b3.Tick} tick A tick instance.
+     * @return {Constant} Always return `b3.ERROR`.
+    **/
+    tick: function(tick) {
+      return b3.ERROR;
+    }
+  });
+  
+})();
+(function() {
+  "use strict";
+
+  /**
+   * This action node returns `FAILURE` always.
+   *
+   * @module b3
+   * @class Failer
+   * @extends Action
+  **/
+  b3.Failer = b3.Class(b3.Action, {
+    
+    /**
+     * Node name. Default to `Failer`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'Failer',
+
+    /**
+     * Tick method.
+     * @method tick
+     * @param {b3.Tick} tick A tick instance.
+     * @return {Constant} Always return `b3.FAILURE`.
+    **/
+    tick: function(tick) {
+      return b3.FAILURE;
+    },
+  });
+  
+})();
+(function() {
+  "use strict";
+
+  /**
+   * This action node returns RUNNING always.
+   *
+   * @module b3
+   * @class Runner
+   * @extends Action
+  **/
+  b3.Runner = b3.Class(b3.Action, {
+
+    /**
+     * Node name. Default to `Runner`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'Runner',
+
+    /**
+     * Tick method.
+     * @method tick
+     * @param {b3.Tick} tick A tick instance.
+     * @return {Constant} Always return `b3.RUNNING`.
+    **/
+    tick: function(tick) {
+      return b3.RUNNING;
+    }
+  });
+  
+})();
+(function() {
+  "use strict";
+
+  /**
+   * This action node returns `SUCCESS` always.
+   *
+   * @module b3
+   * @class Succeeder
+   * @extends Action
+  **/
+  b3.Succeeder = b3.Class(b3.Action, {
+
+    /**
+     * Node name. Default to `Succeeder`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'Succeeder',
+
+    /**
+     * Tick method.
+     * @method tick
+     * @param {b3.Tick} tick A tick instance.
+     * @return {Constant} Always return `b3.SUCCESS`.
+    **/
+    tick: function(tick) {
+      return b3.SUCCESS;
+    }
+  });
+
+})();
+(function() {
+  "use strict";
+
+  /**
+   * Wait a few seconds.
+   *
+   * @module b3
+   * @class Wait
+   * @extends Action
+  **/
+  b3.Wait = b3.Class(b3.Action, {
+
+    /**
+     * Node name. Default to `Wait`.
+     * @property {String} name
+     * @readonly
+    **/
+    name: 'Wait',
+
+    /**
+     * Node title. Default to `Wait XXms`. Used in Editor.
+     * @property {String} title
+     * @readonly
+    **/
+    title: 'Wait <milliseconds>ms',
+
+    /**
+     * Node parameters.
+     * @property {String} parameters
+     * @readonly
+    **/
+    parameters: {'milliseconds': 0},
+
+    /**
+     * Initialization method.
+     *
+     * Settings parameters:
+     *
+     * - **milliseconds** (*Integer*) Maximum time, in milliseconds, a child
+     *                                can execute.
+     *
+     * @method initialize
+     * @param {Object} settings Object with parameters.
+     * @constructor
+    **/
+    initialize: function(settings) {
+      settings = settings || {};
+
+      b3.Action.prototype.initialize.call(this);
+      this.endTime = settings.milliseconds || 0;
+    },
+
+    /**
+     * Open method.
+     * @method open
+     * @param {Tick} tick A tick instance.
+    **/
+    open: function(tick) {
+      var startTime = (new Date()).getTime();
+      tick.blackboard.set('startTime', startTime, tick.tree.id, this.id);
+    },
+
+    /**
+     * Tick method.
+     * @method tick
+     * @param {Tick} tick A tick instance.
+     * @return {Constant} A state constant.
+    **/
+    tick: function(tick) {
+      var currTime = (new Date()).getTime();
+      var startTime = tick.blackboard.get('startTime', tick.tree.id, this.id);
+      
+      if (currTime - startTime > this.endTime) {
+        return b3.SUCCESS;
+      }
+      
+      return b3.RUNNING;
     }
   });
 
