@@ -16,7 +16,7 @@
     "behavior3", "b3", "game dev", "gameai"
   ],
   "main": [
-    "libs/behavior3-0.2.0.min.js",
+    "libs/behavior3-0.2.0.min.js"
   ],
   "ignore"      : [
     "node_modules",
