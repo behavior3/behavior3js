@@ -24,6 +24,7 @@ gulp.task('_jshint', function() {
  */
 gulp.task('_minify', function() {
   return gulp.src([
+    'src/nodeLoader.js', 
     'src/b3.js', 
     'src/b3.functions.js', 
     'src/core/BehaviorTree.js',
