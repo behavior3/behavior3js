@@ -84,7 +84,7 @@
         }
       }
 
-      i = tick.blackboard.set('i', i, tick.tree.id, this.id);
+      tick.blackboard.set('i', i, tick.tree.id, this.id);
       return status;
     }
   });
