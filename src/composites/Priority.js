@@ -1,5 +1,5 @@
 import {Class} from '../b3.functions';
-import Composite from '../core/composite';
+import Composite from '../core/Composite';
 import {FAILURE} from '../constants';
 
 /**

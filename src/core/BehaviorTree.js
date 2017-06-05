@@ -3,7 +3,7 @@ import {COMPOSITE, DECORATOR} from '../constants';
 import * as Decorators from '../decorators';
 import * as Composites from '../composites';
 import * as Actions from '../actions';
-import Tick from './tick';
+import Tick from './Tick';
 
 /**
  * The BehaviorTree class, as the name implies, represents the Behavior Tree
