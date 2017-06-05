@@ -2,8 +2,6 @@ import {Class} from '../b3.functions';
 import Decorator from '../core/Decorator';
 import {FAILURE, SUCCESS, ERROR} from '../constants';
 
-"use strict";
-
 /**
  * The Inverter decorator inverts the result of the child, returning `SUCCESS`
  * for `FAILURE` and `FAILURE` for `SUCCESS`.

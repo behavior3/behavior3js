@@ -4,8 +4,6 @@
  * @module functions
 **/
 
-"use strict";
-
 /**
 * This function is used to create unique IDs for trees and nodes.
 *
@@ -15,7 +13,7 @@
 * @constructor
 * @return {String} A unique ID.
 **/
-export function createUUID () {
+export function createUUID() {
   var s = [];
   var hexDigits = "0123456789abcdef";
   for (var i = 0; i < 36; i++) {
@@ -31,16 +29,16 @@ export function createUUID () {
 
   var uuid = s.join("");
   return uuid;
-};
+}
 
 /**
  * Class is a meta-factory function to create classes in JavaScript. It is a
- * shortcut for the CreateJS syntax style. By default, the class created by 
- * this function have an initialize function (the constructor). Optionally, 
+ * shortcut for the CreateJS syntax style. By default, the class created by
+ * this function have an initialize function (the constructor). Optionally,
  * you can specify the inheritance by passing another class as parameter.
  *
  * By default, all classes created using this function, may receive only a
- * dictionary parameter as argument. This pattern is commonly used by jQuery 
+ * dictionary parameter as argument. This pattern is commonly used by jQuery
  * and its plugins.
  *
  * Since 0.2.0, Class also receives a `properties` parameter, a dictionary
@@ -68,7 +66,7 @@ export function createUUID () {
  * @param {Object} properties A dictionary with attributes and methods.
  * @return {Object} A new class.
  **/
-export function Class (baseClass, properties) {
+export function Class(baseClass, properties) {
   // create a new class
   var cls = function(params) {
     this.initialize(params || {});
@@ -93,4 +91,4 @@ export function Class (baseClass, properties) {
   }
 
   return cls;
-};
+}

@@ -78,7 +78,6 @@ gulp.task('_docs', function() {
              .pipe(gulp.dest('./docs/'))
 });
 
-
 //
 gulp.task('dev', function() {
   gulp.watch('src/**/*.js', ['_jshint']);

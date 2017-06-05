@@ -2,11 +2,9 @@ import {Class} from '../b3.functions';
 import Decorator from '../core/Decorator';
 import {SUCCESS, ERROR, FAILURE} from '../constants';
 
-"use strict";
-
 /**
- * RepeatUntilSuccess is a decorator that repeats the tick signal until the 
- * node child returns `SUCCESS`, `RUNNING` or `ERROR`. Optionally, a maximum 
+ * RepeatUntilSuccess is a decorator that repeats the tick signal until the
+ * node child returns `SUCCESS`, `RUNNING` or `ERROR`. Optionally, a maximum
  * number of repetitions can be defined.
  *
  * @module b3
@@ -42,7 +40,7 @@ export default Class(Decorator, {
    *
    * Settings parameters:
    *
-   * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 
+   * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1
    *                           (infinite).
    * - **child** (*BaseNode*) The child node.
    *

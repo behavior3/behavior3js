@@ -2,11 +2,9 @@ import {Class} from '../b3.functions';
 import BaseNode from './BaseNode';
 import {CONDITION} from '../constants';
 
-"use strict";
-
 /**
- * Condition is the base class for all condition nodes. Thus, if you want to 
- * create new custom condition nodes, you need to inherit from this class. 
+ * Condition is the base class for all condition nodes. Thus, if you want to
+ * create new custom condition nodes, you need to inherit from this class.
  *
  * @class Condition
  * @extends BaseNode

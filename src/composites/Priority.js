@@ -2,10 +2,8 @@ import {Class} from '../b3.functions';
 import Composite from '../core/composite';
 import {FAILURE} from '../constants';
 
-"use strict";
-
 /**
- * Priority ticks its children sequentially until one of them returns 
+ * Priority ticks its children sequentially until one of them returns
  * `SUCCESS`, `RUNNING` or `ERROR`. If all children return the failure state,
  * the priority also returns `FAILURE`.
  *

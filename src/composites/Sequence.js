@@ -2,11 +2,9 @@ import {Class} from '../b3.functions';
 import Composite from '../core/composite';
 import {SUCCESS} from '../constants';
 
-"use strict";
-
 /**
- * The Sequence node ticks its children sequentially until one of them 
- * returns `FAILURE`, `RUNNING` or `ERROR`. If all children return the 
+ * The Sequence node ticks its children sequentially until one of them
+ * returns `FAILURE`, `RUNNING` or `ERROR`. If all children return the
  * success state, the sequence also returns `SUCCESS`.
  *
  * @module b3

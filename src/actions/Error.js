@@ -2,8 +2,6 @@ import {ERROR} from '../constants';
 import {Class} from '../b3.functions';
 import Action from '../core/Action';
 
-"use strict";
-
 /**
  * This action node returns `ERROR` always.
  *

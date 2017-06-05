@@ -2,11 +2,9 @@ import {Class} from '../b3.functions';
 import Decorator from '../core/Decorator';
 import {FAILURE, SUCCESS, ERROR} from '../constants';
 
-"use strict";
-
 /**
  * This decorator limit the number of times its child can be called. After a
- * certain number of times, the Limiter decorator returns `FAILURE` without 
+ * certain number of times, the Limiter decorator returns `FAILURE` without
  * executing the child.
  *
  * @module b3
@@ -38,7 +36,7 @@ export default Class(Decorator, {
   parameters: {'maxLoop': 1},
 
   /**
-   * Initialization method. 
+   * Initialization method.
    *
    * Settings parameters:
    *

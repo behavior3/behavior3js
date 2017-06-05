@@ -1,22 +1,20 @@
 import {Class} from '../b3.functions';
 
-"use strict";
-
 /**
- * The Blackboard is the memory structure required by `BehaviorTree` and its 
+ * The Blackboard is the memory structure required by `BehaviorTree` and its
  * nodes. It only have 2 public methods: `set` and `get`. These methods works
  * in 3 different contexts: global, per tree, and per node per tree.
  *
- * Suppose you have two different trees controlling a single object with a 
+ * Suppose you have two different trees controlling a single object with a
  * single blackboard, then:
  *
- * - In the global context, all nodes will access the stored information. 
- * - In per tree context, only nodes sharing the same tree share the stored 
+ * - In the global context, all nodes will access the stored information.
+ * - In per tree context, only nodes sharing the same tree share the stored
  *   information.
- * - In per node per tree context, the information stored in the blackboard 
+ * - In per node per tree context, the information stored in the blackboard
  *   can only be accessed by the same node that wrote the data.
  *
- * The context is selected indirectly by the parameters provided to these 
+ * The context is selected indirectly by the parameters provided to these
  * methods, for example:
  *
  *     // getting/setting variable in global context
@@ -31,10 +29,10 @@ import {Class} from '../b3.functions';
  *     blackboard.set('testKey', 'value', tree.id, node.id);
  *     var value = blackboard.get('testKey', tree.id, node.id);
  *
- * Note: Internally, the blackboard store these memories in different 
- * objects, being the global on `_baseMemory`, the per tree on `_treeMemory` 
- * and the per node per tree dynamically create inside the per tree memory 
- * (it is accessed via `_treeMemory[id].nodeMemory`). Avoid to use these 
+ * Note: Internally, the blackboard store these memories in different
+ * objects, being the global on `_baseMemory`, the per tree on `_treeMemory`
+ * and the per node per tree dynamically create inside the per tree memory
+ * (it is accessed via `_treeMemory[id].nodeMemory`). Avoid to use these
  * variables manually, use `get` and `set` instead.
  *
  * @module b3
@@ -75,7 +73,7 @@ export default Class(null, {
   },
 
   /**
-   * Internal method to retrieve the node context memory, given the tree 
+   * Internal method to retrieve the node context memory, given the tree
    * memory. If the memory does not exist, this method creates is.
    *
    * @method _getNodeMemory
@@ -94,11 +92,11 @@ export default Class(null, {
   },
 
   /**
-   * Internal method to retrieve the context memory. If treeScope and 
-   * nodeScope are provided, this method returns the per node per tree 
-   * memory. If only the treeScope is provided, it returns the per tree 
-   * memory. If no parameter is provided, it returns the global memory. 
-   * Notice that, if only nodeScope is provided, this method will still 
+   * Internal method to retrieve the context memory. If treeScope and
+   * nodeScope are provided, this method returns the per node per tree
+   * memory. If only the treeScope is provided, it returns the per tree
+   * memory. If no parameter is provided, it returns the global memory.
+   * Notice that, if only nodeScope is provided, this method will still
    * return the global memory.
    *
    * @method _getMemory
@@ -122,18 +120,18 @@ export default Class(null, {
   },
 
   /**
-   * Stores a value in the blackboard. If treeScope and nodeScope are 
-   * provided, this method will save the value into the per node per tree 
-   * memory. If only the treeScope is provided, it will save the value into 
-   * the per tree memory. If no parameter is provided, this method will save 
-   * the value into the global memory. Notice that, if only nodeScope is 
+   * Stores a value in the blackboard. If treeScope and nodeScope are
+   * provided, this method will save the value into the per node per tree
+   * memory. If only the treeScope is provided, it will save the value into
+   * the per tree memory. If no parameter is provided, this method will save
+   * the value into the global memory. Notice that, if only nodeScope is
    * provided (but treeScope not), this method will still save the value into
    * the global memory.
    *
    * @method set
    * @param {String} key The key to be stored.
    * @param {String} value The value to be stored.
-   * @param {String} treeScope The tree id if accessing the tree or node 
+   * @param {String} treeScope The tree id if accessing the tree or node
    *                           memory.
    * @param {String} nodeScope The node id if accessing the node memory.
    **/
@@ -153,7 +151,7 @@ export default Class(null, {
    *
    * @method get
    * @param {String} key The key to be retrieved.
-   * @param {String} treeScope The tree id if accessing the tree or node 
+   * @param {String} treeScope The tree id if accessing the tree or node
    *                           memory.
    * @param {String} nodeScope The node id if accessing the node memory.
    * @return {Object} The value stored or undefined.

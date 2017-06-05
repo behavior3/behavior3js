@@ -2,12 +2,10 @@ import {Class} from '../b3.functions';
 import Decorator from '../core/Decorator';
 import {FAILURE, ERROR} from '../constants';
 
-"use strict";
-
 /**
- * The MaxTime decorator limits the maximum time the node child can execute. 
- * Notice that it does not interrupt the execution itself (i.e., the child 
- * must be non-preemptive), it only interrupts the node after a `RUNNING` 
+ * The MaxTime decorator limits the maximum time the node child can execute.
+ * Notice that it does not interrupt the execution itself (i.e., the child
+ * must be non-preemptive), it only interrupts the node after a `RUNNING`
  * status.
  *
  * @module b3

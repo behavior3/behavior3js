@@ -2,8 +2,6 @@ import {Class} from '../b3.functions';
 import Action from '../core/Action';
 import {SUCCESS, RUNNING} from '../constants';
 
-"use strict";
-
 /**
  * Wait a few seconds.
  *

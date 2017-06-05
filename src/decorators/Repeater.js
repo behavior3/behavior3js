@@ -2,8 +2,6 @@ import {Class} from '../b3.functions';
 import Decorator from '../core/Decorator';
 import {SUCCESS, ERROR, FAILURE} from '../constants';
 
-"use strict";
-
 /**
  * Repeater is a decorator that repeats the tick signal until the child node
  * return `RUNNING` or `ERROR`. Optionally, a maximum number of repetitions

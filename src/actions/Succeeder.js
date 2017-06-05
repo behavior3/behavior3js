@@ -2,8 +2,6 @@ import {Class} from '../b3.functions';
 import Action from '../core/Action';
 import {SUCCESS} from '../constants';
 
-"use strict";
-
 /**
  * This action node returns `SUCCESS` always.
  *
