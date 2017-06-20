@@ -33,3 +33,7 @@ node_modules
 # --------------
 docs/behavior3*
 todo
+
+# ignore compiled files
+libs/
+docs/*.zip

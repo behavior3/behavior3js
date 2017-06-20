@@ -1,44 +1,44 @@
-(function() {
-  "use strict";
+import {Class} from '../b3.functions';
+import Decorator from '../core/Decorator';
+import {FAILURE, SUCCESS, ERROR} from '../constants';
+
+/**
+ * The Inverter decorator inverts the result of the child, returning `SUCCESS`
+ * for `FAILURE` and `FAILURE` for `SUCCESS`.
+ *
+ * @module b3
+ * @class Inverter
+ * @extends Decorator
+ **/
+
+export default Class(Decorator, {
 
   /**
-   * The Inverter decorator inverts the result of the child, returning `SUCCESS`
-   * for `FAILURE` and `FAILURE` for `SUCCESS`.
-   *
-   * @module b3
-   * @class Inverter
-   * @extends Decorator
-  **/
-  b3.Inverter = b3.Class(b3.Decorator, {
+   * Node name. Default to `Inverter`.
+   * @property {String} name
+   * @readonly
+   **/
+  name: 'Inverter',
 
-    /**
-     * Node name. Default to `Inverter`.
-     * @property {String} name
-     * @readonly
-    **/
-    name: 'Inverter',
-
-    /**
-     * Tick method.
-     * @method tick
-     * @param {Tick} tick A tick instance.
-     * @return {Constant} A state constant.
-    **/
-    tick: function(tick) {
-      if (!this.child) {
-        return b3.ERROR;
-      }
-
-      var status = this.child._execute(tick);
-
-      if (status == b3.SUCCESS) {
-        status = b3.FAILURE;
-      } else if (status == b3.FAILURE) {
-        status = b3.SUCCESS;
-      }
-
-      return status;
+  /**
+   * Tick method.
+   * @method tick
+   * @param {Tick} tick A tick instance.
+   * @return {Constant} A state constant.
+   **/
+  tick: function(tick) {
+    if (!this.child) {
+      return ERROR;
     }
-  });
 
-})();
+    var status = this.child._execute(tick);
+
+    if (status == SUCCESS) {
+      status = FAILURE;
+    } else if (status == FAILURE) {
+      status = SUCCESS;
+    }
+
+    return status;
+  }
+});
