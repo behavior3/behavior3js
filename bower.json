@@ -7,6 +7,11 @@
       "name"     : "Renato Pereira",
       "email"    : "renato.ppontes@gmail.com",
       "homepage" : "http://guineashots.com"
+    },
+    {
+      "name"     : "Daniele Polencic",
+      "email"    : "daniele.polencic@gmail.com",
+      "homepage" : "https://uasabi.com"
     }
   ],
   "description" : "Behavior3 client library for Javascript (Behavior Trees for Javascript)",
