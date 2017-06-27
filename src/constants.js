@@ -1,4 +1,4 @@
-export const VERSION = '0.2.1';
+export const VERSION = '0.2.2';
 export const SUCCESS = 1;
 export const FAILURE = 2;
 export const RUNNING = 3;
