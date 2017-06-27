@@ -2,7 +2,7 @@
   "name": "behavior3js",
   "version": "0.2.0",
   "description": "Behavior3 client library for Javascript (Behavior Trees for Javascript)",
-  "main": "libs/behavior3-0.2.0.min.js",
+  "main": "libs/behavior3-0.2.0.js",
   "directories": {
     "doc": "docs",
     "test": "tests"
