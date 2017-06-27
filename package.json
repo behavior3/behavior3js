@@ -54,5 +54,12 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-  }
+  },
+  "contributors": [
+    {
+      "name" : "Daniele Polencic",
+      "email" : "daniele.polencic@gmail.com",
+      "url" : "https://uasabi.com"
+    }
+  ]
 }
