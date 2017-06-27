@@ -1,6 +1,6 @@
 {
   "name"     : "behavior3js",
-  "version"  : "0.2.0",
+  "version"  : "0.2.1",
   "homepage" : "https://github.com/renatopp/behavior3js",
   "authors": [
     {
@@ -16,7 +16,7 @@
     "behavior3", "b3", "game dev", "gameai"
   ],
   "main": [
-    "libs/behavior3-0.2.0.min.js"
+    "libs/behavior3-0.2.1.js"
   ],
   "ignore"      : [
     "node_modules",
