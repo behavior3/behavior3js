@@ -25,9 +25,11 @@
 
 # Usage
 
-Download the file `behavior3-VERSION.min.js` and include it into your HTML:
+Install the library
 
-    <script type="text/javascript" src="behavior3-VERSION.min.js"></script>
+```bash
+npm install behavior3js
+```
 
 You can use the online visual editor to design your behavior tree:
 
