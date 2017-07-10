@@ -1,3 +1,5 @@
+test
+aaa
 # BEHAVIOR3JS
 
 **Behavior3JS** is the original implementation and official javascript version of the Behavior3 library. It provides structures and algorithms that assist you in the task of creating intelligent agents for your game or application. 
