@@ -47,19 +47,18 @@
     "gulp-yuidoc": "^0.1.2",
     "gulp-zip": "^3.0.2",
     "jshint-stylish": "^2.0.1",
-    "mocha": "^2.4.5",
+    "mocha": "3.4.2",
     "sinon": "^1.17.3",
     "uglifyify": "^3.0.4",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "contributors": [
     {
-      "name" : "Daniele Polencic",
-      "email" : "daniele.polencic@gmail.com",
-      "url" : "https://uasabi.com"
+      "name": "Daniele Polencic",
+      "email": "daniele.polencic@gmail.com",
+      "url": "https://uasabi.com"
     }
   ]
 }

@@ -78,7 +78,7 @@ export default Class(Decorator, {
     while (this.maxLoop < 0 || i < this.maxLoop) {
       status = this.child._execute(tick);
 
-      if (status == b3.SUCCESS || status == b3.FAILURE) {
+      if (status == SUCCESS || status == FAILURE) {
           i++;
       } else {
         break;
