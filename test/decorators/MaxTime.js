@@ -1,7 +1,6 @@
 import {stub} from 'sinon';
 import {assert} from 'chai';
 import TickStub from '../TickStub';
-import {sleep} from '../utils';
 import MaxTime from '../../src/decorators/MaxTime';
 import {RUNNING, FAILURE, SUCCESS} from '../../src/constants';
 
@@ -10,7 +9,7 @@ suite('Decorator: MaxTime', function() {
         assert.equal(MaxTime.prototype.name, 'MaxTime');
     });
 
-    test('Failure test', function() {
+    test('Failure test', function(done) {
         var tick = TickStub();
         var startTime = (new Date()).getTime();
 
@@ -28,10 +27,11 @@ suite('Decorator: MaxTime', function() {
         var status = node._execute(tick);
         assert.equal(status, RUNNING);
 
-        while ((new Date()).getTime() - startTime < 25) { sleep(1); }
-        var status = node._execute(tick);
-        assert.equal(status, FAILURE);
-
+        setTimeout(function() {
+            var status = node._execute(tick);
+            assert.equal(status, FAILURE);
+            done();
+        }, 25);
     });
 
     test('Success test', function() {
@@ -47,14 +47,15 @@ suite('Decorator: MaxTime', function() {
         var child = {'_execute': stub()};
         child._execute.returns(RUNNING);
 
-        var node = new MaxTime({maxTime: 15, child:child});
+        var node = new MaxTime({maxTime: 50, child:child});
 
         var status = node._execute(tick);
         assert.equal(status, RUNNING);
 
-        while ((new Date()).getTime() - startTime < 5) { sleep(1); }
-        child._execute.returns(SUCCESS);
-        var status = node._execute(tick);
-        assert.equal(status, SUCCESS);
+        setTimeout(function() {
+            child._execute.returns(SUCCESS);
+            var status = node._execute(tick);
+            assert.equal(status, SUCCESS);
+        }, 200);
     });
 });
