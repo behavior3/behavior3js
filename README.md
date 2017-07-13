@@ -1,5 +1,7 @@
 # BEHAVIOR3JS
 
+[![Build Status](https://travis-ci.org/behavior3/behavior3js.svg?branch=master)](https://travis-ci.org/behavior3/behavior3js)
+
 **Behavior3JS** is the original implementation and official javascript version of the Behavior3 library. It provides structures and algorithms that assist you in the task of creating intelligent agents for your game or application. 
 
 - Info: http://behavior3.com
