@@ -48,7 +48,7 @@
     "gulp-zip": "^3.0.2",
     "jshint-stylish": "^2.0.1",
     "mocha": "3.4.2",
-    "sinon": "^1.17.3",
+    "sinon": "2.3.8",
     "uglifyify": "^3.0.4",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"

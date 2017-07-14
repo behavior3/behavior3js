@@ -5,57 +5,34 @@ import MaxTime from '../../src/decorators/MaxTime';
 import {RUNNING, FAILURE, SUCCESS} from '../../src/constants';
 
 suite('Decorator: MaxTime', function() {
-    test('Prototype', function() {
+    test('Maxtime.prototype', function() {
         assert.equal(MaxTime.prototype.name, 'MaxTime');
     });
 
-    test('Failure test', function(done) {
+    test('Failure test', function() {
         var tick = TickStub();
-        var startTime = (new Date()).getTime();
-
-        tick.blackboard.get
-            .onCall(0).returns(false)
-            .onCall(1).returns(startTime)
-            .onCall(2).returns(true)
-            .onCall(3).returns(startTime);
-
         var child = {'_execute': stub()};
         child._execute.returns(RUNNING);
 
-        var node = new MaxTime({maxTime:15, child:child});
+        var node = new MaxTime({maxTime: 15, child});
+        var startTime = (new Date()).getTime();
 
-        var status = node._execute(tick);
-        assert.equal(status, RUNNING);
+        tick.blackboard.get.returns(startTime - 14);
+        assert.equal(node.tick(tick), RUNNING);
 
-        setTimeout(function() {
-            var status = node._execute(tick);
-            assert.equal(status, FAILURE);
-            done();
-        }, 25);
+        tick.blackboard.get.returns(startTime - 16);
+        assert.equal(node.tick(tick), FAILURE);
     });
 
     test('Success test', function() {
         var tick = TickStub();
+        var child = {'_execute': stub()};
+        child._execute.returns(SUCCESS);
+
+        var node = new MaxTime({maxTime: 15, child});
         var startTime = (new Date()).getTime();
 
-        tick.blackboard.get
-            .onCall(0).returns(false)
-            .onCall(1).returns(startTime)
-            .onCall(2).returns(true)
-            .onCall(3).returns(startTime);
-
-        var child = {'_execute': stub()};
-        child._execute.returns(RUNNING);
-
-        var node = new MaxTime({maxTime: 50, child:child});
-
-        var status = node._execute(tick);
-        assert.equal(status, RUNNING);
-
-        setTimeout(function() {
-            child._execute.returns(SUCCESS);
-            var status = node._execute(tick);
-            assert.equal(status, SUCCESS);
-        }, 200);
+        tick.blackboard.get.returns(startTime - 14);
+        assert.equal(node.tick(tick), SUCCESS);
     });
 });
