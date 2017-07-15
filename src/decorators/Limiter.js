@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Decorator from '../core/Decorator';
 import {FAILURE, SUCCESS, ERROR} from '../constants';
 
@@ -12,28 +11,7 @@ import {FAILURE, SUCCESS, ERROR} from '../constants';
  * @extends Decorator
  **/
 
-export default Class(Decorator, {
-
-  /**
-   * Node name. Default to `Limiter`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'Limiter',
-
-  /**
-   * Node title. Default to `Limit X Activations`. Used in Editor.
-   * @property {String} title
-   * @readonly
-   **/
-  title: 'Limit <maxLoop> Activations',
-
-  /**
-   * Node parameters.
-   * @property {String} parameters
-   * @readonly
-   **/
-  parameters: {'maxLoop': 1},
+export default class Limiter extends Decorator {
 
   /**
    * Initialization method.
@@ -47,8 +25,8 @@ export default Class(Decorator, {
    * @param {Object} params Object with parameters.
    * @constructor
    **/
-  initialize: function(params) {
-    Decorator.prototype.initialize.call(this, params);
+  constructor(params) {
+    super(params);
 
     if (!params.maxLoop) {
       throw "maxLoop parameter in Limiter decorator is an obligatory " +
@@ -56,16 +34,16 @@ export default Class(Decorator, {
     }
 
     this.maxLoop = params.maxLoop;
-  },
+  }
 
   /**
    * Open method.
    * @method open
    * @param {Tick} tick A tick instance.
    **/
-  open: function(tick) {
+  open(tick) {
     tick.blackboard.set('i', 0, tick.tree.id, this.id);
-  },
+  }
 
   /**
    * Tick method.
@@ -73,7 +51,7 @@ export default Class(Decorator, {
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
-  tick: function(tick) {
+  tick(tick) {
     if (!this.child) {
       return ERROR;
     }
@@ -91,4 +69,25 @@ export default Class(Decorator, {
 
     return FAILURE;
   }
-});
+};
+
+/**
+ * Node name. Default to `Limiter`.
+ * @property {String} name
+ * @readonly
+ **/
+Limiter.prototype.name = 'Limiter';
+
+/**
+ * Node title. Default to `Limit X Activations`. Used in Editor.
+ * @property {String} title
+ * @readonly
+ **/
+Limiter.prototype.title = 'Limit <maxLoop> Activations';
+
+/**
+ * Node parameters.
+ * @property {String} parameters
+ * @readonly
+ **/
+Limiter.prototype.parameters = {'maxLoop': 1};

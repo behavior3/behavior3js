@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Action from '../core/Action';
 import {FAILURE} from '../constants';
 
@@ -9,14 +8,7 @@ import {FAILURE} from '../constants';
  * @class Failer
  * @extends Action
  **/
-export default Class(Action, {
-
-  /**
-   * Node name. Default to `Failer`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'Failer',
+export default class Failer extends Action {
 
   /**
    * Tick method.
@@ -24,7 +16,14 @@ export default Class(Action, {
    * @param {b3.Tick} tick A tick instance.
    * @return {Constant} Always return `FAILURE`.
    **/
-  tick: function(tick) {
+  tick(tick) {
     return FAILURE;
   }
-});
+};
+
+/**
+ * Node name. Default to `Failer`.
+ * @property {String} name
+ * @readonly
+ **/
+Failer.prototype.name = 'Failer';

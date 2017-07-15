@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import BaseNode from '../core/BaseNode';
 import {ACTION} from '../constants';
 
@@ -20,21 +19,21 @@ import {ACTION} from '../constants';
  * @extends BaseNode
  **/
 
-export default Class(BaseNode, {
-
-  /**
-   * Node category. Default to `ACTION`.
-   * @property {String} category
-   * @readonly
-   **/
-  category: ACTION,
+export default class Action extends BaseNode {
 
   /**
    * Initialization method.
    * @method initialize
    * @constructor
    **/
-  initialize: function(params) {
-    BaseNode.prototype.initialize.call(this);
+  constructor() {
+    super();
   }
-});
+};
+
+/**
+ * Node category. Default to `ACTION`.
+ * @property {String} category
+ * @readonly
+ **/
+Action.prototype.category = ACTION;

@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Action from '../core/Action';
 import {SUCCESS, RUNNING} from '../constants';
 
@@ -10,28 +9,7 @@ import {SUCCESS, RUNNING} from '../constants';
  * @extends Action
  **/
 
-export default Class(Action, {
-
-  /**
-   * Node name. Default to `Wait`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'Wait',
-
-  /**
-   * Node title. Default to `Wait XXms`. Used in Editor.
-   * @property {String} title
-   * @readonly
-   **/
-  title: 'Wait <milliseconds>ms',
-
-  /**
-   * Node parameters.
-   * @property {String} parameters
-   * @readonly
-   **/
-  parameters: {'milliseconds': 0},
+export default class Wait extends Action {
 
   /**
    * Initialization method.
@@ -45,22 +23,22 @@ export default Class(Action, {
    * @param {Object} settings Object with parameters.
    * @constructor
    **/
-  initialize: function(settings) {
+  constructor(settings) {
     settings = settings || {};
 
-    Action.prototype.initialize.call(this);
+    super();
     this.endTime = settings.milliseconds || 0;
-  },
+  }
 
   /**
    * Open method.
    * @method open
    * @param {Tick} tick A tick instance.
    **/
-  open: function(tick) {
+  open(tick) {
     var startTime = (new Date()).getTime();
     tick.blackboard.set('startTime', startTime, tick.tree.id, this.id);
-  },
+  }
 
   /**
    * Tick method.
@@ -68,7 +46,7 @@ export default Class(Action, {
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
-  tick: function(tick) {
+  tick(tick) {
     var currTime = (new Date()).getTime();
     var startTime = tick.blackboard.get('startTime', tick.tree.id, this.id);
 
@@ -78,4 +56,25 @@ export default Class(Action, {
 
     return RUNNING;
   }
-});
+};
+
+/**
+ * Node name. Default to `Wait`.
+ * @property {String} name
+ * @readonly
+ **/
+Wait.prototype.name = 'Wait';
+
+/**
+ * Node title. Default to `Wait XXms`. Used in Editor.
+ * @property {String} title
+ * @readonly
+ **/
+Wait.prototype.title = 'Wait <milliseconds>ms';
+
+/**
+ * Node parameters.
+ * @property {String} parameters
+ * @readonly
+ **/
+Wait.prototype.parameters = {'milliseconds': 0};

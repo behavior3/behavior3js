@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Decorator from '../core/Decorator';
 import {FAILURE, ERROR} from '../constants';
 
@@ -13,28 +12,7 @@ import {FAILURE, ERROR} from '../constants';
  * @extends Decorator
  **/
 
-export default Class(Decorator, {
-
-  /**
-   * Node name. Default to `MaxTime`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'MaxTime',
-
-  /**
-   * Node title. Default to `Max XXms`. Used in Editor.
-   * @property {String} title
-   * @readonly
-   **/
-  title: 'Max <maxTime>ms',
-
-  /**
-   * Node parameters.
-   * @property {String} parameters
-   * @readonly
-   **/
-  parameters: {'maxTime': 0},
+export default class MaxTime extends Decorator {
 
   /**
    * Initialization method.
@@ -48,8 +26,8 @@ export default Class(Decorator, {
    * @param {Object} params Object with parameters.
    * @constructor
    **/
-  initialize: function(params) {
-    Decorator.prototype.initialize.call(this, params);
+  constructor(params) {
+    super(params);
 
     if (!params.maxTime) {
       throw "maxTime parameter in MaxTime decorator is an obligatory " +
@@ -57,17 +35,17 @@ export default Class(Decorator, {
     }
 
     this.maxTime = params.maxTime;
-  },
+  }
 
   /**
    * Open method.
    * @method open
    * @param {Tick} tick A tick instance.
    **/
-  open: function(tick) {
+  open(tick) {
     var startTime = (new Date()).getTime();
     tick.blackboard.set('startTime', startTime, tick.tree.id, this.id);
-  },
+  }
 
   /**
    * Tick method.
@@ -75,7 +53,7 @@ export default Class(Decorator, {
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
-  tick: function(tick) {
+  tick(tick) {
     if (!this.child) {
       return ERROR;
     }
@@ -90,4 +68,25 @@ export default Class(Decorator, {
 
     return status;
   }
-});
+};
+
+/**
+ * Node name. Default to `MaxTime`.
+ * @property {String} name
+ * @readonly
+ **/
+MaxTime.prototype.name = 'MaxTime';
+
+/**
+ * Node title. Default to `Max XXms`. Used in Editor.
+ * @property {String} title
+ * @readonly
+ **/
+MaxTime.prototype.title = 'Max <maxTime>ms';
+
+/**
+ * Node parameters.
+ * @property {String} parameters
+ * @readonly
+ **/
+MaxTime.prototype.parameters = {'maxTime': 0};

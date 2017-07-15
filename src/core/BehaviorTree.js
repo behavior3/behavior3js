@@ -1,4 +1,4 @@
-import {Class, createUUID} from '../b3.functions';
+import {createUUID} from '../b3.functions';
 import {COMPOSITE, DECORATOR} from '../constants';
 import * as Decorators from '../decorators';
 import * as Composites from '../composites';
@@ -67,63 +67,21 @@ import Tick from './Tick';
  * @class BehaviorTree
  **/
 
-export default Class(null, {
-
-  /**
-   * The tree id, must be unique. By default, created with `createUUID`.
-   * @property {String} id
-   * @readOnly
-   **/
-  id: null,
-
-  /**
-   * The tree title.
-   * @property {String} title
-   * @readonly
-   **/
-  title: null,
-
-  /**
-   * Description of the tree.
-   * @property {String} description
-   * @readonly
-   **/
-  description: null,
-
-  /**
-   * A dictionary with (key-value) properties. Useful to define custom
-   * variables in the visual editor.
-   *
-   * @property {Object} properties
-   * @readonly
-   **/
-  properties: null,
-
-  /**
-   * The reference to the root node. Must be an instance of `BaseNode`.
-   * @property {BaseNode} root
-   **/
-  root: null,
-
-  /**
-   * The reference to the debug instance.
-   * @property {Object} debug
-   **/
-  debug: null,
+export default class BehaviorTree {
 
   /**
    * Initialization method.
    * @method initialize
    * @constructor
    **/
-  initialize: function() {
+  constructor() {
     this.id          = createUUID();
     this.title       = 'The behavior tree';
     this.description = 'Default description';
     this.properties  = {};
     this.root        = null;
     this.debug       = null;
-  },
+  }
 
   /**
    * This method loads a Behavior Tree from a data structure, populating this
@@ -153,7 +111,7 @@ export default Class(null, {
    * @param {Object} data The data structure representing a Behavior Tree.
    * @param {Object} [names] A namespace or dict containing custom nodes.
    **/
-  load: function(data, names) {
+  load(data, names) {
     names = names || {};
 
     this.title       = data.title || this.title;
@@ -208,7 +166,7 @@ export default Class(null, {
     }
 
     this.root = nodes[data.root];
-  },
+  }
 
   /**
    * This method dump the current BT into a data structure.
@@ -219,7 +177,7 @@ export default Class(null, {
    * @method dump
    * @return {Object} A data object representing this tree.
    **/
-  dump: function() {
+  dump() {
     var data = {};
     var customNames = [];
 
@@ -274,7 +232,7 @@ export default Class(null, {
     }
 
     return data;
-  },
+  }
 
   /**
    * Propagates the tick signal through the tree, starting from the root.
@@ -298,7 +256,7 @@ export default Class(null, {
    * @param {Blackboard} blackboard An instance of blackboard object.
    * @return {Constant} The tick signal state.
    **/
-  tick: function(target, blackboard) {
+  tick(target, blackboard) {
     if (!blackboard) {
       throw 'The blackboard parameter is obligatory and must be an ' +
         'instance of b3.Blackboard';
@@ -339,4 +297,47 @@ export default Class(null, {
 
     return state;
   }
-});
+};
+
+/**
+ * The tree id, must be unique. By default, created with `createUUID`.
+ * @property {String} id
+ * @readOnly
+ **/
+BehaviorTree.prototype.id = null;
+
+/**
+ * The tree title.
+ * @property {String} title
+ * @readonly
+ **/
+BehaviorTree.prototype.title = null;
+
+/**
+ * Description of the tree.
+ * @property {String} description
+ * @readonly
+ **/
+BehaviorTree.prototype.description = null;
+
+/**
+ * A dictionary with (key-value) properties. Useful to define custom
+ * variables in the visual editor.
+ *
+ * @property {Object} properties
+ * @readonly
+ **/
+BehaviorTree.prototype.properties = null;
+
+/**
+ * The reference to the root node. Must be an instance of `BaseNode`.
+ * @property {BaseNode} root
+ **/
+BehaviorTree.prototype.root = null;
+
+/**
+ * The reference to the debug instance.
+ * @property {Object} debug
+ **/
+BehaviorTree.prototype.debug = null;
+

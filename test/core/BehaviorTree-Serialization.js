@@ -7,7 +7,6 @@ import MaxTime from '../../src/decorators/MaxTime';
 import Condition from '../../src/core/Condition';
 import Wait from '../../src/actions/Wait';
 import {ACTION, CONDITION} from '../../src/constants';
-import {Class} from '../../src/b3.functions';
 
 // load and dump JSON model
 
@@ -111,7 +110,7 @@ suite('Core: Behavior Tree - Serialization', function() {
 
     test('Load JSON model with custom nodes', function() {
         var tree = new BehaviorTree();
-        var CustomNode = Class(Condition);
+        var CustomNode = Condition;
 
         var data = {
             'title'       : 'A JSON Behavior Tree',
@@ -149,7 +148,7 @@ suite('Core: Behavior Tree - Serialization', function() {
 
     test('Dump JSON model', function() {
         var tree = new BehaviorTree();
-        var CustomNode = Class(Condition);
+        var CustomNode = Condition;
         CustomNode.prototype.name = 'CustomNode';
         CustomNode.prototype.title = 'custom';
 

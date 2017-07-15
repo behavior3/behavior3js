@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Composite from '../core/Composite';
 import {SUCCESS} from '../constants';
 
@@ -12,14 +11,7 @@ import {SUCCESS} from '../constants';
  * @extends Composite
  **/
 
-export default Class(Composite, {
-
-  /**
-   * Node name. Default to `Sequence`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'Sequence',
+export default class Sequence extends Composite {
 
   /**
    * Tick method.
@@ -27,7 +19,7 @@ export default Class(Composite, {
    * @param {b3.Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
-  tick: function(tick) {
+  tick(tick) {
     for (var i=0; i<this.children.length; i++) {
       var status = this.children[i]._execute(tick);
 
@@ -38,4 +30,11 @@ export default Class(Composite, {
 
     return SUCCESS;
   }
-});
+};
+
+/**
+ * Node name. Default to `Sequence`.
+ * @property {String} name
+ * @readonly
+ **/
+Sequence.prototype.name = 'Sequence';

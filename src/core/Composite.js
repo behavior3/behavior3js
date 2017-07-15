@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import BaseNode from '../core/BaseNode';
 import {COMPOSITE} from '../constants';
 
@@ -18,7 +17,7 @@ import {COMPOSITE} from '../constants';
  *       name: 'Sequence',
  *
  *       // Override the tick function
- *       tick: function(tick) {
+ *       tick(tick) {
  *
  *         // Iterates over the children
  *         for (var i=0; i<this.children.length; i++) {
@@ -40,16 +39,7 @@ import {COMPOSITE} from '../constants';
  * @extends BaseNode
  **/
 
-export default Class(BaseNode, {
-
-  /**
-   * Node category. Default to `b3.COMPOSITE`.
-   *
-   * @property category
-   * @type {String}
-   * @readonly
-   **/
-  category: COMPOSITE,
+export default class Composite extends BaseNode {
 
   /**
    * Initialization method.
@@ -57,8 +47,17 @@ export default Class(BaseNode, {
    * @method initialize
    * @constructor
    **/
-  initialize: function(params) {
-    BaseNode.prototype.initialize.call(this);
+  constructor(params = {}) {
+    super();
     this.children = (params.children || []).slice(0);
   }
-});
+};
+
+/**
+ * Node category. Default to `b3.COMPOSITE`.
+ *
+ * @property category
+ * @type {String}
+ * @readonly
+ **/
+Composite.prototype.category = COMPOSITE;

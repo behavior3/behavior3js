@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import BaseNode from './BaseNode';
 import {DECORATOR} from '../constants';
 
@@ -39,22 +38,22 @@ import {DECORATOR} from '../constants';
  * @extends BaseNode
  **/
 
-export default Class(BaseNode, {
-
-  /**
-   * Node category. Default to DECORATOR.
-   * @property {String} category
-   * @readonly
-   **/
-  category: DECORATOR,
+export default class Decorator extends BaseNode {
 
   /**
    * Initialization method.
    * @method initialize
    * @constructor
    **/
-  initialize: function(params) {
-    BaseNode.prototype.initialize.call(this);
+  constructor(params = {}) {
+    super();
     this.child = params.child || null;
   }
-});
+};
+
+/**
+ * Node category. Default to DECORATOR.
+ * @property {String} category
+ * @readonly
+ **/
+Decorator.prototype.category = DECORATOR

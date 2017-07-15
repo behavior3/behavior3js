@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Decorator from '../core/Decorator';
 import {FAILURE, SUCCESS, ERROR} from '../constants';
 
@@ -11,14 +10,15 @@ import {FAILURE, SUCCESS, ERROR} from '../constants';
  * @extends Decorator
  **/
 
-export default Class(Decorator, {
+export default class Inverter extends Decorator {
 
   /**
-   * Node name. Default to `Inverter`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'Inverter',
+   * Creates an instance of Inverter.
+   * @param {any} params 
+   */
+  constructor(params){
+    super(params);
+  }
 
   /**
    * Tick method.
@@ -26,7 +26,7 @@ export default Class(Decorator, {
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
-  tick: function(tick) {
+  tick(tick) {
     if (!this.child) {
       return ERROR;
     }
@@ -41,4 +41,11 @@ export default Class(Decorator, {
 
     return status;
   }
-});
+};
+
+/**
+ * Node name. Default to `Inverter`.
+ * @property {String} name
+ * @readonly
+ **/
+Inverter.prototype.name = 'Inverter';
