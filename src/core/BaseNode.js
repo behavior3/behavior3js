@@ -182,13 +182,6 @@ export default class BaseNode {
 };
 
 /**
- * Node ID.
- * @property {string} id
- * @readonly
- **/
-BaseNode.prototype.id = null;
-
-/**
  * Node name. Must be a unique identifier, preferable the same name of the
  * class. You have to set the node name in the prototype.
  *
