@@ -14,7 +14,9 @@ export default class Inverter extends Decorator {
 
   /**
    * Creates an instance of Inverter.
+   * @method initialize
    * @param {any} params 
+   * @constructor
    */
   constructor(params){
     super(params);
