@@ -90,4 +90,4 @@ Limiter.prototype.title = 'Limit <maxLoop> Activations';
  * @property {String} parameters
  * @readonly
  **/
-Limiter.prototype.parameters = {'maxLoop': 1};
+Limiter.prototype.parameters = {maxLoop: 1};

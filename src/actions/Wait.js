@@ -77,4 +77,4 @@ Wait.prototype.title = 'Wait <milliseconds>ms';
  * @property {String} parameters
  * @readonly
  **/
-Wait.prototype.parameters = {'milliseconds': 0};
+Wait.prototype.parameters = {milliseconds: 0};

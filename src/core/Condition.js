@@ -23,6 +23,13 @@ export default class Condition extends BaseNode {
 };
 
 /**
+ * Node name. Default to `Condition`.
+ * @property {String} name
+ * @readonly
+ **/
+Condition.prototype.name = 'Condition';
+
+/**
  * Node category. Default to `b3.CONDITION`.
  * @property {String} category
  * @readonly

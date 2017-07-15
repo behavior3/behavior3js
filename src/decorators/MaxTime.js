@@ -89,4 +89,4 @@ MaxTime.prototype.title = 'Max <maxTime>ms';
  * @property {String} parameters
  * @readonly
  **/
-MaxTime.prototype.parameters = {'maxTime': 0};
+MaxTime.prototype.parameters = {maxTime: 0};

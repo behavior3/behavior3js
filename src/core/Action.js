@@ -20,15 +20,7 @@ import {ACTION} from '../constants';
  **/
 
 export default class Action extends BaseNode {
-
-  /**
-   * Initialization method.
-   * @method initialize
-   * @constructor
-   **/
-  constructor() {
-    super();
-  }
+  
 };
 
 /**

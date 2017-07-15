@@ -87,4 +87,4 @@ Repeater.prototype.title = 'Repeat <maxLoop>x';
  * @property {String} parameters
  * @readonly
  **/
-Repeater.prototype.parameters = {'maxLoop': -1};
+Repeater.prototype.parameters = {maxLoop: -1};

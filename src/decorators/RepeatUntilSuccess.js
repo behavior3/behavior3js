@@ -88,4 +88,4 @@ RepeatUntilSuccess.prototype.title = 'Repeat Until Success';
  * @property {String} parameters
  * @readonly
  **/
-RepeatUntilSuccess.prototype.parameters = {'maxLoop': -1};
+RepeatUntilSuccess.prototype.parameters = {maxLoop: -1};

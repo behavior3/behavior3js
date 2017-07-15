@@ -88,4 +88,4 @@ RepeatUntilFailure.prototype.title = 'Repeat Until Failure'
  * @property {String} parameters
  * @readonly
  **/
-RepeatUntilFailure.prototype.parameters = {'maxLoop': -1}
+RepeatUntilFailure.prototype.parameters = {maxLoop: -1}
