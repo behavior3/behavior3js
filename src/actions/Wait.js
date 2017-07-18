@@ -30,6 +30,37 @@ export default class Wait extends Action {
     this.endTime = settings.milliseconds || 0;
   }
 
+  
+  /**
+   * Node name. Default to `Wait`.
+   * 
+   * @readonly
+   * @memberof Wait
+   */
+  get name(){
+    return 'Wait';
+  }
+  
+  /**
+   * Node title. Default to `Wait XXms`. Used in Editor.
+   * 
+   * @readonly
+   * @memberof Wait
+   */
+  get title(){
+    return 'Wait <milliseconds>ms';
+  }
+  
+  /**
+   * Node properties.
+   * 
+   * @readonly
+   * @memberof Wait
+   **/
+  get properties() {
+    return {milliseconds: 0};
+  }
+
   /**
    * Open method.
    * @method open
@@ -57,24 +88,3 @@ export default class Wait extends Action {
     return RUNNING;
   }
 };
-
-/**
- * Node name. Default to `Wait`.
- * @property {String} name
- * @readonly
- **/
-Wait.prototype.name = 'Wait';
-
-/**
- * Node title. Default to `Wait XXms`. Used in Editor.
- * @property {String} title
- * @readonly
- **/
-Wait.prototype.title = 'Wait <milliseconds>ms';
-
-/**
- * Node parameters.
- * @property {String} parameters
- * @readonly
- **/
-Wait.prototype.parameters = {milliseconds: 0};

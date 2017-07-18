@@ -11,6 +11,16 @@ import {FAILURE} from '../constants';
 export default class Failer extends Action {
 
   /**
+   * Node name. Default to `Failer`.
+   * 
+   * @readonly
+   * @memberof Failer
+   */
+  get name(){
+    return 'Failer';
+  }
+
+  /**
    * Tick method.
    * @method tick
    * @param {b3.Tick} tick A tick instance.
@@ -20,10 +30,3 @@ export default class Failer extends Action {
     return FAILURE;
   }
 };
-
-/**
- * Node name. Default to `Failer`.
- * @property {String} name
- * @readonly
- **/
-Failer.prototype.name = 'Failer';

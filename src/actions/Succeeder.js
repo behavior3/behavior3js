@@ -12,6 +12,16 @@ import {SUCCESS} from '../constants';
 export default class Succeeder extends Action {
 
   /**
+   * Node name. Default to `Succeeder`.
+   * 
+   * @readonly
+   * @memberof Succeeder
+   */
+  get name(){
+    return 'Succeeder';
+  }
+
+  /**
    * Tick method.
    * @method tick
    * @param {b3.Tick} tick A tick instance.
@@ -21,10 +31,3 @@ export default class Succeeder extends Action {
     return SUCCESS;
   }
 };
-
-/**
- * Node name. Default to `Succeeder`.
- * @property {String} name
- * @readonly
- **/
-Succeeder.prototype.name = 'Succeeder';

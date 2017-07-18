@@ -11,6 +11,16 @@ import Action from '../core/Action';
 export default class Error extends Action {
 
   /**
+   * Node name. Default to `Error`.
+   * 
+   * @readonly
+   * @memberof Error
+   */
+  get name(){
+    return 'Error';
+  }
+
+  /**
    * Tick method.
    * @method tick
    * @param {b3.Tick} tick A tick instance.
@@ -20,10 +30,3 @@ export default class Error extends Action {
     return ERROR;
   }
 };
-
-/**
- * Node name. Default to `Error`.
- * @property {String} name
- * @readonly
- **/
-Error.prototype.name = 'Error';

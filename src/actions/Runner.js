@@ -11,6 +11,16 @@ import {RUNNING} from '../constants';
 export default class Runner extends Action {
 
   /**
+   * Node name. Default to `Runner`.
+   * 
+   * @readonly
+   * @memberof Runner
+   */
+  get name(){
+    return 'Runner';
+  }
+
+  /**
    * Tick method.
    * @method tick
    * @param {b3.Tick} tick A tick instance.
@@ -20,11 +30,3 @@ export default class Runner extends Action {
     return RUNNING;
   }
 };
-
-/**
- * Node name. Default to `Runner`.
- * @property {String} name
- * @readonly
- **/
-Runner.prototype.name = 'Runner';
-
