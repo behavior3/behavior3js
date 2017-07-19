@@ -19,10 +19,10 @@ export default class Sequence extends Composite {
    * @param {Array} params.children 
    * @memberof Sequence
    */
-  constructor(params){
+  constructor({children = []} = {}){
     super({
       name: 'Sequence',
-      params: params
+      children
     });
   }
 

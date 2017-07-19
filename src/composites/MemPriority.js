@@ -20,9 +20,9 @@ export default class MemPriority extends Composite {
    * @param {Array} params.children 
    * @memberof MemPriority
    */
-  constructor(params){
+  constructor({children = []} = {}){
     super({
-      params: params,
+      children,
       name: 'MemPriority',
     });
   }

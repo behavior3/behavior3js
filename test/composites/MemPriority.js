@@ -15,8 +15,8 @@ suite('Composite: MemPriority', function() {
         return {'_execute': _execute};
     }
 
-    test('Prototype', function() {
-        assert.equal(MemPriority.prototype.name, 'MemPriority');
+    test('Name', function() {
+        assert.equal(new MemPriority().name, 'MemPriority');
     });
 
     test('Open', function() {

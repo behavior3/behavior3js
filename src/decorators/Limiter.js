@@ -26,9 +26,9 @@ export default class Limiter extends Decorator {
    * @param {BaseNode} params.child The child node.
    * @memberof Limiter
    */
-  constructor(params) {
+  constructor({child = null} = {}) {
     super({
-      params: params,
+      child,
       name: 'Limiter',
       title: 'Limit <maxLoop> Activations',
       properties: {maxLoop: 1},

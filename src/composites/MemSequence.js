@@ -20,10 +20,10 @@ export default class MemSequence extends Composite {
    * @param {Array} params.children 
    * @memberof MemSequence
    */
-  constructor(params){
+  constructor({children = []} = {}){
     super({
       name: 'MemSequence',
-      params: params
+      children
     });
   }
 

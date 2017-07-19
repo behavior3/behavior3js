@@ -3,8 +3,8 @@ import Composite from '../../src/core/Composite';
 import {COMPOSITE} from '../../src/constants';
 
 suite('Core: Composite', function() {
-    test('Prototype', function() {
-        assert.equal(Composite.prototype.category, COMPOSITE);
+    test('Category', function() {
+        assert.equal(new Composite().category, COMPOSITE);
     });
 
     test('Initialization', function() {

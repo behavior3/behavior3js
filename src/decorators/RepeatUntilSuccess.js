@@ -24,14 +24,15 @@ export default class RepeatUntilSuccess extends Decorator {
    * @param {BaseNode} params.child The child node.
    * @memberof RepeatUntilSuccess
    **/
-  constructor(params = {}) {
+  constructor({maxLoop = -1, child = null} = {}) {
     super({
-      params,
+      child,
       name: 'RepeatUntilSuccess',
       title: 'Repeat Until Success',
       properties: {maxLoop: -1},
     });
-    this.maxLoop = params.maxLoop || -1;
+
+    this.maxLoop = maxLoop;
   }
 
   /**

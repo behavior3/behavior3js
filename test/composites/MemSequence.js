@@ -15,8 +15,8 @@ suite('Composite: MemSequence', function() {
         return {'_execute': _execute};
     }
 
-    test('Prototype', function() {
-        assert.equal(MemSequence.prototype.name, 'MemSequence');
+    test('Name', function() {
+        assert.equal(new MemSequence().name, 'MemSequence');
     });
 
     test('Open', function() {

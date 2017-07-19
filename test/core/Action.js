@@ -3,8 +3,8 @@ import Action from '../../src/core/Action';
 import {ACTION} from '../../src/constants';
 
 suite('Core: Action', function() {
-    test('Prototype', function() {
-        assert.equal(Action.prototype.category, ACTION);
+    test('Category', function() {
+        assert.equal(new Action().category, ACTION);
     });
 
     test('Initialization', function() {

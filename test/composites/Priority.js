@@ -17,8 +17,8 @@ suite('Composite: Priority', function() {
         };
     }
 
-    test('Prototype', function() {
-        assert.equal(Priority.prototype.name, 'Priority');
+    test('Name', function() {
+        assert.equal(new Priority().name, 'Priority');
     });
 
     test('Success', function() {

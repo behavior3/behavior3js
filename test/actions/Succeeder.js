@@ -4,8 +4,8 @@ import Succeeder from '../../src/actions/Succeeder';
 import {SUCCESS} from '../../src/constants';
 
 suite('Action: Succeeder', function() {
-    test('Prototype', function() {
-        assert.equal(Succeeder.prototype.name, 'Succeeder');
+    test('Name', function() {
+        assert.equal(new Succeeder().name, 'Succeeder');
     });
 
     test('Tick', function() {

@@ -24,15 +24,15 @@ export default class Repeater extends Decorator {
    * @param {BaseNode} params.child The child node.
    * @memberof Repeater
    **/
-  constructor(params = {}) {
+  constructor({maxLoop = -1, child = null} = {}) {
     super({
-      params,
+      child,
       name: 'Repeater',
       title: 'Repeat <maxLoop>x',
       properties: {maxLoop: -1},
     });
 
-    this.maxLoop = params.maxLoop || -1;
+    this.maxLoop = maxLoop;
   }
 
   /**

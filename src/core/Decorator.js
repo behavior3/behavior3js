@@ -45,14 +45,14 @@ export default class Decorator extends BaseNode {
    * @param {Object} options 
    * @memberof Decorator
    */
-  constructor({params, name = 'Decorator', title, properties}) {
+  constructor({child = null, name = 'Decorator', title, properties} = {}) {
     super({
       category: DECORATOR,
       name,
       title,
       properties,
     });
-    this.child = params.child || null;
+    this.child = child;
   }
 
 };

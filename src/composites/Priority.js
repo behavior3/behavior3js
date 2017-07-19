@@ -19,10 +19,10 @@ export default class Priority extends Composite {
    * @param {Array} params.children 
    * @memberof Priority
    */
-  constructor(params){
+  constructor({children = []} = {}){
     super({
       name: 'Priority',
-      params: params
+      children
     });
   }
 

@@ -4,11 +4,11 @@ import Wait from '../../src/actions/Wait';
 import {RUNNING, SUCCESS} from '../../src/constants';
 
 suite('Action: Wait', function() {
-    test('Wait.prototype', function() {
-        assert.equal(Wait.prototype.name, 'Wait');
+    test('Name', function() {
+        assert.equal(new Wait().name, 'Wait');
     });
 
-    test('Wait.prototype.open', function() {
+    test('Wait.open', function() {
         var now = Date.now();
         var wait = new Wait({milliseconds: 100});
         wait.id = 'node1';
@@ -21,7 +21,7 @@ suite('Action: Wait', function() {
         assert.equal(tick.blackboard.set.firstCall.args[3], 'node1');
     });
 
-    test('Wait.prototype.tick', function () {
+    test('Wait.tick', function () {
         var wait = new Wait({milliseconds: 100});
         var now = Date.now();
         wait.id = 'node1';

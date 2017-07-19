@@ -17,7 +17,7 @@ export default class Inverter extends Decorator {
    * @param {any} params 
    * @memberof Inverter
    */
-  constructor(params){
+  constructor(params = {}){
     super({
       name: 'Inverter',
       params: params,

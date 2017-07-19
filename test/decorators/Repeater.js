@@ -5,8 +5,8 @@ import Repeater from '../../src/decorators/Repeater';
 import {SUCCESS, RUNNING, ERROR} from '../../src/constants';
 
 suite('Decorator: Repeater', function() {
-    test('Prototype', function() {
-        assert.equal(Repeater.prototype.name, 'Repeater');
+    test('Name', function() {
+        assert.equal(new Repeater().name, 'Repeater');
     });
 
     test('Initialization', function() {

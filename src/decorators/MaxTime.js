@@ -25,19 +25,19 @@ export default class MaxTime extends Decorator {
    * @param {BaseNode} params.child The child node.
    * @memberof MaxTime
    */
-  constructor(params = {}) {
+  constructor({maxTime, child = null} = {}) {
     super({
-      params: params,
+      child,
       name: 'MaxTime',
       title: 'Max <maxTime>ms',
       properties: {maxTime: 0},
     });
 
-    if (!params.maxTime) {
+    if (!maxTime) {
       throw 'maxTime parameter in MaxTime decorator is an obligatory parameter';
     }
 
-    this.maxTime = params.maxTime;
+    this.maxTime = maxTime;
   }
 
   /**

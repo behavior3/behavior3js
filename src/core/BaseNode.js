@@ -30,7 +30,7 @@ export default class BaseNode {
    * @method initialize
    * @constructor
    **/
-  constructor({category, name, title, description, properties}) {
+  constructor({category, name, title, description, properties} = {}) {
 
     this.id = createUUID();
 
@@ -41,7 +41,7 @@ export default class BaseNode {
      * 
      * @member BaseNode#category
      **/
-    this.category = category;
+    this.category = category || '';
 
     /**
      * Node name. Must be a unique identifier,
@@ -50,7 +50,7 @@ export default class BaseNode {
      * 
      * @member BaseNode#name
      **/
-    this.name = name;
+    this.name = name || '';
 
     /**
      * Node title.

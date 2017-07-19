@@ -3,8 +3,8 @@ import Decorator from '../../src/core/Decorator';
 import {DECORATOR} from '../../src/constants';
 
 suite('Core: Decorator', function() {
-    test('Prototype', function() {
-        assert.equal(Decorator.prototype.category, DECORATOR);
+    test('Category', function() {
+        assert.equal(new Decorator().category, DECORATOR);
     });
 
     test('Initialization', function() {

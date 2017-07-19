@@ -27,7 +27,7 @@ export default class Action extends BaseNode {
    * @param {Object} options.name Node name. Default to `Action`.
    * @memberof Action
    */
-  constructor({name = 'Action', title, properties}){
+  constructor({name = 'Action', title, properties} = {}){
     super({
       category: ACTION,
       name,
