@@ -14,6 +14,19 @@ import {FAILURE} from '../constants';
 export default class Priority extends Composite {
 
   /**
+   * Creates an instance of Priority.
+   * @param {Object} params 
+   * @param {Array} params.children 
+   * @memberof Priority
+   */
+  constructor(params){
+    super({
+      name: 'Priority',
+      params: params
+    });
+  }
+
+  /**
    * Tick method.
    * @method tick
    * @param {Tick} tick A tick instance.
@@ -31,10 +44,3 @@ export default class Priority extends Composite {
     return FAILURE;
   }
 };
-
-/**
- * Node name. Default to `Priority`.
- * @property {String} name
- * @readonly
- **/
-Priority.prototype.name = 'Priority';

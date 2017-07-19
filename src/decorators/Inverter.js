@@ -14,12 +14,14 @@ export default class Inverter extends Decorator {
 
   /**
    * Creates an instance of Inverter.
-   * @method initialize
    * @param {any} params 
-   * @constructor
+   * @memberof Inverter
    */
   constructor(params){
-    super(params);
+    super({
+      name: 'Inverter',
+      params: params,
+    });
   }
 
   /**
@@ -44,10 +46,3 @@ export default class Inverter extends Decorator {
     return status;
   }
 };
-
-/**
- * Node name. Default to `Inverter`.
- * @property {String} name
- * @readonly
- **/
-Inverter.prototype.name = 'Inverter';

@@ -14,20 +14,24 @@ import {SUCCESS, ERROR, FAILURE} from '../constants';
 export default class Repeater extends Decorator {
 
   /**
-   * Initialization method.
+   * Creates an instance of MaxTime.
    *
-   * Settings parameters:
-   *
-   * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1
-   *                           (infinite).
+   * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 (infinite).
    * - **child** (*BaseNode*) The child node.
    *
-   * @method initialize
    * @param {Object} params Object with parameters.
-   * @constructor
+   * @param {Number} params.maxLoop Maximum number of repetitions. Default to -1 (infinite).
+   * @param {BaseNode} params.child The child node.
+   * @memberof Repeater
    **/
   constructor(params = {}) {
-    super(params);
+    super({
+      params,
+      name: 'Repeater',
+      title: 'Repeat <maxLoop>x',
+      properties: {maxLoop: -1},
+    });
+
     this.maxLoop = params.maxLoop || -1;
   }
 
@@ -67,24 +71,3 @@ export default class Repeater extends Decorator {
     return status;
   }
 };
-
-/**
- * Node name. Default to `Repeater`.
- * @property {String} name
- * @readonly
- **/
-Repeater.prototype.name = 'Repeater';
-
-/**
- * Node title. Default to `Repeat XXx`. Used in Editor.
- * @property {String} title
- * @readonly
- **/
-Repeater.prototype.title = 'Repeat <maxLoop>x';
-
-/**
- * Node parameters.
- * @property {String} parameters
- * @readonly
- **/
-Repeater.prototype.parameters = {maxLoop: -1};

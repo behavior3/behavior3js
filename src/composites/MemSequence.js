@@ -15,6 +15,19 @@ import {SUCCESS, RUNNING} from '../constants';
 export default class MemSequence extends Composite {
 
   /**
+   * Creates an instance of MemSequence.
+   * @param {Object} params 
+   * @param {Array} params.children 
+   * @memberof MemSequence
+   */
+  constructor(params){
+    super({
+      name: 'MemSequence',
+      params: params
+    });
+  }
+
+  /**
    * Open method.
    * @method open
    * @param {b3.Tick} tick A tick instance.
@@ -45,10 +58,3 @@ export default class MemSequence extends Composite {
     return SUCCESS;
   }
 };
-
-/**
- * Node name. Default to `MemSequence`.
- * @property {String} name
- * @readonly
- **/
-MemSequence.prototype.name = 'MemSequence';

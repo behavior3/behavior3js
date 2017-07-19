@@ -12,53 +12,21 @@ import {SUCCESS, RUNNING} from '../constants';
 export default class Wait extends Action {
 
   /**
-   * Initialization method.
-   *
-   * Settings parameters:
-   *
-   * - **milliseconds** (*Integer*) Maximum time, in milliseconds, a child
-   *                                can execute.
-   *
-   * @method initialize
-   * @param {Object} settings Object with parameters.
-   * @constructor
-   **/
+   * Creates an instance of Wait.
+   * @param {Object} settings Object with parameters
+   * @param {Number} settings.milliseconds Maximum time, in milliseconds, a child can execute.
+   * @memberof Wait
+   */
   constructor(settings) {
+    super({
+      name: 'Wait',
+      title: 'Wait <milliseconds>ms',
+      properties: {milliseconds: 0},
+    });
+
     settings = settings || {};
 
-    super();
     this.endTime = settings.milliseconds || 0;
-  }
-
-  
-  /**
-   * Node name. Default to `Wait`.
-   * 
-   * @readonly
-   * @memberof Wait
-   */
-  get name(){
-    return 'Wait';
-  }
-  
-  /**
-   * Node title. Default to `Wait XXms`. Used in Editor.
-   * 
-   * @readonly
-   * @memberof Wait
-   */
-  get title(){
-    return 'Wait <milliseconds>ms';
-  }
-  
-  /**
-   * Node properties.
-   * 
-   * @readonly
-   * @memberof Wait
-   **/
-  get properties() {
-    return {milliseconds: 0};
   }
 
   /**

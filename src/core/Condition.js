@@ -12,26 +12,19 @@ import {CONDITION} from '../constants';
 export default class Condition extends BaseNode {
 
   /**
-   * Initialization method.
-   * @method initialize
-   * @constructor
-   **/
-  constructor(params) {
-    super();
+   * Creates an instance of Condition.
+   * @param {Object} options 
+   * @param {Object} options.params 
+   * @param {Object} options.name Node name. Default to `Condition`.
+   * @memberof Condition
+   */
+  constructor({params, name = 'Condition', title, properties}) {
+    super({
+      category: CONDITION,
+      name,
+      title,
+      properties,
+    });
   }
 
 };
-
-/**
- * Node name. Default to `Condition`.
- * @property {String} name
- * @readonly
- **/
-Condition.prototype.name = 'Condition';
-
-/**
- * Node category. Default to `b3.CONDITION`.
- * @property {String} category
- * @readonly
- **/
-Condition.prototype.category = CONDITION;

@@ -42,22 +42,23 @@ import {COMPOSITE} from '../constants';
 export default class Composite extends BaseNode {
 
   /**
-   * Initialization method.
-   *
-   * @method initialize
-   * @constructor
-   **/
-  constructor(params = {}) {
-    super();
+   * Creates an instance of Composite.
+   * @param {Object} options 
+   * @param {Object} options.params 
+   * @param {BaseNode} options.params.child 
+   * @param {String} options.name Node name. Default to `Composite`.
+   * @param {String} options.title 
+   * @param {String} options.properties 
+   * @memberof Composite
+   */
+  constructor({params, name = 'Composite', title, properties}) {
+    super({
+      category: COMPOSITE,
+      name,
+      title,
+      properties,
+    });
     this.children = (params.children || []).slice(0);
   }
-};
 
-/**
- * Node category. Default to `b3.COMPOSITE`.
- *
- * @property category
- * @type {String}
- * @readonly
- **/
-Composite.prototype.category = COMPOSITE;
+};

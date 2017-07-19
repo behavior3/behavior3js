@@ -11,15 +11,13 @@ import {RUNNING} from '../constants';
 export default class Runner extends Action {
 
   /**
-   * Node name. Default to `Runner`.
-   * 
-   * @readonly
+   * Creates an instance of Runner.
    * @memberof Runner
    */
-  get name(){
-    return 'Runner';
+  constructor(){
+    super({name: 'Runner'});
   }
-
+  
   /**
    * Tick method.
    * @method tick

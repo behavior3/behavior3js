@@ -25,14 +25,54 @@ export default class Tick {
    **/
   constructor() {
     // set by BehaviorTree
-    this.tree       = null;
-    this.debug      = null;
-    this.target     = null;
+
+    /**
+     * The tree reference.
+     * @property {b3.BehaviorTree} tree
+     * @readOnly
+     **/
+    this.tree = null;
+
+    /**
+     * The debug reference.
+     * @property {Object} debug
+     * @readOnly
+     */
+    this.debug = null;
+
+    /**
+     * The target object reference.
+     * @property {Object} target
+     * @readOnly
+     **/
+    this.target = null;
+
+    /**
+     * The blackboard reference.
+     * @property {b3.Blackboard} blackboard
+     * @readOnly
+     **/
     this.blackboard = null;
 
     // updated during the tick signal
-    this._openNodes  = [];
-    this._nodeCount  = 0;
+
+    /**
+     * The list of open nodes. Update during the tree traversal.
+     * @property {Array} _openNodes
+     * @protected
+     * @readOnly
+     **/
+    this._openNodes = [];
+
+    /**
+     * The number of nodes entered during the tick. Update during the tree
+     * traversal.
+     *
+     * @property {Integer} _nodeCount
+     * @protected
+     * @readOnly
+     **/
+    this._nodeCount = 0;
   }
 
   /**
@@ -89,49 +129,3 @@ export default class Tick {
     // TODO: call debug here
   }
 };
-
-/**
- * The tree reference.
- * @property {b3.BehaviorTree} tree
- * @readOnly
- **/
-Tick.prototype.tree = null;
-
-/**
- * The debug reference.
- * @property {Object} debug
- * @readOnly
- */
-Tick.prototype.debug = null;
-
-/**
- * The target object reference.
- * @property {Object} target
- * @readOnly
- **/
-Tick.prototype.target = null;
-
-/**
- * The blackboard reference.
- * @property {b3.Blackboard} blackboard
- * @readOnly
- **/
-Tick.prototype.blackboard = null;
-
-/**
- * The list of open nodes. Update during the tree traversal.
- * @property {Array} _openNodes
- * @protected
- * @readOnly
- **/
-Tick.prototype._openNodes = [];
-
-/**
- * The number of nodes entered during the tick. Update during the tree
- * traversal.
- *
- * @property {Integer} _nodeCount
- * @protected
- * @readOnly
- **/
-Tick.prototype._nodeCount = 0;

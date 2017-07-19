@@ -1,5 +1,5 @@
-import {createUUID} from '../b3.functions';
-import {COMPOSITE, DECORATOR} from '../constants';
+import { createUUID } from '../b3.functions';
+import { COMPOSITE, DECORATOR } from '../constants';
 import * as Decorators from '../decorators';
 import * as Composites from '../composites';
 import * as Actions from '../actions';
@@ -75,12 +75,47 @@ export default class BehaviorTree {
    * @constructor
    **/
   constructor() {
-    this.id          = createUUID();
-    this.title       = 'The behavior tree';
+    /**
+     * The tree id, must be unique. By default, created with `createUUID`.
+     * @property {String} id
+     * @readOnly
+     **/
+    this.id = createUUID();
+
+    /**
+     * The tree title.
+     * @property {String} title
+     * @readonly
+     **/
+    this.title = 'The behavior tree';
+
+    /**
+     * Description of the tree.
+     * @property {String} description
+     * @readonly
+     **/
     this.description = 'Default description';
-    this.properties  = {};
-    this.root        = null;
-    this.debug       = null;
+
+    /**
+     * A dictionary with (key-value) properties. Useful to define custom
+     * variables in the visual editor.
+     *
+     * @property {Object} properties
+     * @readonly
+     **/
+    this.properties = {};
+
+    /**
+     * The reference to the root node. Must be an instance of `BaseNode`.
+     * @property {BaseNode} root
+     **/
+    this.root = null;
+
+    /**
+     * The reference to the debug instance.
+     * @property {Object} debug
+     **/
+    this.debug = null;
   }
 
   /**
@@ -114,9 +149,9 @@ export default class BehaviorTree {
   load(data, names) {
     names = names || {};
 
-    this.title       = data.title || this.title;
+    this.title = data.title || this.title;
     this.description = data.description || this.description;
-    this.properties  = data.properties || this.properties;
+    this.properties = data.properties || this.properties;
 
     var nodes = {};
     var id, spec, node;
@@ -137,8 +172,8 @@ export default class BehaviorTree {
         Cls = Actions[spec.name];
       } else {
         // Invalid node name
-        throw new EvalError('BehaviorTree.load: Invalid node name + "'+
-                            spec.name+'".');
+        throw new EvalError('BehaviorTree.load: Invalid node name + "' +
+          spec.name + '".');
       }
 
       node = new Cls(spec.properties);
@@ -156,7 +191,7 @@ export default class BehaviorTree {
       node = nodes[id];
 
       if (node.category === COMPOSITE && spec.children) {
-        for (var i=0; i<spec.children.length; i++) {
+        for (var i = 0; i < spec.children.length; i++) {
           var cid = spec.children[i];
           node.children.push(nodes[cid]);
         }
@@ -181,11 +216,11 @@ export default class BehaviorTree {
     var data = {};
     var customNames = [];
 
-    data.title        = this.title;
-    data.description  = this.description;
-    data.root         = (this.root)? this.root.id:null;
-    data.properties   = this.properties;
-    data.nodes        = {};
+    data.title = this.title;
+    data.description = this.description;
+    data.root = (this.root) ? this.root.id : null;
+    data.properties = this.properties;
+    data.nodes = {};
     data.custom_nodes = [];
 
     if (!this.root) return data;
@@ -218,7 +253,7 @@ export default class BehaviorTree {
       // store children/child
       if (node.category === COMPOSITE && node.children) {
         var children = [];
-        for (var i=node.children.length-1; i>=0; i--) {
+        for (var i = node.children.length - 1; i >= 0; i--) {
           children.push(node.children[i].id);
           stack.push(node.children[i]);
         }
@@ -259,15 +294,15 @@ export default class BehaviorTree {
   tick(target, blackboard) {
     if (!blackboard) {
       throw 'The blackboard parameter is obligatory and must be an ' +
-        'instance of b3.Blackboard';
+      'instance of b3.Blackboard';
     }
 
     /* CREATE A TICK OBJECT */
     var tick = new Tick();
-    tick.debug      = this.debug;
-    tick.target     = target;
+    tick.debug = this.debug;
+    tick.target = target;
     tick.blackboard = blackboard;
-    tick.tree       = this;
+    tick.tree = this;
 
     /* TICK NODE */
     var state = this.root._execute(tick);
@@ -279,15 +314,15 @@ export default class BehaviorTree {
     // does not close if it is still open in this tick
     var start = 0;
     var i;
-    for (i=0; i<Math.min(lastOpenNodes.length, currOpenNodes.length); i++) {
-      start = i+1;
+    for (i = 0; i < Math.min(lastOpenNodes.length, currOpenNodes.length); i++) {
+      start = i + 1;
       if (lastOpenNodes[i] !== currOpenNodes[i]) {
         break;
       }
     }
 
     // close the nodes
-    for (i=lastOpenNodes.length-1; i>=start; i--) {
+    for (i = lastOpenNodes.length - 1; i >= start; i--) {
       lastOpenNodes[i]._close(tick);
     }
 
@@ -298,46 +333,3 @@ export default class BehaviorTree {
     return state;
   }
 };
-
-/**
- * The tree id, must be unique. By default, created with `createUUID`.
- * @property {String} id
- * @readOnly
- **/
-BehaviorTree.prototype.id = null;
-
-/**
- * The tree title.
- * @property {String} title
- * @readonly
- **/
-BehaviorTree.prototype.title = null;
-
-/**
- * Description of the tree.
- * @property {String} description
- * @readonly
- **/
-BehaviorTree.prototype.description = null;
-
-/**
- * A dictionary with (key-value) properties. Useful to define custom
- * variables in the visual editor.
- *
- * @property {Object} properties
- * @readonly
- **/
-BehaviorTree.prototype.properties = null;
-
-/**
- * The reference to the root node. Must be an instance of `BaseNode`.
- * @property {BaseNode} root
- **/
-BehaviorTree.prototype.root = null;
-
-/**
- * The reference to the debug instance.
- * @property {Object} debug
- **/
-BehaviorTree.prototype.debug = null;
-

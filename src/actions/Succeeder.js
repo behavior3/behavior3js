@@ -12,13 +12,11 @@ import {SUCCESS} from '../constants';
 export default class Succeeder extends Action {
 
   /**
-   * Node name. Default to `Succeeder`.
-   * 
-   * @readonly
+   * Creates an instance of Succeeder.
    * @memberof Succeeder
    */
-  get name(){
-    return 'Succeeder';
+  constructor(){
+    super({name: 'Succeeder'});
   }
 
   /**

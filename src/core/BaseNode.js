@@ -30,12 +30,67 @@ export default class BaseNode {
    * @method initialize
    * @constructor
    **/
-  constructor() {
-    this.id          = createUUID();
-    this.title       = this.title || this.name;
-    this.description = '';
-    this.parameters  = {};
-    this.properties  = {};
+  constructor({category, name, title, description, properties}) {
+
+    this.id = createUUID();
+
+    /**
+     * Node category. Must be `COMPOSITE`, `DECORATOR`, `ACTION` or
+     * `CONDITION`. This is defined automatically be inheriting the
+     * correspondent class.
+     * 
+     * @member BaseNode#category
+     **/
+    this.category = category;
+
+    /**
+     * Node name. Must be a unique identifier,
+     * preferable the same name of the
+     * class. You have to set the node name in the prototype.
+     * 
+     * @member BaseNode#name
+     **/
+    this.name = name;
+
+    /**
+     * Node title.
+     * 
+     * @optional
+     * @member BaseNode#title
+     **/
+    this.title = title || this.name;
+
+    /**
+     * Node description.
+     * 
+     * @member BaseNode#description
+     */
+    this.description = description || '';
+
+    /**
+     * A dictionary (key, value) describing the node properties. Useful for
+     * defining custom variables inside the visual editor.
+     *
+     * @property properties
+     * @type {Object}
+     * @readonly
+     **/
+    this.properties = properties || {};
+
+    /**
+     * A dictionary (key, value) describing the node parameters. Useful for
+     * defining parameter values in the visual editor. Note: this is only
+     * useful for nodes when loading trees from JSON files.
+     *
+     * **Deprecated since 0.2.0. This is too similar to the properties
+     * attribute, thus, this attribute is deprecated in favor to
+     * `properties`.**
+     *
+     * @property {Object} parameters
+     * @deprecated since 0.2.0.
+     * @readonly
+     **/
+    this.parameters = {};
   }
 
   /**
@@ -180,63 +235,3 @@ export default class BaseNode {
    **/
   exit(tick) {}
 };
-
-/**
- * Node name. Must be a unique identifier, preferable the same name of the
- * class. You have to set the node name in the prototype.
- *
- * @property {String} name
- * @readonly
- **/
-BaseNode.prototype.name = null;
-
-/**
- * Node category. Must be `COMPOSITE`, `DECORATOR`, `ACTION` or
- * `CONDITION`. This is defined automatically be inheriting the
- * correspondent class.
- *
- * @property {CONSTANT} category
- * @readonly
- **/
-BaseNode.prototype.category = null;
-
-/**
- * Node title.
- * @property {String} title
- * @optional
- * @readonly
- **/
-BaseNode.prototype.title = null;
-
-/**
- * Node description.
- * @property {String} description
- * @optional
- * @readonly
- **/
-BaseNode.prototype.description = null;
-
-/**
- * A dictionary (key, value) describing the node parameters. Useful for
- * defining parameter values in the visual editor. Note: this is only
- * useful for nodes when loading trees from JSON files.
- *
- * **Deprecated since 0.2.0. This is too similar to the properties
- * attribute, thus, this attribute is deprecated in favor to
- * `properties`.**
- *
- * @property {Object} parameters
- * @deprecated since 0.2.0.
- * @readonly
- **/
-BaseNode.prototype.parameters = null;
-
-/**
- * A dictionary (key, value) describing the node properties. Useful for
- * defining custom variables inside the visual editor.
- *
- * @property properties
- * @type {Object}
- * @readonly
- **/
-BaseNode.prototype.properties = null;

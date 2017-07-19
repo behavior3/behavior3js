@@ -41,19 +41,18 @@ import {DECORATOR} from '../constants';
 export default class Decorator extends BaseNode {
 
   /**
-   * Initialization method.
-   * @method initialize
-   * @constructor
-   **/
-  constructor(params = {}) {
-    super();
+   * Creates an instance of Decorator.
+   * @param {Object} options 
+   * @memberof Decorator
+   */
+  constructor({params, name = 'Decorator', title, properties}) {
+    super({
+      category: DECORATOR,
+      name,
+      title,
+      properties,
+    });
     this.child = params.child || null;
   }
-};
 
-/**
- * Node category. Default to DECORATOR.
- * @property {String} category
- * @readonly
- **/
-Decorator.prototype.category = DECORATOR
+};

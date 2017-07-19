@@ -14,6 +14,19 @@ import {SUCCESS} from '../constants';
 export default class Sequence extends Composite {
 
   /**
+   * Creates an instance of Sequence.
+   * @param {Object} params 
+   * @param {Array} params.children 
+   * @memberof Sequence
+   */
+  constructor(params){
+    super({
+      name: 'Sequence',
+      params: params
+    });
+  }
+
+  /**
    * Tick method.
    * @method tick
    * @param {b3.Tick} tick A tick instance.
@@ -31,10 +44,3 @@ export default class Sequence extends Composite {
     return SUCCESS;
   }
 };
-
-/**
- * Node name. Default to `Sequence`.
- * @property {String} name
- * @readonly
- **/
-Sequence.prototype.name = 'Sequence';

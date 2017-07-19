@@ -14,20 +14,23 @@ import {SUCCESS, ERROR} from '../constants';
 export default class RepeatUntilFailure extends Decorator {
 
   /**
-   * Initialization method.
+   * Creates an instance of RepeatUntilFailure.
    *
-   * Settings parameters:
-   *
-   * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1
-   *                           (infinite).
+   * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 (infinite).
    * - **child** (*BaseNode*) The child node.
    *
-   * @method initialize
    * @param {Object} params Object with parameters.
-   * @constructor
+   * @param {Number} params.maxLoop Maximum number of repetitions. Default to -1 (infinite).
+   * @param {BaseNode} params.child The child node.
+   * @memberof RepeatUntilFailure
    **/
   constructor(params = {}) {
-    super(params);
+    super({
+      params,
+      name: 'RepeatUntilFailure',
+      title: 'Repeat Until Failure',
+      properties: {maxLoop: -1},
+    });
     this.maxLoop = params.maxLoop || -1;
   }
 
@@ -68,24 +71,3 @@ export default class RepeatUntilFailure extends Decorator {
     return status;
   }
 };
-
-/**
- * Node name. Default to `RepeatUntilFailure`.
- * @property {String} name
- * @readonly
- **/
-RepeatUntilFailure.prototype.name = 'RepeatUntilFailure'
-
-/**
- * Node title. Default to `Repeat Until Failure`.
- * @property {String} title
- * @readonly
- **/
-RepeatUntilFailure.prototype.title = 'Repeat Until Failure'
-
-/**
- * Node parameters.
- * @property {String} parameters
- * @readonly
- **/
-RepeatUntilFailure.prototype.parameters = {maxLoop: -1}

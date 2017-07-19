@@ -54,7 +54,7 @@ export default class Blackboard {
    * not exist, this method creates it.
    *
    * @method _getTreeMemory
-   * @param {string} treeScope The id of the tree in scope.
+   * @param {String} treeScope The id of the tree in scope.
    * @return {Object} The tree memory.
    * @protected
    **/

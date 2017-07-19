@@ -15,6 +15,19 @@ import {FAILURE, RUNNING} from '../constants';
 export default class MemPriority extends Composite {
 
   /**
+   * Creates an instance of MemPriority.
+   * @param {Object} params 
+   * @param {Array} params.children 
+   * @memberof MemPriority
+   */
+  constructor(params){
+    super({
+      params: params,
+      name: 'MemPriority',
+    });
+  }
+
+  /**
    * Open method.
    * @method open
    * @param {b3.Tick} tick A tick instance.
@@ -46,10 +59,3 @@ export default class MemPriority extends Composite {
     return FAILURE;
   }
 };
-
-/**
- * Node name. Default to `MemPriority`.
- * @property {String} name
- * @readonly
- **/
-MemPriority.prototype.name = 'MemPriority';

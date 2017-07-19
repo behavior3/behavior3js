@@ -11,13 +11,11 @@ import Action from '../core/Action';
 export default class Error extends Action {
 
   /**
-   * Node name. Default to `Error`.
-   * 
-   * @readonly
+   * Creates an instance of Error.
    * @memberof Error
    */
-  get name(){
-    return 'Error';
+  constructor(){
+    super({name: 'Error'});
   }
 
   /**

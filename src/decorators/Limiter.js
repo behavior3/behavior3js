@@ -14,25 +14,30 @@ import {FAILURE, SUCCESS, ERROR} from '../constants';
 export default class Limiter extends Decorator {
 
   /**
-   * Initialization method.
-   *
+   * Creates an instance of Limiter.
+   * 
    * Settings parameters:
-   *
+   * 
    * - **maxLoop** (*Integer*) Maximum number of repetitions.
    * - **child** (*BaseNode*) The child node.
-   *
-   * @method initialize
-   * @param {Object} params Object with parameters.
-   * @constructor
-   **/
+   * 
+   * @param {Object} params stuff
+   * @param {Number} params.maxLoop Maximum number of repetitions.
+   * @param {BaseNode} params.child The child node.
+   * @memberof Limiter
+   */
   constructor(params) {
-    super(params);
+    super({
+      params: params,
+      name: 'Limiter',
+      title: 'Limit <maxLoop> Activations',
+      properties: {maxLoop: 1},
+    });
 
     if (!params.maxLoop) {
-      throw "maxLoop parameter in Limiter decorator is an obligatory " +
-        "parameter";
+      throw 'maxLoop parameter in Limiter decorator is an obligatory parameter';
     }
-
+    
     this.maxLoop = params.maxLoop;
   }
 
@@ -70,24 +75,3 @@ export default class Limiter extends Decorator {
     return FAILURE;
   }
 };
-
-/**
- * Node name. Default to `Limiter`.
- * @property {String} name
- * @readonly
- **/
-Limiter.prototype.name = 'Limiter';
-
-/**
- * Node title. Default to `Limit X Activations`. Used in Editor.
- * @property {String} title
- * @readonly
- **/
-Limiter.prototype.title = 'Limit <maxLoop> Activations';
-
-/**
- * Node parameters.
- * @property {String} parameters
- * @readonly
- **/
-Limiter.prototype.parameters = {maxLoop: 1};

@@ -21,11 +21,19 @@ import {ACTION} from '../constants';
 
 export default class Action extends BaseNode {
   
-};
+  /**
+   * Creates an instance of Action.
+   * @param {Object} options 
+   * @param {Object} options.name Node name. Default to `Action`.
+   * @memberof Action
+   */
+  constructor({name = 'Action', title, properties}){
+    super({
+      category: ACTION,
+      name,
+      title,
+      properties,
+    });
+  }
 
-/**
- * Node category. Default to `ACTION`.
- * @property {String} category
- * @readonly
- **/
-Action.prototype.category = ACTION;
+};

@@ -15,23 +15,26 @@ import {FAILURE, ERROR} from '../constants';
 export default class MaxTime extends Decorator {
 
   /**
-   * Initialization method.
-   *
-   * Settings parameters:
-   *
+   * Creates an instance of MaxTime.
+   * 
    * - **maxTime** (*Integer*) Maximum time a child can execute.
    * - **child** (*BaseNode*) The child node.
-   *
-   * @method initialize
+
    * @param {Object} params Object with parameters.
-   * @constructor
-   **/
-  constructor(params) {
-    super(params);
+   * @param {Number} params.maxTime Maximum time a child can execute.
+   * @param {BaseNode} params.child The child node.
+   * @memberof MaxTime
+   */
+  constructor(params = {}) {
+    super({
+      params: params,
+      name: 'MaxTime',
+      title: 'Max <maxTime>ms',
+      properties: {maxTime: 0},
+    });
 
     if (!params.maxTime) {
-      throw "maxTime parameter in MaxTime decorator is an obligatory " +
-        "parameter";
+      throw 'maxTime parameter in MaxTime decorator is an obligatory parameter';
     }
 
     this.maxTime = params.maxTime;
@@ -69,24 +72,3 @@ export default class MaxTime extends Decorator {
     return status;
   }
 };
-
-/**
- * Node name. Default to `MaxTime`.
- * @property {String} name
- * @readonly
- **/
-MaxTime.prototype.name = 'MaxTime';
-
-/**
- * Node title. Default to `Max XXms`. Used in Editor.
- * @property {String} title
- * @readonly
- **/
-MaxTime.prototype.title = 'Max <maxTime>ms';
-
-/**
- * Node parameters.
- * @property {String} parameters
- * @readonly
- **/
-MaxTime.prototype.parameters = {maxTime: 0};

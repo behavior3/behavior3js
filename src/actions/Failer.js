@@ -11,13 +11,11 @@ import {FAILURE} from '../constants';
 export default class Failer extends Action {
 
   /**
-   * Node name. Default to `Failer`.
-   * 
-   * @readonly
+   * Creates an instance of Failer.
    * @memberof Failer
    */
-  get name(){
-    return 'Failer';
+  constructor(){
+    super({name: 'Failer'});
   }
 
   /**
