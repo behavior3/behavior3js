@@ -6,7 +6,7 @@ import {SUCCESS, RUNNING} from '../../src/constants';
 
 suite('Decorator: Limiter', function() {
     test('Name', function() {
-        assert.equal(new Limiter().name, 'Limiter');
+        assert.equal(new Limiter({maxLoop:1}).name, 'Limiter');
     });
 
     test('Initialization', function() {

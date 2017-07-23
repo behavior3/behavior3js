@@ -26,7 +26,7 @@ export default class Limiter extends Decorator {
    * @param {BaseNode} params.child The child node.
    * @memberof Limiter
    */
-  constructor({child = null} = {}) {
+  constructor({child = null, maxLoop} = {}) {
     super({
       child,
       name: 'Limiter',
@@ -34,11 +34,11 @@ export default class Limiter extends Decorator {
       properties: {maxLoop: 1},
     });
 
-    if (!params.maxLoop) {
+    if (!maxLoop) {
       throw 'maxLoop parameter in Limiter decorator is an obligatory parameter';
     }
     
-    this.maxLoop = params.maxLoop;
+    this.maxLoop = maxLoop;
   }
 
   /**

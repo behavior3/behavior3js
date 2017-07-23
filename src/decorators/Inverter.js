@@ -14,13 +14,14 @@ export default class Inverter extends Decorator {
 
   /**
    * Creates an instance of Inverter.
-   * @param {any} params 
+   * @param {Object} params
+   * @param {BaseNode} params.child The child node.
    * @memberof Inverter
    */
-  constructor(params = {}){
+  constructor({child = null} = {}){
     super({
+      child,
       name: 'Inverter',
-      params: params,
     });
   }
 
