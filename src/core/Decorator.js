@@ -12,8 +12,11 @@ import {DECORATOR} from '../constants';
  * class and how it call its children:
  *
  *     // Inherit from Decorator, using the util function Class.
- *     var Inverter = b3.Class(b3.Decorator, {
- *       name: 'Inverter',
+ *     class Inverter extends b3.Decorator {
+ *       
+ *       constructor(){
+ *         super({name: 'Invereter'});
+ *       }
  *
  *       tick: function(tick) {
  *         if (!this.child) {
@@ -23,9 +26,9 @@ import {DECORATOR} from '../constants';
  *         // Propagate the tick
  *         var status = this.child._execute(tick);
  *
- *         if (status == b3.SUCCESS) {
+ *         if (status === b3.SUCCESS) {
  *           status = b3.FAILURE;
- *         } else if (status == b3.FAILURE) {
+ *         } else if (status === b3.FAILURE) {
  *           status = b3.SUCCESS;
  *         }
  *
@@ -43,6 +46,9 @@ export default class Decorator extends BaseNode {
   /**
    * Creates an instance of Decorator.
    * @param {Object} options 
+   * @param {String} options.name Node name. Default to `Decorator`.
+   * @param {String} options.title 
+   * @param {Object} options.properties 
    * @memberof Decorator
    */
   constructor({child = null, name = 'Decorator', title, properties} = {}) {

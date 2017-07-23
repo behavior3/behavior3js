@@ -11,10 +11,12 @@ import {COMPOSITE} from '../constants';
  * the Sequence node inherit this class and how it call its children:
  *
  *     // Inherit from Composite, using the util function Class.
- *     var Sequence = Class(Composite, {
+ *     class Sequence extends Composite {
  *
- *       // Remember to set the name of the node.
- *       name: 'Sequence',
+ *       constructor(){
+ *         // Remember to set the name of the node.
+ *         super({name: 'Sequence'});
+ *       }
  *
  *       // Override the tick function
  *       tick(tick) {
@@ -32,7 +34,7 @@ import {COMPOSITE} from '../constants';
  *
  *         return SUCCESS;
  *       }
- *     });
+ *     };
  *
  * @module b3
  * @class Composite
@@ -47,7 +49,7 @@ export default class Composite extends BaseNode {
    * @param {BaseNode[]} options.children 
    * @param {String} options.name Node name. Default to `Composite`.
    * @param {String} options.title 
-   * @param {String} options.properties 
+   * @param {Object} options.properties 
    * @memberof Composite
    */
   constructor({children = [], name = 'Composite', title, properties} = {}) {

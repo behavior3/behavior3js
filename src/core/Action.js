@@ -6,13 +6,14 @@ import {ACTION} from '../constants';
  * new custom action nodes, you need to inherit from this class. For example,
  * take a look at the Runner action:
  *
- *     var Runner = b3.Class(b3.Action, {
- *       name: 'Runner',
- *
- *       tick: function(tick) {
+ *     class Runner extends b3.Action {
+ *       constructor(){
+ *         super({name: 'Runner'});
+ *       }
+ *       tick(tick) {
  *         return b3.RUNNING;
  *       }
- *     });
+ *     };
  *
  * @module b3
  * @class Action
@@ -24,7 +25,9 @@ export default class Action extends BaseNode {
   /**
    * Creates an instance of Action.
    * @param {Object} options 
-   * @param {Object} options.name Node name. Default to `Action`.
+   * @param {String} options.name Node name. Default to `Action`.
+   * @param {String} options.title
+   * @param {Object} options.properties 
    * @memberof Action
    */
   constructor({name = 'Action', title, properties} = {}){

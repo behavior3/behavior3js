@@ -8,6 +8,11 @@ suite('Action: Wait', function() {
         assert.equal(new Wait().name, 'Wait');
     });
 
+    test('Constructor', function() {
+        assert.equal(new Wait().endTime, 0);
+        assert.equal(new Wait({}).endTime, 0);
+    });
+
     test('Wait.open', function() {
         var now = Date.now();
         var wait = new Wait({milliseconds: 100});

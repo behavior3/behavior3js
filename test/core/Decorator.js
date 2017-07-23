@@ -16,4 +16,11 @@ suite('Core: Decorator', function() {
         assert.equal(node.child, 'child1');
         assert.equal(node.category, 'decorator');
     });
+
+    test('Empty constructor', function() {
+        var node = new Decorator();
+
+        assert.isDefined(node.child);
+        assert.equal(node.child, null);
+    })
 });
