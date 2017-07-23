@@ -11,6 +11,7 @@ suite('Action: Wait', function() {
     test('Constructor', function() {
         assert.equal(new Wait().endTime, 0);
         assert.equal(new Wait({}).endTime, 0);
+        assert.equal(new Wait({milliseconds: 1300}).endTime, 1300);
     });
 
     test('Wait.open', function() {
