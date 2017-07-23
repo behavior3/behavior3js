@@ -17,16 +17,14 @@ export default class Wait extends Action {
    * @param {Number} settings.milliseconds Maximum time, in milliseconds, a child can execute.
    * @memberof Wait
    */
-  constructor(settings) {
+  constructor({milliseconds = 0} = {}) {
     super({
       name: 'Wait',
       title: 'Wait <milliseconds>ms',
       properties: {milliseconds: 0},
     });
 
-    settings = settings || {};
-
-    this.endTime = settings.milliseconds || 0;
+    this.endTime = milliseconds;
   }
 
   /**

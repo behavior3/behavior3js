@@ -21,7 +21,7 @@ export default class Limiter extends Decorator {
    * - **maxLoop** (*Integer*) Maximum number of repetitions.
    * - **child** (*BaseNode*) The child node.
    * 
-   * @param {Object} params stuff
+   * @param {Object} params
    * @param {Number} params.maxLoop Maximum number of repetitions.
    * @param {BaseNode} params.child The child node.
    * @memberof Limiter
