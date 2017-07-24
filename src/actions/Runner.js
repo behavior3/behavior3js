@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Action from '../core/Action';
 import {RUNNING} from '../constants';
 
@@ -9,22 +8,23 @@ import {RUNNING} from '../constants';
  * @class Runner
  * @extends Action
  **/
-export default Class(Action, {
+export default class Runner extends Action {
 
   /**
-   * Node name. Default to `Runner`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'Runner',
-
+   * Creates an instance of Runner.
+   * @memberof Runner
+   */
+  constructor(){
+    super({name: 'Runner'});
+  }
+  
   /**
    * Tick method.
    * @method tick
    * @param {b3.Tick} tick A tick instance.
    * @return {Constant} Always return `RUNNING`.
    **/
-  tick: function(tick) {
+  tick(tick) {
     return RUNNING;
   }
-});
+};

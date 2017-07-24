@@ -1,5 +1,3 @@
-import {Class} from '../b3.functions';
-
 /**
  * The Blackboard is the memory structure required by `BehaviorTree` and its
  * nodes. It only have 2 public methods: `set` and `get`. These methods works
@@ -39,28 +37,28 @@ import {Class} from '../b3.functions';
  * @class Blackboard
  **/
 
-export default Class(null, {
+export default class Blackboard {
 
   /**
    * Initialization method.
    * @method initialize
    * @constructor
    **/
-  initialize: function() {
+  constructor() {
     this._baseMemory = {};
     this._treeMemory = {};
-  },
+  }
 
   /**
    * Internal method to retrieve the tree context memory. If the memory does
    * not exist, this method creates it.
    *
    * @method _getTreeMemory
-   * @param {string} treeScope The id of the tree in scope.
+   * @param {String} treeScope The id of the tree in scope.
    * @return {Object} The tree memory.
    * @protected
    **/
-  _getTreeMemory: function(treeScope) {
+  _getTreeMemory(treeScope) {
     if (!this._treeMemory[treeScope]) {
       this._treeMemory[treeScope] = {
         'nodeMemory'     : {},
@@ -70,7 +68,7 @@ export default Class(null, {
       };
     }
     return this._treeMemory[treeScope];
-  },
+  }
 
   /**
    * Internal method to retrieve the node context memory, given the tree
@@ -82,14 +80,14 @@ export default Class(null, {
    * @return {Object} The node memory.
    * @protected
    **/
-  _getNodeMemory: function(treeMemory, nodeScope) {
+  _getNodeMemory(treeMemory, nodeScope) {
     var memory = treeMemory.nodeMemory;
     if (!memory[nodeScope]) {
       memory[nodeScope] = {};
     }
 
     return memory[nodeScope];
-  },
+  }
 
   /**
    * Internal method to retrieve the context memory. If treeScope and
@@ -105,7 +103,7 @@ export default Class(null, {
    * @return {Object} A memory object.
    * @protected
    **/
-  _getMemory: function(treeScope, nodeScope) {
+  _getMemory(treeScope, nodeScope) {
     var memory = this._baseMemory;
 
     if (treeScope) {
@@ -117,7 +115,7 @@ export default Class(null, {
     }
 
     return memory;
-  },
+  }
 
   /**
    * Stores a value in the blackboard. If treeScope and nodeScope are
@@ -135,10 +133,10 @@ export default Class(null, {
    *                           memory.
    * @param {String} nodeScope The node id if accessing the node memory.
    **/
-  set: function(key, value, treeScope, nodeScope) {
+  set(key, value, treeScope, nodeScope) {
     var memory = this._getMemory(treeScope, nodeScope);
     memory[key] = value;
-  },
+  }
 
   /**
    * Retrieves a value in the blackboard. If treeScope and nodeScope are
@@ -156,8 +154,8 @@ export default Class(null, {
    * @param {String} nodeScope The node id if accessing the node memory.
    * @return {Object} The value stored or undefined.
    **/
-  get: function(key, treeScope, nodeScope) {
+  get(key, treeScope, nodeScope) {
     var memory = this._getMemory(treeScope, nodeScope);
     return memory[key];
   }
-});
+};

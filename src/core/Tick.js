@@ -1,5 +1,3 @@
-import {Class} from '../b3.functions';
-
 /**
  * A new Tick object is instantiated every tick by BehaviorTree. It is passed
  * as parameter to the nodes through the tree during the traversal.
@@ -18,70 +16,64 @@ import {Class} from '../b3.functions';
  * @class Tick
  **/
 
-export default Class(null, {
-
-  /**
-   * The tree reference.
-   * @property {b3.BehaviorTree} tree
-   * @readOnly
-   **/
-  tree: null,
-
-  /**
-   * The debug reference.
-   * @property {Object} debug
-   * @readOnly
-   */
-  debug: null,
-
-  /**
-   * The target object reference.
-   * @property {Object} target
-   * @readOnly
-   **/
-  target: null,
-
-  /**
-   * The blackboard reference.
-   * @property {b3.Blackboard} blackboard
-   * @readOnly
-   **/
-  blackboard: null,
-
-  /**
-   * The list of open nodes. Update during the tree traversal.
-   * @property {Array} _openNodes
-   * @protected
-   * @readOnly
-   **/
-  _openNodes: [],
-
-  /**
-   * The number of nodes entered during the tick. Update during the tree
-   * traversal.
-   *
-   * @property {Integer} _nodeCount
-   * @protected
-   * @readOnly
-   **/
-  _nodeCount: 0,
+export default class Tick {
 
   /**
    * Initialization method.
    * @method initialize
    * @constructor
    **/
-  initialize: function() {
+  constructor() {
     // set by BehaviorTree
-    this.tree       = null;
-    this.debug      = null;
-    this.target     = null;
+
+    /**
+     * The tree reference.
+     * @property {b3.BehaviorTree} tree
+     * @readOnly
+     **/
+    this.tree = null;
+
+    /**
+     * The debug reference.
+     * @property {Object} debug
+     * @readOnly
+     */
+    this.debug = null;
+
+    /**
+     * The target object reference.
+     * @property {Object} target
+     * @readOnly
+     **/
+    this.target = null;
+
+    /**
+     * The blackboard reference.
+     * @property {b3.Blackboard} blackboard
+     * @readOnly
+     **/
     this.blackboard = null;
 
     // updated during the tick signal
-    this._openNodes  = [];
-    this._nodeCount  = 0;
-  },
+
+    /**
+     * The list of open nodes. Update during the tree traversal.
+     * @property {Array} _openNodes
+     * @protected
+     * @readOnly
+     **/
+    this._openNodes = [];
+
+    /**
+     * The number of nodes entered during the tick. Update during the tree
+     * traversal.
+     *
+     * @property {Integer} _nodeCount
+     * @protected
+     * @readOnly
+     **/
+    this._nodeCount = 0;
+  }
 
   /**
    * Called when entering a node (called by BaseNode).
@@ -89,12 +81,12 @@ export default Class(null, {
    * @param {Object} node The node that called this method.
    * @protected
    **/
-  _enterNode: function(node) {
+  _enterNode(node) {
     this._nodeCount++;
     this._openNodes.push(node);
 
     // TODO: call debug here
-  },
+  }
 
   /**
    * Callback when opening a node (called by BaseNode).
@@ -102,9 +94,9 @@ export default Class(null, {
    * @param {Object} node The node that called this method.
    * @protected
    **/
-  _openNode: function(node) {
+  _openNode(node) {
     // TODO: call debug here
-  },
+  }
 
   /**
    * Callback when ticking a node (called by BaseNode).
@@ -112,9 +104,9 @@ export default Class(null, {
    * @param {Object} node The node that called this method.
    * @protected
    **/
-  _tickNode: function(node) {
+  _tickNode(node) {
     // TODO: call debug here
-  },
+  }
 
   /**
    * Callback when closing a node (called by BaseNode).
@@ -122,10 +114,10 @@ export default Class(null, {
    * @param {Object} node The node that called this method.
    * @protected
    **/
-  _closeNode: function(node) {
+  _closeNode(node) {
     // TODO: call debug here
     this._openNodes.pop();
-  },
+  }
 
   /**
    * Callback when exiting a node (called by BaseNode).
@@ -133,7 +125,7 @@ export default Class(null, {
    * @param {Object} node The node that called this method.
    * @protected
    **/
-  _exitNode: function(node) {
+  _exitNode(node) {
     // TODO: call debug here
   }
-});
+};

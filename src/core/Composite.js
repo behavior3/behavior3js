@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import BaseNode from '../core/BaseNode';
 import {COMPOSITE} from '../constants';
 
@@ -12,13 +11,15 @@ import {COMPOSITE} from '../constants';
  * the Sequence node inherit this class and how it call its children:
  *
  *     // Inherit from Composite, using the util function Class.
- *     var Sequence = Class(Composite, {
+ *     class Sequence extends Composite {
  *
- *       // Remember to set the name of the node.
- *       name: 'Sequence',
+ *       constructor(){
+ *         // Remember to set the name of the node.
+ *         super({name: 'Sequence'});
+ *       }
  *
  *       // Override the tick function
- *       tick: function(tick) {
+ *       tick(tick) {
  *
  *         // Iterates over the children
  *         for (var i=0; i<this.children.length; i++) {
@@ -33,32 +34,32 @@ import {COMPOSITE} from '../constants';
  *
  *         return SUCCESS;
  *       }
- *     });
+ *     };
  *
  * @module b3
  * @class Composite
  * @extends BaseNode
  **/
 
-export default Class(BaseNode, {
+export default class Composite extends BaseNode {
 
   /**
-   * Node category. Default to `b3.COMPOSITE`.
-   *
-   * @property category
-   * @type {String}
-   * @readonly
-   **/
-  category: COMPOSITE,
-
-  /**
-   * Initialization method.
-   *
-   * @method initialize
-   * @constructor
-   **/
-  initialize: function(params) {
-    BaseNode.prototype.initialize.call(this);
-    this.children = (params.children || []).slice(0);
+   * Creates an instance of Composite.
+   * @param {Object} options 
+   * @param {BaseNode[]} options.children 
+   * @param {String} options.name Node name. Default to `Composite`.
+   * @param {String} options.title 
+   * @param {Object} options.properties 
+   * @memberof Composite
+   */
+  constructor({children = [], name = 'Composite', title, properties} = {}) {
+    super({
+      category: COMPOSITE,
+      name,
+      title,
+      properties,
+    });
+    this.children = (children).slice(0);
   }
-});
+
+};

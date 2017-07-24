@@ -5,8 +5,8 @@ import Limiter from '../../src/decorators/Limiter';
 import {SUCCESS, RUNNING} from '../../src/constants';
 
 suite('Decorator: Limiter', function() {
-    test('Prototype', function() {
-        assert.equal(Limiter.prototype.name, 'Limiter');
+    test('Name', function() {
+        assert.equal(new Limiter({maxLoop:1}).name, 'Limiter');
     });
 
     test('Initialization', function() {

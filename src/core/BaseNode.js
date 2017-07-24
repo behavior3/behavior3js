@@ -1,4 +1,4 @@
-import {Class, createUUID} from '../b3.functions';
+import {createUUID} from '../b3.functions';
 import {RUNNING} from '../constants';
 
 /**
@@ -23,87 +23,75 @@ import {RUNNING} from '../constants';
  * @class BaseNode
  **/
 
-export default Class(null, {
-
-  /**
-   * Node ID.
-   * @property {string} id
-   * @readonly
-   **/
-  id: null,
-
-  /**
-   * Node name. Must be a unique identifier, preferable the same name of the
-   * class. You have to set the node name in the prototype.
-   *
-   * @property {String} name
-   * @readonly
-   **/
-  name: null,
-
-  /**
-   * Node category. Must be `COMPOSITE`, `DECORATOR`, `ACTION` or
-   * `CONDITION`. This is defined automatically be inheriting the
-   * correspondent class.
-   *
-   * @property {CONSTANT} category
-   * @readonly
-   **/
-  category: null,
-
-  /**
-   * Node title.
-   * @property {String} title
-   * @optional
-   * @readonly
-   **/
-  title: null,
-
-  /**
-   * Node description.
-   * @property {String} description
-   * @optional
-   * @readonly
-   **/
-  description: null,
-
-  /**
-   * A dictionary (key, value) describing the node parameters. Useful for
-   * defining parameter values in the visual editor. Note: this is only
-   * useful for nodes when loading trees from JSON files.
-   *
-   * **Deprecated since 0.2.0. This is too similar to the properties
-   * attribute, thus, this attribute is deprecated in favor to
-   * `properties`.**
-   *
-   * @property {Object} parameters
-   * @deprecated since 0.2.0.
-   * @readonly
-   **/
-  parameters: null,
-
-  /**
-   * A dictionary (key, value) describing the node properties. Useful for
-   * defining custom variables inside the visual editor.
-   *
-   * @property properties
-   * @type {Object}
-   * @readonly
-   **/
-  properties: null,
+export default class BaseNode {
 
   /**
    * Initialization method.
    * @method initialize
    * @constructor
    **/
-  initialize: function(params) {
-    this.id          = createUUID();
-    this.title       = this.title || this.name;
-    this.description = '';
-    this.parameters  = {};
-    this.properties  = {};
-  },
+  constructor({category, name, title, description, properties} = {}) {
+
+    this.id = createUUID();
+
+    /**
+     * Node category. Must be `COMPOSITE`, `DECORATOR`, `ACTION` or
+     * `CONDITION`. This is defined automatically be inheriting the
+     * correspondent class.
+     * 
+     * @member BaseNode#category
+     **/
+    this.category = category || '';
+
+    /**
+     * Node name. Must be a unique identifier,
+     * preferable the same name of the
+     * class. You have to set the node name in the prototype.
+     * 
+     * @member BaseNode#name
+     **/
+    this.name = name || '';
+
+    /**
+     * Node title.
+     * 
+     * @optional
+     * @member BaseNode#title
+     **/
+    this.title = title || this.name;
+
+    /**
+     * Node description.
+     * 
+     * @member BaseNode#description
+     */
+    this.description = description || '';
+
+    /**
+     * A dictionary (key, value) describing the node properties. Useful for
+     * defining custom variables inside the visual editor.
+     *
+     * @property properties
+     * @type {Object}
+     * @readonly
+     **/
+    this.properties = properties || {};
+
+    /**
+     * A dictionary (key, value) describing the node parameters. Useful for
+     * defining parameter values in the visual editor. Note: this is only
+     * useful for nodes when loading trees from JSON files.
+     *
+     * **Deprecated since 0.2.0. This is too similar to the properties
+     * attribute, thus, this attribute is deprecated in favor to
+     * `properties`.**
+     *
+     * @property {Object} parameters
+     * @deprecated since 0.2.0.
+     * @readonly
+     **/
+    this.parameters = {};
+  }
 
   /**
    * This is the main method to propagate the tick signal to this node. This
@@ -117,7 +105,7 @@ export default Class(null, {
    * @return {Constant} The tick state.
    * @protected
    **/
-  _execute: function(tick) {
+  _execute(tick) {
     // ENTER
     this._enter(tick);
 
@@ -138,7 +126,7 @@ export default Class(null, {
     this._exit(tick);
 
     return status;
-  },
+  }
 
   /**
    * Wrapper for enter method.
@@ -146,10 +134,10 @@ export default Class(null, {
    * @param {Tick} tick A tick instance.
    * @protected
    **/
-  _enter: function(tick) {
+  _enter(tick) {
     tick._enterNode(this);
     this.enter(tick);
-  },
+  }
 
   /**
    * Wrapper for open method.
@@ -157,11 +145,11 @@ export default Class(null, {
    * @param {Tick} tick A tick instance.
    * @protected
    **/
-  _open: function(tick) {
+  _open(tick) {
     tick._openNode(this);
     tick.blackboard.set('isOpen', true, tick.tree.id, this.id);
     this.open(tick);
-  },
+  }
 
   /**
    * Wrapper for tick method.
@@ -170,10 +158,10 @@ export default Class(null, {
    * @return {Constant} A state constant.
    * @protected
    **/
-  _tick: function(tick) {
+  _tick(tick) {
     tick._tickNode(this);
     return this.tick(tick);
-  },
+  }
 
   /**
    * Wrapper for close method.
@@ -181,11 +169,11 @@ export default Class(null, {
    * @param {Tick} tick A tick instance.
    * @protected
    **/
-  _close: function(tick) {
+  _close(tick) {
     tick._closeNode(this);
     tick.blackboard.set('isOpen', false, tick.tree.id, this.id);
     this.close(tick);
-  },
+  }
 
   /**
    * Wrapper for exit method.
@@ -193,10 +181,10 @@ export default Class(null, {
    * @param {Tick} tick A tick instance.
    * @protected
    **/
-  _exit: function(tick) {
+  _exit(tick) {
     tick._exitNode(this);
     this.exit(tick);
-  },
+  }
 
   /**
    * Enter method, override this to use. It is called every time a node is
@@ -205,7 +193,7 @@ export default Class(null, {
    * @method enter
    * @param {Tick} tick A tick instance.
    **/
-  enter: function(tick) {},
+  enter(tick) {}
 
   /**
    * Open method, override this to use. It is called only before the tick
@@ -216,7 +204,7 @@ export default Class(null, {
    * @method open
    * @param {Tick} tick A tick instance.
    **/
-  open: function(tick) {},
+  open(tick) {}
 
   /**
    * Tick method, override this to use. This method must contain the real
@@ -226,7 +214,7 @@ export default Class(null, {
    * @method tick
    * @param {Tick} tick A tick instance.
    **/
-  tick: function(tick) {},
+  tick(tick) {}
 
   /**
    * Close method, override this to use. This method is called after the tick
@@ -236,7 +224,7 @@ export default Class(null, {
    * @method close
    * @param {Tick} tick A tick instance.
    **/
-  close: function(tick) {},
+  close(tick) {}
 
   /**
    * Exit method, override this to use. Called every time in the end of the
@@ -245,5 +233,5 @@ export default Class(null, {
    * @method exit
    * @param {Tick} tick A tick instance.
    **/
-  exit: function(tick) {},
-});
+  exit(tick) {}
+};

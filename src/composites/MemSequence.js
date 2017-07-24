@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Composite from '../core/Composite';
 import {SUCCESS, RUNNING} from '../constants';
 
@@ -9,27 +8,33 @@ import {SUCCESS, RUNNING} from '../constants';
  * children again.
  *
  * @module b3
- * @class MemPriority
+ * @class MemSequence
  * @extends Composite
  **/
 
-export default Class(Composite, {
+export default class MemSequence extends Composite {
 
   /**
-   * Node name. Default to `MemSequence`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'MemSequence',
+   * Creates an instance of MemSequence.
+   * @param {Object} params 
+   * @param {Array} params.children 
+   * @memberof MemSequence
+   */
+  constructor({children = []} = {}){
+    super({
+      name: 'MemSequence',
+      children
+    });
+  }
 
   /**
    * Open method.
    * @method open
    * @param {b3.Tick} tick A tick instance.
    **/
-  open: function(tick) {
+  open(tick) {
     tick.blackboard.set('runningChild', 0, tick.tree.id, this.id);
-  },
+  }
 
   /**
    * Tick method.
@@ -37,7 +42,7 @@ export default Class(Composite, {
    * @param {b3.Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
-  tick: function(tick) {
+  tick(tick) {
     var child = tick.blackboard.get('runningChild', tick.tree.id, this.id);
     for (var i=child; i<this.children.length; i++) {
       var status = this.children[i]._execute(tick);
@@ -52,4 +57,4 @@ export default Class(Composite, {
 
     return SUCCESS;
   }
-});
+};

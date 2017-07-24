@@ -4,8 +4,8 @@ import Runner from '../../src/actions/Runner';
 import {RUNNING} from '../../src/constants';
 
 suite('Action: Runner', function() {
-    test('Prototype', function() {
-        assert.equal(Runner.prototype.name, 'Runner');
+    test('Name', function() {
+        assert.equal(new Runner().name, 'Runner');
     });
 
     test('Tick', function() {

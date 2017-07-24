@@ -5,8 +5,8 @@ import RepeatUntilSuccess from '../../src/decorators/RepeatUntilSuccess';
 import {SUCCESS, FAILURE, RUNNING, ERROR} from '../../src/constants';
 
 suite('Decorator: RepeatUntilSuccess', function() {
-    test('Prototype', function() {
-        assert.equal(RepeatUntilSuccess.prototype.name, 'RepeatUntilSuccess');
+    test('Name', function() {
+        assert.equal(new RepeatUntilSuccess().name, 'RepeatUntilSuccess');
     });
 
     test('Initialization', function() {

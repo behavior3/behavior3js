@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Action from '../core/Action';
 import {SUCCESS} from '../constants';
 
@@ -10,14 +9,15 @@ import {SUCCESS} from '../constants';
  * @extends Action
  **/
 
-export default Class(Action, {
+export default class Succeeder extends Action {
 
   /**
-   * Node name. Default to `Succeeder`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'Succeeder',
+   * Creates an instance of Succeeder.
+   * @memberof Succeeder
+   */
+  constructor(){
+    super({name: 'Succeeder'});
+  }
 
   /**
    * Tick method.
@@ -25,7 +25,7 @@ export default Class(Action, {
    * @param {b3.Tick} tick A tick instance.
    * @return {Constant} Always return `SUCCESS`.
    **/
-  tick: function(tick) {
+  tick(tick) {
     return SUCCESS;
   }
-});
+};

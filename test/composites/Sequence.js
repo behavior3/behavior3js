@@ -17,8 +17,8 @@ suite('Composite: Sequence', function() {
         };
     }
 
-    test('Prototype', function() {
-        assert.equal(Sequence.prototype.name, 'Sequence');
+    test('Name', function() {
+        assert.equal(new Sequence().name, 'Sequence');
     });
 
     test('Success', function() {

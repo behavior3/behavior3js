@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Decorator from '../core/Decorator';
 import {FAILURE, SUCCESS, ERROR} from '../constants';
 
@@ -12,60 +11,44 @@ import {FAILURE, SUCCESS, ERROR} from '../constants';
  * @extends Decorator
  **/
 
-export default Class(Decorator, {
+export default class Limiter extends Decorator {
 
   /**
-   * Node name. Default to `Limiter`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'Limiter',
-
-  /**
-   * Node title. Default to `Limit X Activations`. Used in Editor.
-   * @property {String} title
-   * @readonly
-   **/
-  title: 'Limit <maxLoop> Activations',
-
-  /**
-   * Node parameters.
-   * @property {String} parameters
-   * @readonly
-   **/
-  parameters: {'maxLoop': 1},
-
-  /**
-   * Initialization method.
-   *
+   * Creates an instance of Limiter.
+   * 
    * Settings parameters:
-   *
+   * 
    * - **maxLoop** (*Integer*) Maximum number of repetitions.
    * - **child** (*BaseNode*) The child node.
-   *
-   * @method initialize
-   * @param {Object} params Object with parameters.
-   * @constructor
-   **/
-  initialize: function(params) {
-    Decorator.prototype.initialize.call(this, params);
+   * 
+   * @param {Object} params
+   * @param {Number} params.maxLoop Maximum number of repetitions.
+   * @param {BaseNode} params.child The child node.
+   * @memberof Limiter
+   */
+  constructor({child = null, maxLoop} = {}) {
+    super({
+      child,
+      name: 'Limiter',
+      title: 'Limit <maxLoop> Activations',
+      properties: {maxLoop: 1},
+    });
 
-    if (!params.maxLoop) {
-      throw "maxLoop parameter in Limiter decorator is an obligatory " +
-        "parameter";
+    if (!maxLoop) {
+      throw 'maxLoop parameter in Limiter decorator is an obligatory parameter';
     }
-
-    this.maxLoop = params.maxLoop;
-  },
+    
+    this.maxLoop = maxLoop;
+  }
 
   /**
    * Open method.
    * @method open
    * @param {Tick} tick A tick instance.
    **/
-  open: function(tick) {
+  open(tick) {
     tick.blackboard.set('i', 0, tick.tree.id, this.id);
-  },
+  }
 
   /**
    * Tick method.
@@ -73,7 +56,7 @@ export default Class(Decorator, {
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
-  tick: function(tick) {
+  tick(tick) {
     if (!this.child) {
       return ERROR;
     }
@@ -91,4 +74,4 @@ export default Class(Decorator, {
 
     return FAILURE;
   }
-});
+};

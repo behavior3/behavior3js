@@ -1,5 +1,4 @@
 import {ERROR} from '../constants';
-import {Class} from '../b3.functions';
 import Action from '../core/Action';
 
 /**
@@ -9,14 +8,15 @@ import Action from '../core/Action';
  * @class Error
  * @extends Action
  **/
-export default Class(Action, {
+export default class Error extends Action {
 
   /**
-   * Node name. Default to `Error`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'Error',
+   * Creates an instance of Error.
+   * @memberof Error
+   */
+  constructor(){
+    super({name: 'Error'});
+  }
 
   /**
    * Tick method.
@@ -24,7 +24,7 @@ export default Class(Action, {
    * @param {b3.Tick} tick A tick instance.
    * @return {Constant} Always return `ERROR`.
    **/
-  tick: function(tick) {
+  tick(tick) {
     return ERROR;
   }
-});
+};

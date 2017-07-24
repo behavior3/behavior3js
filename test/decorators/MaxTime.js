@@ -5,8 +5,8 @@ import MaxTime from '../../src/decorators/MaxTime';
 import {RUNNING, FAILURE, SUCCESS} from '../../src/constants';
 
 suite('Decorator: MaxTime', function() {
-    test('Maxtime.prototype', function() {
-        assert.equal(MaxTime.prototype.name, 'MaxTime');
+    test('Name', function() {
+        assert.equal(new MaxTime({maxTime: 15}).name, 'MaxTime');
     });
 
     test('Failure test', function() {

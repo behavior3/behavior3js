@@ -1,5 +1,5 @@
 import {VERSION, SUCCESS, FAILURE, RUNNING, ERROR, COMPOSITE, DECORATOR, ACTION, CONDITION} from './constants';
-import {Class, createUUID} from './b3.functions';
+import {createUUID} from './b3.functions';
 
 import Error from './actions/Error';
 import Failer from './actions/Failer';
@@ -38,7 +38,6 @@ export {
   DECORATOR,
   ACTION,
   CONDITION,
-  Class,
   createUUID,
   Error,
   Failer,

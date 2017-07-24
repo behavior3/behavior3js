@@ -5,8 +5,8 @@ import Inverter from '../../src/decorators/Inverter';
 import {SUCCESS, FAILURE, ERROR, RUNNING} from '../../src/constants';
 
 suite('Decorator: Inverter', function() {
-    test('Prototype', function() {
-        assert.equal(Inverter.prototype.name, 'Inverter');
+    test('Name', function() {
+        assert.equal(new Inverter().name, 'Inverter');
     });
 
     test('Initialization', function() {

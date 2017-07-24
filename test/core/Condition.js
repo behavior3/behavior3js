@@ -3,8 +3,8 @@ import Condition from '../../src/core/Condition';
 import {CONDITION} from '../../src/constants';
 
 suite('Core: Condition', function() {
-    test('Prototype', function() {
-        assert.equal(Condition.prototype.category, CONDITION);
+    test('Category', function() {
+        assert.equal(new Condition().category, CONDITION);
     });
 
     test('Initialization', function() {

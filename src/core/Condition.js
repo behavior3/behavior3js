@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import BaseNode from './BaseNode';
 import {CONDITION} from '../constants';
 
@@ -10,22 +9,23 @@ import {CONDITION} from '../constants';
  * @extends BaseNode
  **/
 
-export default Class(BaseNode, {
+export default class Condition extends BaseNode {
 
   /**
-   * Node category. Default to `b3.CONDITION`.
-   * @property {String} category
-   * @readonly
-   **/
-  category: CONDITION,
-
-  /**
-   * Initialization method.
-   * @method initialize
-   * @constructor
-   **/
-  initialize: function(params) {
-    BaseNode.prototype.initialize.call(this);
+   * Creates an instance of Condition.
+   * @param {Object} options 
+   * @param {Object} options.name Node name. Default to `Condition`.
+   * @param {String} options.title
+   * @param {Object} options.properties
+   * @memberof Condition
+   */
+  constructor({name = 'Condition', title, properties} = {}) {
+    super({
+      category: CONDITION,
+      name,
+      title,
+      properties,
+    });
   }
 
-});
+};

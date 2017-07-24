@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import Decorator from '../core/Decorator';
 import {SUCCESS, ERROR} from '../constants';
 
@@ -12,55 +11,38 @@ import {SUCCESS, ERROR} from '../constants';
  * @extends Decorator
  **/
 
-export default Class(Decorator, {
+export default class RepeatUntilFailure extends Decorator {
 
   /**
-   * Node name. Default to `RepeatUntilFailure`.
-   * @property {String} name
-   * @readonly
-   **/
-  name: 'RepeatUntilFailure',
-
-  /**
-   * Node title. Default to `Repeat Until Failure`.
-   * @property {String} title
-   * @readonly
-   **/
-  title: 'Repeat Until Failure',
-
-  /**
-   * Node parameters.
-   * @property {String} parameters
-   * @readonly
-   **/
-  parameters: {'maxLoop': -1},
-
-  /**
-   * Initialization method.
+   * Creates an instance of RepeatUntilFailure.
    *
-   * Settings parameters:
-   *
-   * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1
-   *                           (infinite).
+   * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 (infinite).
    * - **child** (*BaseNode*) The child node.
    *
-   * @method initialize
    * @param {Object} params Object with parameters.
-   * @constructor
+   * @param {Number} params.maxLoop Maximum number of repetitions. Default to -1 (infinite).
+   * @param {BaseNode} params.child The child node.
+   * @memberof RepeatUntilFailure
    **/
-  initialize: function(params) {
-    Decorator.prototype.initialize.call(this, params);
-    this.maxLoop = params.maxLoop || -1;
-  },
+  constructor({maxLoop = -1, child = null} = {}) {
+    super({
+      child,
+      name: 'RepeatUntilFailure',
+      title: 'Repeat Until Failure',
+      properties: {maxLoop: -1},
+    });
+
+    this.maxLoop = maxLoop;
+  }
 
   /**
    * Open method.
    * @method open
    * @param {Tick} tick A tick instance.
    **/
-  open: function(tick) {
+  open(tick) {
     tick.blackboard.set('i', 0, tick.tree.id, this.id);
-  },
+  }
 
   /**
    * Tick method.
@@ -68,7 +50,7 @@ export default Class(Decorator, {
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
-  tick: function(tick) {
+  tick(tick) {
     if (!this.child) {
       return ERROR;
     }
@@ -89,4 +71,4 @@ export default Class(Decorator, {
     i = tick.blackboard.set('i', i, tick.tree.id, this.id);
     return status;
   }
-});
+};

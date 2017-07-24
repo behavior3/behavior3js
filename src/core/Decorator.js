@@ -1,4 +1,3 @@
-import {Class} from '../b3.functions';
 import BaseNode from './BaseNode';
 import {DECORATOR} from '../constants';
 
@@ -13,8 +12,11 @@ import {DECORATOR} from '../constants';
  * class and how it call its children:
  *
  *     // Inherit from Decorator, using the util function Class.
- *     var Inverter = b3.Class(b3.Decorator, {
- *       name: 'Inverter',
+ *     class Inverter extends b3.Decorator {
+ *       
+ *       constructor(){
+ *         super({name: 'Invereter'});
+ *       }
  *
  *       tick: function(tick) {
  *         if (!this.child) {
@@ -24,9 +26,9 @@ import {DECORATOR} from '../constants';
  *         // Propagate the tick
  *         var status = this.child._execute(tick);
  *
- *         if (status == b3.SUCCESS) {
+ *         if (status === b3.SUCCESS) {
  *           status = b3.FAILURE;
- *         } else if (status == b3.FAILURE) {
+ *         } else if (status === b3.FAILURE) {
  *           status = b3.SUCCESS;
  *         }
  *
@@ -39,22 +41,24 @@ import {DECORATOR} from '../constants';
  * @extends BaseNode
  **/
 
-export default Class(BaseNode, {
+export default class Decorator extends BaseNode {
 
   /**
-   * Node category. Default to DECORATOR.
-   * @property {String} category
-   * @readonly
-   **/
-  category: DECORATOR,
-
-  /**
-   * Initialization method.
-   * @method initialize
-   * @constructor
-   **/
-  initialize: function(params) {
-    BaseNode.prototype.initialize.call(this);
-    this.child = params.child || null;
+   * Creates an instance of Decorator.
+   * @param {Object} options 
+   * @param {String} options.name Node name. Default to `Decorator`.
+   * @param {String} options.title 
+   * @param {Object} options.properties 
+   * @memberof Decorator
+   */
+  constructor({child = null, name = 'Decorator', title, properties} = {}) {
+    super({
+      category: DECORATOR,
+      name,
+      title,
+      properties,
+    });
+    this.child = child;
   }
-});
+
+};
