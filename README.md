@@ -1,11 +1,6 @@
 # BEHAVIOR3JS
 
-[![Build Status](https://travis-ci.org/behavior3/behavior3js.svg?branch=master)](https://travis-ci.org/behavior3/behavior3js)
-
 **Behavior3JS** is the original implementation and official javascript version of the Behavior3 library. It provides structures and algorithms that assist you in the task of creating intelligent agents for your game or application. 
-
-- Info: http://behavior3.com
-- API: http://docs.guineashots.com/behavior3js/ (temporary)
 
 
 ## Main features
@@ -33,19 +28,13 @@ Install the library
 npm install behavior3js
 ```
 
-You can use the online visual editor to design your behavior tree:
-
-- http://editor.behavior3.com
+You can use the online visual editor to design your behavior tree.
 
 It is very recommended that you take a look into the user guide, for both core 
 and editor, where you will find examples and descriptions of features in the 
 library:
 
 - https://github.com/behavior3/behavior3js/wiki
-
-You can consult the API in:
-
-- http://docs.guineashots.com/behavior3js
 
 
 ## Contents
