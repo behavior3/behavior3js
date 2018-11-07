@@ -47,7 +47,10 @@ export default class Limiter extends Decorator {
    * @param {Tick} tick A tick instance.
    **/
   open(tick) {
-    tick.blackboard.set('i', 0, tick.tree.id, this.id);
+	var i = tick.blackboard.get('i',tick.tree.id, this.id);
+	if(!i){
+		tick.blackboard.set('i', 0, tick.tree.id, this.id);
+	}
   }
 
   /**
