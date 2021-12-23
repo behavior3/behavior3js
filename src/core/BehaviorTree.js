@@ -332,4 +332,35 @@ export default class BehaviorTree {
 
     return state;
   }
+
+  /**
+   * Close all open nodes to ensure close function in nodes be called.
+   * If stop running tree tick via external, call this function.
+   * @param target
+   * @param blackboard
+   * @returns {*}
+   */
+  close(target, blackboard) {
+    if (!blackboard) {
+      throw 'The blackboard parameter is obligatory and must be an ' +
+      'instance of b3.Blackboard';
+    }
+
+    /* CREATE A TICK OBJECT */
+    var tick = new Tick();
+    tick.debug = this.debug;
+    tick.target = target;
+    tick.blackboard = blackboard;
+    tick.tree = this;
+
+    /* CLOSE ALL OPEN NODES */
+    var lastOpenNodes = blackboard.get('openNodes', this.id);
+    for (var i = 0; i < lastOpenNodes.length; i++) {
+      lastOpenNodes[i]._close(tick);
+    }
+
+    /* POPULATE BLACKBOARD */
+    blackboard.set('openNodes', tick._openNodes.slice(0), this.id);
+    blackboard.set('nodeCount', tick._nodeCount, this.id);
+  }
 };
